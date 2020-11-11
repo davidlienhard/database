@@ -12,11 +12,11 @@
 
 declare(strict_types=1);
 
-namespace Davidlienhard\Database;
+namespace DavidLienhard\Database;
 
-use \Davidlienhard\Database\DatabaseInterface;
-use \Davidlienhard\Database\ParameterInterface;
-use \Davidlienhard\Database\Exception as DatabaseException;
+use \DavidLienhard\Database\DatabaseInterface;
+use \DavidLienhard\Database\ParameterInterface;
+use \DavidLienhard\Database\Exception as DatabaseException;
 
 /**
  * Methods for a comfortable use of the {@link http://www.mysql.com mySQL} database

@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Davidlienhard\Database;
+namespace DavidLienhard\Database;
 
 /**
  * interface to set parameters for a database query
