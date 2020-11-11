@@ -50,4 +50,7 @@
 
     <!-- show process -->
     <arg value="p"/>
+
+    <!-- folders / files to exclude -->
+    <exclude-pattern>vendor/*</exclude-pattern>
 </ruleset>
