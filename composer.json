@@ -26,12 +26,9 @@
         "dancryer/php-docblock-checker": "^1"
     },
     "autoload": {
-        "psr-4": {
-            "Davidlienhard\\Database\\": "src/"
-        },
-        "psr-0": {
-            "Davidlienhard\\Database\\": "src/"
-        }
+        "classmap": [
+            "src/"
+        ]
     },
     "scripts": {
         "changed-files": "git diff --name-only origin/master",
