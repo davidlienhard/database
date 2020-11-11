@@ -1,6 +1,5 @@
 {
     "name": "davidlienhard/database",
-    "version": "1.0.1",
     "license": "proprietary",
     "description": "🐘 php library for easy access to databases",
     "keywords": [ "database", "mysql", "php", "library" ],
