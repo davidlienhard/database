@@ -34,6 +34,7 @@
         }
     },
     "scripts": {
+        "changed-files": "git diff --name-only origin/master",
         "phpdoccheck": "./vendor/bin/phpdoccheck",
         "phpcs": "./vendor/bin/phpcs",
         "test": [
