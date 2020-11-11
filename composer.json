@@ -1,0 +1,44 @@
+{
+    "name": "davidlienhard/database",
+    "version": "1.0.0",
+    "license": "proprietary",
+    "description": "🐘 php library for easy access to databases",
+    "keywords": [ "database", "mysql", "php", "library" ],
+    "type": "libary",
+    "homepage": "https://github.com/davidlienhard/database/",
+    "authors": [
+        {
+            "name": "David Lienhard",
+            "email": "david.lienhard@tourasia.ch",
+            "homepage": "http://www.tourasia.ch/",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/davidlienhard/database/issues/",
+        "email": "david.lienhard@tourasia.ch"
+    },
+    "require": {
+        "php": "^7.2|^8.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3",
+        "dancryer/php-docblock-checker": "^1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Davidlienhard\\Database\\": "src/"
+        },
+        "psr-0": {
+            "Davidlienhard\\Database\\": "src/"
+        }
+    },
+    "scripts": {
+        "phpdoccheck": "./vendor/bin/phpdoccheck",
+        "phpcs": "./vendor/bin/phpcs",
+        "test": [
+            "@phpdoccheck",
+            "@phpcs"
+        ]
+    }
+}
