@@ -119,7 +119,7 @@ interface DatabaseInterface
      * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @param           string              $q           the sql query
-     * @param           \tourBase\Core\Database\ParameterInterface  $parameters  parameters to add to the query
+     * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
      * @return          \mysqli_result|bool
       */
     public function query(string $q, ParameterInterface ...$parameters);
@@ -132,7 +132,7 @@ interface DatabaseInterface
      * @version         1.0.0, 11.11.2020
      * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
-     * @param           \tourBase\Core\Database\ParameterInterface  $parameters  parameters to add to the query
+     * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
      * @return          \mysqli_result|bool
       */
     public function execute(ParameterInterface ...$parameters);
