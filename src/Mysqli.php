@@ -168,6 +168,7 @@ class Mysqli implements DatabaseInterface
         try {
             \mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);     // set mysqli to throw exceptions
             $this->mysqli = new \mysqli($host, $user, $pass, $dbname);      // connect to database
+            $this->isConnected = true;
             $this->mysqli->set_charset($charset);                           // set charset
             $this->query("SET NAMES '".$encoding."'");                      // set encoding
 
@@ -182,8 +183,6 @@ class Mysqli implements DatabaseInterface
             $this->host_info = $this->mysqli->host_info;
             $this->proto_info = $this->mysqli->protocol_version;
             $this->server_info = $this->mysqli->server_info;
-
-            $this->isConnected = true;
 
             return true;
         } catch (\mysqli_sql_exception $e) {
@@ -1060,7 +1059,7 @@ class Mysqli implements DatabaseInterface
      */
     private function checkConnected() : void
     {
-        if (!$this->$isConnected) {
+        if (!$this->isConnected) {
             throw new \BadMethodCallException("this ".__CLASS__." object is no connected yet. use connect() first");
         }
     }
