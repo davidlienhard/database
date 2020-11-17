@@ -2,10 +2,9 @@
 /**
  * contains a custom mysql class
  *
- * @package         tourBase
- * @subpackage      Core\Database
+ * @package         Database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.0, 11.11.2020
+ * @version         1.0.1, 17.11.2020
  * @since           1.0.0, 11.11.2020, created
  * @copyright       t-error.ch
  */
@@ -23,11 +22,17 @@ use \DavidLienhard\Database\Exception as DatabaseException;
  *
  * @category        Database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.0, 11.11.2020
+ * @version         1.0.1, 17.11.2020
  * @copyright       t-error.ch
  */
 class Mysqli implements DatabaseInterface
 {
+    /**
+     * defines whether connect() has been used yet
+     * @var         bool
+     */
+    private $isConnected = false;
+
     /**
      * The Database connection resource
      * @var         \mysqli
@@ -129,7 +134,7 @@ class Mysqli implements DatabaseInterface
      * connects to the database
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           string          $host           the hostname to connect
      * @param           string          $user           the username
@@ -138,7 +143,7 @@ class Mysqli implements DatabaseInterface
      * @param           string          $charset        charset to use for the database connection
      * @param           string          $encoding       encoding to use for the database connection
      * @return          bool
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$host
      * @uses            self::$user
      * @uses            self::$pass
@@ -150,6 +155,7 @@ class Mysqli implements DatabaseInterface
      * @uses            self::$host_info
      * @uses            self::$proto_info
      * @uses            self::$server_info
+     * @uses            self::$isConnected
      */
     public function connect(
         string $host,
@@ -162,6 +168,7 @@ class Mysqli implements DatabaseInterface
         try {
             \mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);     // set mysqli to throw exceptions
             $this->mysqli = new \mysqli($host, $user, $pass, $dbname);      // connect to database
+            $this->isConnected = true;
             $this->mysqli->set_charset($charset);                           // set charset
             $this->query("SET NAMES '".$encoding."'");                      // set encoding
 
@@ -192,11 +199,11 @@ class Mysqli implements DatabaseInterface
      * reconnects to the database server
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @return          bool
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::connect()
      * @uses            self::$host
      * @uses            self::$user
@@ -204,9 +211,12 @@ class Mysqli implements DatabaseInterface
      * @uses            self::$dbname
      * @uses            self::$charset
      * @uses            self::$encoding
+     * @uses            self::checkConnected()
      */
     public function reconnect() : bool
     {
+        $this->checkConnected();
+
         return $this->connect(
             $this->host,
             $this->user,
@@ -222,18 +232,21 @@ class Mysqli implements DatabaseInterface
      * closes the database connection
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          bool
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$client_info
      * @uses            self::$host_info
      * @uses            self::$proto_info
      * @uses            self::$server_info
      * @uses            self::$mysqli
+     * @uses            self::checkConnected()
      */
     public function close() : bool
     {
+        $this->checkConnected();
+
         try {
             $this->client_info = $this->host_info = $this->proto_info = $this->server_info = null;
             return $this->mysqli->close();
@@ -251,17 +264,20 @@ class Mysqli implements DatabaseInterface
      * changes the mode of autocommit
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @param           bool            $mode           the new mode to set
      * @return          bool
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
      * @uses            self::$dbTime
+     * @uses            self::checkConnected()
      */
     public function autocommit(bool $mode) : bool
     {
+        $this->checkConnected();
+
         try {
             $dbStart = microtime(true);
             $result = $this->mysqli->autocommit($mode);
@@ -282,15 +298,18 @@ class Mysqli implements DatabaseInterface
      * Starts a transaction
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          bool
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
      * @uses            self::$dbTime
+     * @uses            self::checkConnected()
      */
     public function begin_transaction() : bool
     {
+        $this->checkConnected();
+
         try {
             $dbStart = microtime(true);
             $result = $this->mysqli->begin_transaction();
@@ -311,15 +330,18 @@ class Mysqli implements DatabaseInterface
      * Commits a transaction
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          bool
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
      * @uses            self::$dbTime
+     * @uses            self::checkConnected()
      */
     public function commit() : bool
     {
+        $this->checkConnected();
+
         try {
             $dbStart = microtime(true);
             $result = $this->mysqli->commit();
@@ -340,15 +362,18 @@ class Mysqli implements DatabaseInterface
      * Rolls a transaction back
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          bool
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
      * @uses            self::$dbTime
+     * @uses            self::checkConnected()
      */
     public function rollback() : bool
     {
+        $this->checkConnected();
+
         try {
             $dbStart = microtime(true);
             $result = $this->mysqli->rollback();
@@ -369,24 +394,26 @@ class Mysqli implements DatabaseInterface
      * Executes a query
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @param           string              $q           the sql query
-     * @param           \tourBase\Core\Database\ParameterInterface  $parameters  parameters to add to the query
+     * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
      * @return          \mysqli_result|bool
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$lastquery
      * @uses            self::execute()
      * @uses            self::$mysqli
      * @uses            self::$stmtResult
      * @uses            self::$stmt
-     * @uses            \tourBase\Core\ErrorHandler\ErrorHandler::logException()
      * @uses            self::$dbTime
      * @uses            self::$totalQueries
+     * @uses            self::checkConnected()
      */
     public function query(string $q, ParameterInterface ...$parameters)
     {
+        $this->checkConnected();
+
         $dbStart = microtime(true);
 
         if ($q === $this->lastquery && count($parameters) !== 0) {
@@ -448,17 +475,20 @@ class Mysqli implements DatabaseInterface
      * executes an already prepared statement
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
-     * @param           \tourBase\Core\Database\ParameterInterface  $parameters  parameters to add to the query
+     * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
      * @return          \mysqli_result|bool
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$stmt
      * @uses            self::$stmtResult
+     * @uses            self::checkConnected()
      */
     public function execute(ParameterInterface ...$parameters)
     {
+        $this->checkConnected();
+
         try {
             $types = "";
             $values = [ ];
@@ -504,14 +534,17 @@ class Mysqli implements DatabaseInterface
      * Counts the rows of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           \mysqli_result  $result      the result resource
      * @return          int
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @uses            self::checkConnected()
      */
     public function num_rows($result) : int
     {
+        $this->checkConnected();
+
         try {
             return $result->num_rows;
         } catch (\mysqli_sql_exception $e) {
@@ -528,17 +561,20 @@ class Mysqli implements DatabaseInterface
      * Gets a field out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           \mysqli_result  $result      the result resource
      * @param           int             $row         the row
      * @param           string          $field       the column
      * @return          string|int
      * @throws          \Exception if the required field is does not exist
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @uses            self::checkConnected()
      */
     public function result($result, int $row, string $field)
     {
+        $this->checkConnected();
+
         try {
             $result->data_seek($row);
             $dataRow = $result->fetch_assoc();
@@ -570,15 +606,18 @@ class Mysqli implements DatabaseInterface
      * check if the connection to the server is still open
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @return          bool
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
+     * @uses            self::checkConnected()
      */
     public function ping() : bool
     {
+        $this->checkConnected();
+
         try {
             return $this->mysqli->ping();
         } catch (\mysqli_sql_exception $e) {
@@ -595,14 +634,17 @@ class Mysqli implements DatabaseInterface
      * Frees the memory
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           \mysqli_result      $result      the result resource
      * @return          void
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @uses            self::checkConnected()
      */
     public function free_result($result) : void
     {
+        $this->checkConnected();
+
         try {
             $result->free();
         } catch (\mysqli_sql_exception $e) {
@@ -619,15 +661,18 @@ class Mysqli implements DatabaseInterface
      * Creates an array out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           \mysqli_result      $result         the result resource
      * @param           int                 $type           the type of the result
      * @return          array|null
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @uses            self::checkConnected()
      */
     public function fetch_array($result, int $type = MYSQLI_BOTH)
     {
+        $this->checkConnected();
+
         try {
             return $result->fetch_array($type);
         } catch (\mysqli_sql_exception $e) {
@@ -644,15 +689,18 @@ class Mysqli implements DatabaseInterface
      * Creates an associative array out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @param           \mysqli_result      $result      the result resource
      * @return          array|null
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @uses            self::checkConnected()
      */
     public function fetch_assoc($result)
     {
+        $this->checkConnected();
+
         try {
             return $result->fetch_assoc();
         } catch (\mysqli_sql_exception $e) {
@@ -669,15 +717,18 @@ class Mysqli implements DatabaseInterface
      * Creates an enumerated array out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @param           \mysqli_result      $result      the result resource
      * @return          array|null
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @uses            self::checkConnected()
      */
     public function fetch_row($result)
     {
+        $this->checkConnected();
+
         try {
             return $result->fetch_row();
         } catch (\mysqli_sql_exception $e) {
@@ -694,16 +745,19 @@ class Mysqli implements DatabaseInterface
      * creates an array containing all data of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @param           \mysqli_result      $result         the result resource
      * @param           int                 $resulttype     type of array to return
      * @return          array|null
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @uses            self::checkConnected()
      */
     public function fetch_all($result, int $resulttype = MYSQLI_NUM)
     {
+        $this->checkConnected();
+
         try {
             return $result->fetch_all($resulttype);
         } catch (\mysqli_sql_exception $e) {
@@ -720,14 +774,17 @@ class Mysqli implements DatabaseInterface
      * returns the id of the last inserted row
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          int
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
+     * @uses            self::checkConnected()
      */
     public function insert_id() : int
     {
+        $this->checkConnected();
+
         try {
             return $this->mysqli->insert_id;
         } catch (\mysqli_sql_exception $e) {
@@ -744,15 +801,18 @@ class Mysqli implements DatabaseInterface
      * returns the id of the last inserted row
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           \mysqli_result  $result      the result resource
      * @param           int             $row         the row to jump
      * @return          bool
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @uses            self::checkConnected()
      */
     public function data_seek($result, int $row) : bool
     {
+        $this->checkConnected();
+
         try {
             return $result->data_seek($row);
         } catch (\mysqli_sql_exception $e) {
@@ -769,14 +829,17 @@ class Mysqli implements DatabaseInterface
      * returns the number of affected rows
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          int
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
+     * @uses            self::checkConnected()
      */
     public function affected_rows() : int
     {
+        $this->checkConnected();
+
         try {
             return $this->mysqli->affected_rows;
         } catch (\mysqli_sql_exception $e) {
@@ -793,15 +856,18 @@ class Mysqli implements DatabaseInterface
      * escapes a string
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           string      $str         the string to escape
      * @return          string
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
+     * @uses            self::checkConnected()
      */
     public function esc($str) : string
     {
+        $this->checkConnected();
+
         try {
             return $this->mysqli->real_escape_string((string) $str);
         } catch (\mysqli_sql_exception $e) {
@@ -818,13 +884,16 @@ class Mysqli implements DatabaseInterface
      * returns the client info
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          string
      * @uses            self::$client_info
+     * @uses            self::checkConnected()
      */
     public function client_info() : string
     {
+        $this->checkConnected();
+
         return $this->client_info;
     }
 
@@ -833,13 +902,16 @@ class Mysqli implements DatabaseInterface
      * returns the host info
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          string
      * @uses            self::$host_info
+     * @uses            self::checkConnected()
      */
     public function host_info() : string
     {
+        $this->checkConnected();
+
         return $this->host_info;
     }
 
@@ -848,13 +920,16 @@ class Mysqli implements DatabaseInterface
      * returns the proto info
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          string
      * @uses            self::$proto_info
+     * @uses            self::checkConnected()
      */
     public function proto_info() : string
     {
+        $this->checkConnected();
+
         return $this->proto_info;
     }
 
@@ -863,13 +938,16 @@ class Mysqli implements DatabaseInterface
      * returns the server info
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          string
      * @uses            self::$server_info
+     * @uses            self::checkConnected()
      */
     public function server_info() : string
     {
+        $this->checkConnected();
+
         return $this->server_info;
     }
 
@@ -878,16 +956,19 @@ class Mysqli implements DatabaseInterface
      * returns the size of the db
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           string      $dbname         optional mysqli connection
      * @return          int
      * @throws          \Exception if no database name is set
-     * @throws          \tourBase\Core\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$dbname
+     * @uses            self::checkConnected()
      */
     public function size($dbname = false) : int
     {
+        $this->checkConnected();
+
         try {
             if ($dbname === false) {
                 if (empty($this->dbname)) {
@@ -919,13 +1000,16 @@ class Mysqli implements DatabaseInterface
      * returns the latest error number
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          int
      * @uses            self::$mysqli
+     * @uses            self::checkConnected()
      */
     public function errno() : int
     {
+        $this->checkConnected();
+
         return $this->mysqli->errno;
     }
 
@@ -934,13 +1018,16 @@ class Mysqli implements DatabaseInterface
      * returns the latest error string
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
+     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          string
      * @uses            self::$mysqli
+     * @uses            self::checkConnected()
      */
     public function errstr() : string
     {
+        $this->checkConnected();
+
         return $this->mysqli->error;
     }
 
@@ -957,5 +1044,23 @@ class Mysqli implements DatabaseInterface
     private static function formatParamter($value) : string
     {
         return \trim(\substr(preg_replace("/\s\s+/", " ", (string) $value), 0, 100));
+    }
+
+
+    /**
+     * throws an exception if connect() has not been used yet
+     *
+     * @author          David Lienhard <david@t-error.ch>
+     * @version         1.0.1, 17.11.2020
+     * @since           1.0.0, 16.11.2020, created
+     * @copyright       t-error.ch
+     * @return          void
+     * @uses            self::$isConnected
+     */
+    private function checkConnected() : void
+    {
+        if (!$this->isConnected) {
+            throw new \BadMethodCallException("this ".__CLASS__." object is no connected yet. use connect() first");
+        }
     }
 }
