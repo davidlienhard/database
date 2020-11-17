@@ -39,18 +39,6 @@ class DatabaseStubTest extends TestCase
      * @covers \DavidLienhard\Database\Stub
      * @test
     */
-    public function testDatabaseImplementsStubInterface(): void
-    {
-        $this->assertInstanceOf(
-            StubInterface::class,
-            new Database
-        );
-    }
-
-    /**
-     * @covers \DavidLienhard\Database\Stub
-     * @test
-    */
     public function testCanAddPayloadFromArray(): void
     {
         $database = new Database;
