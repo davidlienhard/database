@@ -25,7 +25,7 @@ use \DavidLienhard\Database\ParameterInterface;
  * @since           1.0.3, 17.11.2020, created
  * @copyright       tourasia
  */
-class Database implements DatabaseInterface
+class Stub implements DatabaseInterface
 {
     /**
      * the payload to use in the config
