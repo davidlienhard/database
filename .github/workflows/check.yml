@@ -7,6 +7,22 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: test
+          MYSQL_USER: test
+          MYSQL_PASSWORD: password
+        ports:
+        - '32574:3306'
+
+    - name: Verify MySQL connection from host
+      run: |
+        sudo apt-get install -y mysql-client
+        mysql --host 127.0.0.1 --port 32574 -uroot -ppassword -e "SHOW DATABASES"
+
     steps:
     - uses: actions/checkout@v2
     - run: git fetch origin master
@@ -16,6 +32,11 @@ jobs:
       with:
         php-version: '7.4'
         extensions: imagick
+
+    steps:
+    - name: Import Source Database
+    - uses: actions/checkout@v2
+    - run: mysql --host 127.0.0.1 --port 32574 -uroot -ppassword < tests/source.sql
 
     - name: Validate composer.json and composer.lock
       run: composer validate
