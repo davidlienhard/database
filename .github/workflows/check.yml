@@ -33,11 +33,6 @@ jobs:
         php-version: '7.4'
         extensions: imagick
 
-    steps:
-    - name: Import Source Database
-    - uses: actions/checkout@v2
-    - run: mysql --host 127.0.0.1 --port 32574 -uroot -ppassword < tests/source.sql
-
     - name: Validate composer.json and composer.lock
       run: composer validate
 
