@@ -16,7 +16,7 @@ jobs:
           MYSQL_USER: test
           MYSQL_PASSWORD: password
         ports:
-        - '32574:3306'
+          '32574:3306'
 
     - name: Verify MySQL connection from host
       run: |
