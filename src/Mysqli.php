@@ -4,7 +4,7 @@
  *
  * @package         Database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.1, 17.11.2020
+ * @version         1.0.4, 18.11.2020
  * @since           1.0.0, 11.11.2020, created
  * @copyright       t-error.ch
  */
@@ -22,7 +22,7 @@ use \DavidLienhard\Database\Exception as DatabaseException;
  *
  * @category        Database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.1, 17.11.2020
+ * @version         1.0.4, 18.11.2020
  * @copyright       t-error.ch
  */
 class Mysqli implements DatabaseInterface
@@ -134,12 +134,13 @@ class Mysqli implements DatabaseInterface
      * connects to the database
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
+     * @version         1.0.4, 18.11.2020
      * @copyright       t-error.ch
      * @param           string          $host           the hostname to connect
      * @param           string          $user           the username
      * @param           string          $pass           the password
      * @param           string          $dbname         the database
+     * @param           int|null        $port           port to use to connect
      * @param           string          $charset        charset to use for the database connection
      * @param           string          $encoding       encoding to use for the database connection
      * @return          bool
@@ -162,12 +163,22 @@ class Mysqli implements DatabaseInterface
         string $user,
         string $pass,
         string $dbname,
+        ?int $port = null,
         string $charset = "utf8mb4_unicode_ci",
         string $encoding = "utf8"
     ) : bool {
         try {
             \mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);     // set mysqli to throw exceptions
-            $this->mysqli = new \mysqli($host, $user, $pass, $dbname);      // connect to database
+
+
+            $this->mysqli = new \mysqli(                                    // connect to database
+                $host,
+                $user,
+                $pass,
+                $dbname,
+                (int) ($port ?? ini_get("mysqli.default_port") ?? 3306)
+            );
+
             $this->isConnected = true;
             $this->mysqli->set_charset($charset);                           // set charset
             $this->query("SET NAMES '".$encoding."'");                      // set encoding
