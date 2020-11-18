@@ -170,7 +170,6 @@ class Mysqli implements DatabaseInterface
         try {
             \mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);     // set mysqli to throw exceptions
 
-
             $this->mysqli = new \mysqli(                                    // connect to database
                 $host,
                 $user,
