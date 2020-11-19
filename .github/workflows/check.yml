@@ -39,6 +39,9 @@ jobs:
         php-version: '7.4'
         extensions: imagick
 
+    - name: Install mysqli
+      run: apt-get install -y php-mysqli
+
     - name: Validate composer.json and composer.lock
       run: composer validate
 
