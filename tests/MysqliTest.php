@@ -10,12 +10,6 @@ use \DavidLienhard\Database\DatabaseInterface;
 use \DavidLienhard\Database\Exception as DatabaseException;
 use \DavidLienhard\Database\Mysqli;
 
-require_once dirname(__DIR__) . "/src/DatabaseInterface.php";
-require_once dirname(__DIR__) . "/src/ParameterInterface.php";
-require_once dirname(__DIR__) . "/src/Parameter.php";
-require_once dirname(__DIR__) . "/src/Exception.php";
-require_once dirname(__DIR__) . "/src/Mysqli.php";
-
 class MysqliTest extends TestCase
 {
     private $host = "localhost";
