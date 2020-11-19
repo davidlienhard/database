@@ -19,12 +19,12 @@ jobs:
           - '32574:3306'
 
     steps:
-          
+
     - name: Sleep for 30 seconds
       uses: jakejarvis/wait-action@master
       with:
-        time: '30s'
-        
+        time: '10s'
+
     - name: Verify MySQL connection from host
       run: |
         sudo apt-get install -y mysql-client
