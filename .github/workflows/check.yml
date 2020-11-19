@@ -8,6 +8,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: mirromutth/mysql-action@v1.1
+      with:
+        host port: 32574 # Optional, default value is 3306. The port of host
+        container port: 3306 # Optional, default value is 3306. The port of container
+        character set server: 'utf8' # Optional, default value is 'utf8mb4'. The '--character-set-server' option for mysqld
+        collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
+        mysql version: '8' # Optional, default value is "latest". The version of the MySQL
+        mysql database: 'test' # Optional, default value is "test". The specified database which will be create
+        mysql root password: 'password' # Required if "mysql user" is empty, default is empty. The root superuser password
+        mysql user: 'test' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
+        mysql password: 'password' # Required if "mysql user" exists. The password for the "mysql user"
+
+    - name: Sleep for 10 seconds
+      uses: jakejarvis/wait-action@master
+      with:
+        time: '10s'
+
+    - name: Verify MySQL connection from host
+      run: |
+        sudo apt-get install -y mysql-client
+        mysql --host 127.0.0.1 --port 32574 -uroot -ppassword -e "SHOW DATABASES"
+
     - uses: actions/checkout@v2
     - run: git fetch origin master
 
@@ -15,7 +37,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: '7.4'
-        extensions: imagick
+        extensions: mysqli
 
     - name: Validate composer.json and composer.lock
       run: composer validate
