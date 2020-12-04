@@ -4,7 +4,7 @@
  *
  * @package         tourBase
  * @author          David Lienhard <david.lienhard@tourasia.ch>
- * @version         1.0.4, 18.11.2020
+ * @version         1.0.4, 04.12.2020
  * @since           1.0.3, 17.11.2020, created
  * @copyright       tourasia
  */
@@ -21,7 +21,7 @@ use \DavidLienhard\Database\ParameterInterface;
  *
  * @category        Database
  * @author          David Lienhard <david.lienhard@tourasia.ch>
- * @version         1.0.4, 18.11.2020
+ * @version         1.0.4, 04.12.2020
  * @since           1.0.3, 17.11.2020, created
  * @copyright       tourasia
  */
