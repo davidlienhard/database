@@ -29,7 +29,7 @@ interface DatabaseInterface
      * connects to the database
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.4, 18.11.2020
+     * @version         1.0.4, 03.12.2020
      * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @param           string          $host           the hostname to connect
@@ -38,7 +38,7 @@ interface DatabaseInterface
      * @param           string          $dbname         the database
      * @param           int|null        $port           port to use to connect
      * @param           string          $charset        charset to use for the database connection
-     * @param           string          $encoding       encoding to use for the database connection
+     * @param           string          $collation      collation to use for the database connection
      * @return          bool
      */
     public function connect(
@@ -47,8 +47,8 @@ interface DatabaseInterface
         string $pass,
         string $dbname,
         ?int $port = null,
-        string $charset = "utf8mb4_unicode_ci",
-        string $encoding = "utf8"
+        string $charset = "utf8mb4",
+        string $collation = "utf8mb4_unicode_ci"
     ) : bool;
 
 
