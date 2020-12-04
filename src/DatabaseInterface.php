@@ -4,7 +4,7 @@
  *
  * @package         davidlienhard/database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.4, 03.12.2020
+ * @version         1.0.4, 04.12.2020
  * @since           1.0.0, 11.11.2020, created
  * @copyright       tourasia
  */
@@ -19,7 +19,7 @@ use \DavidLienhard\Database\ParameterInterface;
  * defines an interface to use for database connections
  *
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.4, 03.12.2020
+ * @version         1.0.4, 04.12.2020
  * @since           1.0.0, 11.11.2020, created
  * @copyright       tourasia
  */
@@ -50,6 +50,18 @@ interface DatabaseInterface
         string $charset = "utf8mb4",
         string $collation = "utf8mb4_unicode_ci"
     ) : bool;
+
+
+    /**
+     * reconnects to the database server
+     *
+     * @author          David Lienhard <david@t-error.ch>
+     * @version         1.0.4, 04.12.2020
+     * @since           1.0.4, 04.12.2020, created
+     * @copyright       t-error.ch
+     * @return          bool
+     */
+    public function reconnect() : bool;
 
 
     /**

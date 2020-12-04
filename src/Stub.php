@@ -4,7 +4,7 @@
  *
  * @package         tourBase
  * @author          David Lienhard <david.lienhard@tourasia.ch>
- * @version         1.0.4, 18.11.2020
+ * @version         1.0.4, 04.12.2020
  * @since           1.0.3, 17.11.2020, created
  * @copyright       tourasia
  */
@@ -21,7 +21,7 @@ use \DavidLienhard\Database\ParameterInterface;
  *
  * @category        Database
  * @author          David Lienhard <david.lienhard@tourasia.ch>
- * @version         1.0.4, 18.11.2020
+ * @version         1.0.4, 04.12.2020
  * @since           1.0.3, 17.11.2020, created
  * @copyright       tourasia
  */
@@ -59,6 +59,39 @@ class Stub implements DatabaseInterface
         string $encoding = "utf8"
     ) : bool {
         return true;
+    }
+
+
+    /**
+     * reconnects to the database server
+     *
+     * @author          David Lienhard <david@t-error.ch>
+     * @version         1.0.4, 04.12.2020
+     * @since           1.0.4, 04.12.2020, created
+     * @copyright       t-error.ch
+     * @return          bool
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @uses            self::connect()
+     * @uses            self::$host
+     * @uses            self::$user
+     * @uses            self::$pass
+     * @uses            self::$dbname
+     * @uses            self::$charset
+     * @uses            self::$encoding
+     * @uses            self::checkConnected()
+     */
+    public function reconnect() : bool
+    {
+        $this->checkConnected();
+
+        return $this->connect(
+            $this->host,
+            $this->user,
+            $this->pass,
+            $this->dbname,
+            $this->charset,
+            $this->encoding
+        );
     }
 
 
