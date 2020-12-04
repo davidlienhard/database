@@ -4,7 +4,7 @@
  *
  * @package         Database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.4, 18.11.2020
+ * @version         1.0.4, 03.12.2020
  * @since           1.0.0, 11.11.2020, created
  * @copyright       t-error.ch
  */
@@ -22,7 +22,7 @@ use \DavidLienhard\Database\Exception as DatabaseException;
  *
  * @category        Database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.4, 18.11.2020
+ * @version         1.0.4, 03.12.2020
  * @copyright       t-error.ch
  */
 class Mysqli implements DatabaseInterface
@@ -106,10 +106,10 @@ class Mysqli implements DatabaseInterface
     private $charset;
 
     /**
-     * encoding to use to connect
+     * collation to use to connect
      * @var         string
      */
-    private $encoding;
+    private $collation;
 
     /**
      * the last statement from the query
@@ -134,7 +134,7 @@ class Mysqli implements DatabaseInterface
      * connects to the database
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.4, 18.11.2020
+     * @version         1.0.4, 03.12.2020
      * @copyright       t-error.ch
      * @param           string          $host           the hostname to connect
      * @param           string          $user           the username
@@ -142,7 +142,7 @@ class Mysqli implements DatabaseInterface
      * @param           string          $dbname         the database
      * @param           int|null        $port           port to use to connect
      * @param           string          $charset        charset to use for the database connection
-     * @param           string          $encoding       encoding to use for the database connection
+     * @param           string          $collation      collation to use for the database connection
      * @return          bool
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$host
@@ -150,7 +150,7 @@ class Mysqli implements DatabaseInterface
      * @uses            self::$pass
      * @uses            self::$dbname
      * @uses            self::$charset
-     * @uses            self::$encoding
+     * @uses            self::$collation
      * @uses            self::$mysqli
      * @uses            self::$client_info
      * @uses            self::$host_info
@@ -164,8 +164,8 @@ class Mysqli implements DatabaseInterface
         string $pass,
         string $dbname,
         ?int $port = null,
-        string $charset = "utf8mb4_unicode_ci",
-        string $encoding = "utf8"
+        string $charset = "utf8mb4",
+        string $collation = "utf8mb4_unicode_ci"
     ) : bool {
         try {
             \mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);     // set mysqli to throw exceptions
@@ -180,14 +180,14 @@ class Mysqli implements DatabaseInterface
 
             $this->isConnected = true;
             $this->mysqli->set_charset($charset);                           // set charset
-            $this->query("SET NAMES '".$encoding."'");                      // set encoding
+            $this->query("SET NAMES '".$charset."' COLLATE '".$collation."'");                      // set charset / collation
 
             $this->host = $host;
             $this->user = $user;
             $this->pass = $pass;
             $this->dbname = $dbname;
             $this->charset = $charset;
-            $this->encoding = $encoding;
+            $this->collation = $collation;
 
             $this->client_info = $this->mysqli->get_client_info();
             $this->host_info = $this->mysqli->host_info;
@@ -209,7 +209,7 @@ class Mysqli implements DatabaseInterface
      * reconnects to the database server
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
+     * @version         1.0.4, 03.12.2020
      * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @return          bool
@@ -220,7 +220,7 @@ class Mysqli implements DatabaseInterface
      * @uses            self::$pass
      * @uses            self::$dbname
      * @uses            self::$charset
-     * @uses            self::$encoding
+     * @uses            self::$collation
      * @uses            self::checkConnected()
      */
     public function reconnect() : bool
@@ -233,7 +233,7 @@ class Mysqli implements DatabaseInterface
             $this->pass,
             $this->dbname,
             $this->charset,
-            $this->encoding
+            $this->collation
         );
     }
 
