@@ -88,7 +88,7 @@ class Stub implements DatabaseInterface
      * @param           string          $dbname         the database
      * @param           int|null        $port           port to use to connect
      * @param           string          $charset        charset to use for the database connection
-     * @param           string          $encoding       encoding to use for the database connection
+     * @param           string          $collation      encoding to use for the database connection
      * @uses            self::$host
      * @uses            self::$user
      * @uses            self::$pass
@@ -105,7 +105,7 @@ class Stub implements DatabaseInterface
         string $dbname,
         ?int $port = null,
         string $charset = "utf8mb4_unicode_ci",
-        string $encoding = "utf8"
+        string $collation = "utf8"
     ) : bool {
         $this->host = $host;
         $this->user = $user;
@@ -135,7 +135,7 @@ class Stub implements DatabaseInterface
      * @uses            self::$dbname
      * @uses            self::$port
      * @uses            self::$charset
-     * @uses            self::$encoding
+     * @uses            self::$collation
      * @uses            self::checkConnected()
      */
     public function reconnect() : bool
@@ -149,7 +149,7 @@ class Stub implements DatabaseInterface
             $this->dbname,
             $this->port,
             $this->charset,
-            $this->encoding
+            $this->collation
         );
     }
 
