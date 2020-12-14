@@ -4,7 +4,7 @@
  *
  * @package         Database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.4, 03.12.2020
+ * @version         1.0.5, 14.12.2020
  * @since           1.0.0, 11.11.2020, created
  * @copyright       t-error.ch
  */
@@ -22,7 +22,7 @@ use \DavidLienhard\Database\Exception as DatabaseException;
  *
  * @category        Database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.4, 03.12.2020
+ * @version         1.0.5, 14.12.2020
  * @copyright       t-error.ch
  */
 class Mysqli implements DatabaseInterface
@@ -100,6 +100,12 @@ class Mysqli implements DatabaseInterface
     private $dbname;
 
     /**
+     * port to connect to
+     * @var         int|null
+     */
+    private $port;
+
+    /**
      * charset to use to connect
      * @var         string
      */
@@ -134,7 +140,7 @@ class Mysqli implements DatabaseInterface
      * connects to the database
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.4, 03.12.2020
+     * @version         1.0.5, 14.12.2020
      * @copyright       t-error.ch
      * @param           string          $host           the hostname to connect
      * @param           string          $user           the username
@@ -149,6 +155,7 @@ class Mysqli implements DatabaseInterface
      * @uses            self::$user
      * @uses            self::$pass
      * @uses            self::$dbname
+     * @uses            self::$port
      * @uses            self::$charset
      * @uses            self::$collation
      * @uses            self::$mysqli
@@ -186,6 +193,7 @@ class Mysqli implements DatabaseInterface
             $this->user = $user;
             $this->pass = $pass;
             $this->dbname = $dbname;
+            $this->port = $port;
             $this->charset = $charset;
             $this->collation = $collation;
 
@@ -209,7 +217,7 @@ class Mysqli implements DatabaseInterface
      * reconnects to the database server
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.4, 03.12.2020
+     * @version         1.0.5, 14.12.2020
      * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @return          bool
@@ -219,6 +227,7 @@ class Mysqli implements DatabaseInterface
      * @uses            self::$user
      * @uses            self::$pass
      * @uses            self::$dbname
+     * @uses            self::$port
      * @uses            self::$charset
      * @uses            self::$collation
      * @uses            self::checkConnected()
@@ -232,6 +241,7 @@ class Mysqli implements DatabaseInterface
             $this->user,
             $this->pass,
             $this->dbname,
+            $this->port,
             $this->charset,
             $this->collation
         );

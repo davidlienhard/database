@@ -4,7 +4,7 @@
  *
  * @package         tourBase
  * @author          David Lienhard <david.lienhard@tourasia.ch>
- * @version         1.0.4, 04.12.2020
+ * @version         1.0.5, 14.12.2020
  * @since           1.0.3, 17.11.2020, created
  * @copyright       tourasia
  */
@@ -21,12 +21,54 @@ use \DavidLienhard\Database\ParameterInterface;
  *
  * @category        Database
  * @author          David Lienhard <david.lienhard@tourasia.ch>
- * @version         1.0.4, 04.12.2020
+ * @version         1.0.5, 14.12.2020
  * @since           1.0.3, 17.11.2020, created
  * @copyright       tourasia
  */
 class Stub implements DatabaseInterface
 {
+    /**
+     * host to connect to
+     * @var         string
+     */
+    private $host;
+
+    /**
+     * username to use to connect
+     * @var         string
+     */
+    private $user;
+
+    /**
+     * password to use to connect
+     * @var         string
+     */
+    private $pass;
+
+    /**
+     * the name of the selected database
+     * @var         string
+     */
+    private $dbname;
+
+    /**
+     * port to connect to
+     * @var         int|null
+     */
+    private $port;
+
+    /**
+     * charset to use to connect
+     * @var         string
+     */
+    private $charset;
+
+    /**
+     * collation to use to connect
+     * @var         string
+     */
+    private $collation;
+
     /**
      * the payload to use in the config
      * @var     array   $payload
@@ -37,7 +79,7 @@ class Stub implements DatabaseInterface
      * connects to the database
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.4, 18.11.2020
+     * @version         1.0.5, 14.12.2020
      * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           string          $host           the hostname to connect
@@ -46,7 +88,14 @@ class Stub implements DatabaseInterface
      * @param           string          $dbname         the database
      * @param           int|null        $port           port to use to connect
      * @param           string          $charset        charset to use for the database connection
-     * @param           string          $encoding       encoding to use for the database connection
+     * @param           string          $collation      encoding to use for the database connection
+     * @uses            self::$host
+     * @uses            self::$user
+     * @uses            self::$pass
+     * @uses            self::$dbname
+     * @uses            self::$port
+     * @uses            self::$charset
+     * @uses            self::$collation
      * @return          bool
      */
     public function connect(
@@ -56,8 +105,16 @@ class Stub implements DatabaseInterface
         string $dbname,
         ?int $port = null,
         string $charset = "utf8mb4_unicode_ci",
-        string $encoding = "utf8"
+        string $collation = "utf8"
     ) : bool {
+        $this->host = $host;
+        $this->user = $user;
+        $this->pass = $pass;
+        $this->dbname = $dbname;
+        $this->port = $port;
+        $this->charset = $charset;
+        $this->collation = $collation;
+
         return true;
     }
 
@@ -66,7 +123,7 @@ class Stub implements DatabaseInterface
      * reconnects to the database server
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.4, 04.12.2020
+     * @version         1.0.5, 14.12.2020
      * @since           1.0.4, 04.12.2020, created
      * @copyright       t-error.ch
      * @return          bool
@@ -76,8 +133,9 @@ class Stub implements DatabaseInterface
      * @uses            self::$user
      * @uses            self::$pass
      * @uses            self::$dbname
+     * @uses            self::$port
      * @uses            self::$charset
-     * @uses            self::$encoding
+     * @uses            self::$collation
      * @uses            self::checkConnected()
      */
     public function reconnect() : bool
@@ -89,8 +147,9 @@ class Stub implements DatabaseInterface
             $this->user,
             $this->pass,
             $this->dbname,
+            $this->port,
             $this->charset,
-            $this->encoding
+            $this->collation
         );
     }
 
