@@ -473,9 +473,7 @@ class Mysqli implements DatabaseInterface
                 $message .= implode(
                     "\n\t",
                     array_map(
-                        function ($p) {
-                            return " - ".$p->getType().": '".\substr(\str_replace("\r\n", " ", (string) $p->getValue()), 0, 100)."'";
-                        },
+                        fn ($p) => " - ".$p->getType().": '".\substr(\str_replace("\r\n", " ", (string) $p->getValue()), 0, 100)."'",
                         $parameters
                     )
                 );
@@ -532,9 +530,7 @@ class Mysqli implements DatabaseInterface
                 $message .= implode(
                     "\n\t",
                     array_map(
-                        function ($p) {
-                            return " - ".$p->getType().": '".\substr(\str_replace("\r\n", " ", (string) $p->getValue()), 0, 100)."'";
-                        },
+                        fn ($p) => " - ".$p->getType().": '".\substr(\str_replace("\r\n", " ", (string) $p->getValue()), 0, 100)."'",
                         $parameters
                     )
                 );
