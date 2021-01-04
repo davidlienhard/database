@@ -4,7 +4,7 @@
  *
  * @package         Database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.5, 14.12.2020
+ * @version         1.0.6, 04.01.2021
  * @since           1.0.0, 11.11.2020, created
  * @copyright       t-error.ch
  */
@@ -22,7 +22,7 @@ use \DavidLienhard\Database\Exception as DatabaseException;
  *
  * @category        Database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.5, 14.12.2020
+ * @version         1.0.6, 04.01.2021
  * @copyright       t-error.ch
  */
 class Mysqli implements DatabaseInterface
@@ -414,7 +414,7 @@ class Mysqli implements DatabaseInterface
      * Executes a query
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
+     * @version         1.0.6, 04.01.2021
      * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @param           string              $q           the sql query
@@ -474,7 +474,7 @@ class Mysqli implements DatabaseInterface
                     "\n\t",
                     array_map(
                         function ($p) {
-                            return " - ".$p->getType().": '".\substr(\str_replace("\r\n", " ", $p->getValue()), 0, 100)."'";
+                            return " - ".$p->getType().": '".\substr(\str_replace("\r\n", " ", (string) $p->getValue()), 0, 100)."'";
                         },
                         $parameters
                     )
@@ -495,7 +495,7 @@ class Mysqli implements DatabaseInterface
      * executes an already prepared statement
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
+     * @version         1.0.6, 04.01.2021
      * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
@@ -533,7 +533,7 @@ class Mysqli implements DatabaseInterface
                     "\n\t",
                     array_map(
                         function ($p) {
-                            return " - ".$p->getType().": '".\substr(\str_replace("\r\n", " ", $p->getValue()), 0, 100)."'";
+                            return " - ".$p->getType().": '".\substr(\str_replace("\r\n", " ", (string) $p->getValue()), 0, 100)."'";
                         },
                         $parameters
                     )
