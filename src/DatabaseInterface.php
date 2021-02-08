@@ -184,7 +184,6 @@ interface DatabaseInterface
     public function getDbTime() : float;
 
 
-
     /**
      * returns the number of queries executed
      *

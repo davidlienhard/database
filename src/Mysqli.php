@@ -4,7 +4,7 @@
  *
  * @package         Database
  * @author          David Lienhard <david@lienhard.win>
-   * @copyright       David Lienhard
+ * @copyright       David Lienhard
  */
 
 declare(strict_types=1);
@@ -20,7 +20,7 @@ use \DavidLienhard\Database\Exception as DatabaseException;
  *
  * @category        Database
  * @author          David Lienhard <david@lienhard.win>
-  * @copyright       David Lienhard
+ * @copyright       David Lienhard
  */
 class Mysqli implements DatabaseInterface
 {
@@ -537,6 +537,76 @@ class Mysqli implements DatabaseInterface
                 $e
             );
         }//end try
+    }
+
+
+    /**
+     * Counts the rows of a result resource
+     *
+     * @author          David Lienhard <david@t-error.ch>
+     * @copyright       t-error.ch
+     * @param           \mysqli_result  $result      the result resource
+     * @return          int
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @uses            self::checkConnected()
+     */
+    public function num_rows($result) : int
+    {
+        $this->checkConnected();
+
+        try {
+            return $result->num_rows;
+        } catch (\mysqli_sql_exception $e) {
+            throw new DatabaseException(
+                $e->getMessage(),
+                $e->getCode(),
+                $e
+            );
+        }
+    }
+
+
+    /**
+     * Gets a field out of a result resource
+     *
+     * @author          David Lienhard <david@t-error.ch>
+     * @copyright       t-error.ch
+     * @param           \mysqli_result  $result      the result resource
+     * @param           int             $row         the row
+     * @param           string          $field       the column
+     * @return          string|int
+     * @throws          \Exception if the required field is does not exist
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @uses            self::checkConnected()
+     */
+    public function result($result, int $row, string $field)
+    {
+        $this->checkConnected();
+
+        try {
+            $result->data_seek($row);
+            $dataRow = $result->fetch_assoc();
+
+            if ($dataRow === null) {
+                throw new \Exception(
+                    "unable to fetch assoc array"
+                );
+            }
+
+            if (!array_key_exists($field, $dataRow)) {
+                throw new \Exception(
+                    "field '".$field."' does not exist"
+                );
+            }
+
+            return $dataRow[$field];
+        } catch (\mysqli_sql_exception $e) {
+            throw new DatabaseException(
+                $e->getMessage(),
+                $e->getCode(),
+                $e
+            );
+        }
     }
 
 

@@ -5,7 +5,7 @@
  * @package         tourBase
  * @subpackage      Core\Database
  * @author          David Lienhard <david.lienhard@tourasia.ch>
-   * @copyright       tourasia
+ * @copyright       tourasia
  * @uses            \Exception
  */
 
