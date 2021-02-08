@@ -180,7 +180,7 @@ class Mysqli implements DatabaseInterface
                 $e->getCode(),
                 $e
             );
-        }
+        }//end try
     }
 
 
@@ -430,7 +430,7 @@ class Mysqli implements DatabaseInterface
                 $this->lastquery = $query;
             } else {
                 $types = "";
-                $values = [ ];
+                $values = [];
                 foreach ($parameters as $parameter) {
                     $types .= $parameter->getType();
                     $values[] = $parameter->getValue();
@@ -449,7 +449,7 @@ class Mysqli implements DatabaseInterface
                     $result = new MysqliResult($result);
                 }
                 $this->lastquery = $query;
-            }
+            }//end if
 
             $this->dbTime = $this->dbTime + (\microtime(true) - $dbStart);
             $this->totalQueries++;
@@ -475,7 +475,7 @@ class Mysqli implements DatabaseInterface
                 $e->getCode(),
                 $e
             );
-        }
+        }//end try
     }
 
 
@@ -500,7 +500,7 @@ class Mysqli implements DatabaseInterface
 
         try {
             $types = "";
-            $values = [ ];
+            $values = [];
             foreach ($parameters as $parameter) {
                 $types .= $parameter->getType();
                 $values[] = $parameter->getValue();
@@ -536,7 +536,7 @@ class Mysqli implements DatabaseInterface
                 $e->getCode(),
                 $e
             );
-        }
+        }//end try
     }
 
 
@@ -759,7 +759,7 @@ class Mysqli implements DatabaseInterface
                 $e->getCode(),
                 $e
             );
-        }
+        }//end try
     }
 
 

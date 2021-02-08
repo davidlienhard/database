@@ -69,7 +69,7 @@ class Stub implements DatabaseInterface
      * the payload to use in the config
      * @var     array
      */
-    private $payload = [ ];
+    private $payload = [];
 
     /**
      * connects to the database
