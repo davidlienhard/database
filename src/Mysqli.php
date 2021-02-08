@@ -606,7 +606,7 @@ class Mysqli implements DatabaseInterface
                 $e->getCode(),
                 $e
             );
-        }
+        }//end if
     }
 
 
