@@ -5,8 +5,6 @@
  * @package         tourBase
  * @subpackage      Core\Database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.0, 11.11.2020
- * @since           1.0.0, 11.11.2020, created
  * @copyright       tourasia
  */
 
@@ -18,8 +16,6 @@ namespace DavidLienhard\Database;
  * interface to set parameters for a database query
  *
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.0, 11.11.2020
- * @since           1.0.0, 11.11.2020, created
  * @copyright       tourasia
  */
 interface ParameterInterface
@@ -28,8 +24,6 @@ interface ParameterInterface
      * sets the parameters of this object
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @param           string          $type           type of the parameter (can be i, s, d or d)
      * @param           mixed           $value          value of the parameter
@@ -41,8 +35,6 @@ interface ParameterInterface
      * returns the type of this parameter
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @return          string
      */
@@ -52,8 +44,6 @@ interface ParameterInterface
      * returns the value of this parameter
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @return          string
      */

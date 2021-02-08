@@ -4,8 +4,6 @@
  *
  * @package         davidlienhard/database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.4, 04.12.2020
- * @since           1.0.0, 11.11.2020, created
  * @copyright       tourasia
  */
 
@@ -19,8 +17,6 @@ use \DavidLienhard\Database\ParameterInterface;
  * defines an interface to use for database connections
  *
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.4, 04.12.2020
- * @since           1.0.0, 11.11.2020, created
  * @copyright       tourasia
  */
 interface DatabaseInterface
@@ -29,8 +25,6 @@ interface DatabaseInterface
      * connects to the database
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.4, 03.12.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @param           string          $host           the hostname to connect
      * @param           string          $user           the username
@@ -56,8 +50,6 @@ interface DatabaseInterface
      * reconnects to the database server
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.4, 04.12.2020
-     * @since           1.0.4, 04.12.2020, created
      * @copyright       t-error.ch
      * @return          bool
      */
@@ -68,8 +60,6 @@ interface DatabaseInterface
      * closes the database connection
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @return          bool
       */
@@ -80,8 +70,6 @@ interface DatabaseInterface
      * changes the mode of autocommit
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @param           bool            $mode           the new mode to set
      * @return          bool
@@ -93,8 +81,6 @@ interface DatabaseInterface
      * Starts a transaction
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @return          bool
      */
@@ -105,8 +91,6 @@ interface DatabaseInterface
      * Commits a transaction
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @return          bool
      */
@@ -117,8 +101,6 @@ interface DatabaseInterface
      * Rolls a transaction back
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @return          bool
      */
@@ -129,8 +111,6 @@ interface DatabaseInterface
      * Executes a query
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @param           string              $q           the sql query
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
@@ -143,8 +123,6 @@ interface DatabaseInterface
      * executes an already prepared statement
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
      * @return          \mysqli_result|bool
@@ -156,8 +134,6 @@ interface DatabaseInterface
      * Counts the rows of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @param           \mysqli_result      $result      the result resource
      * @return          int
@@ -169,8 +145,6 @@ interface DatabaseInterface
      * Gets a field out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @param           \mysqli_result      $result      the result resource
      * @param           int              $row         the row
@@ -184,8 +158,6 @@ interface DatabaseInterface
      * Frees the memory
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @param           \mysqli_result      $result      the result resource
      * @return          void
@@ -197,8 +169,6 @@ interface DatabaseInterface
      * Creates an array out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @param           \mysqli_result      $result         the result resource
      * @param           int                 $type           the type of the result
@@ -211,8 +181,6 @@ interface DatabaseInterface
      * Creates an associative array out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @param           \mysqli_result      $result      the result resource
      * @return          array|null
@@ -224,8 +192,6 @@ interface DatabaseInterface
      * Creates an enumerated array out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @param           \mysqli_result      $result      the result resource
      * @return          array|null
@@ -237,8 +203,6 @@ interface DatabaseInterface
      * returns the id of the last inserted row
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @return          int
      */
@@ -249,8 +213,6 @@ interface DatabaseInterface
      * returns the id of the last inserted row
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @param           \mysqli_result      $result      the result resource
      * @param           int                 $row         the row to jump
@@ -263,8 +225,6 @@ interface DatabaseInterface
      * returns the number of affected rows
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @return          int
      */
@@ -275,8 +235,6 @@ interface DatabaseInterface
      * returns the latest error number
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @return          int
      */
@@ -287,8 +245,6 @@ interface DatabaseInterface
      * returns the latest error string
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       tourasia
      * @return          string
      */

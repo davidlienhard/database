@@ -4,8 +4,6 @@
  *
  * @package         Database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.6, 04.01.2021
- * @since           1.0.0, 11.11.2020, created
  * @copyright       t-error.ch
  */
 
@@ -22,7 +20,6 @@ use \DavidLienhard\Database\Exception as DatabaseException;
  *
  * @category        Database
  * @author          David Lienhard <david@t-error.ch>
- * @version         1.0.6, 04.01.2021
  * @copyright       t-error.ch
  */
 class Mysqli implements DatabaseInterface
@@ -140,7 +137,6 @@ class Mysqli implements DatabaseInterface
      * connects to the database
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.5, 14.12.2020
      * @copyright       t-error.ch
      * @param           string          $host           the hostname to connect
      * @param           string          $user           the username
@@ -217,8 +213,6 @@ class Mysqli implements DatabaseInterface
      * reconnects to the database server
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.5, 14.12.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @return          bool
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -252,7 +246,6 @@ class Mysqli implements DatabaseInterface
      * closes the database connection
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          bool
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -284,8 +277,6 @@ class Mysqli implements DatabaseInterface
      * changes the mode of autocommit
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @param           bool            $mode           the new mode to set
      * @return          bool
@@ -318,7 +309,6 @@ class Mysqli implements DatabaseInterface
      * Starts a transaction
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          bool
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -350,7 +340,6 @@ class Mysqli implements DatabaseInterface
      * Commits a transaction
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          bool
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -382,7 +371,6 @@ class Mysqli implements DatabaseInterface
      * Rolls a transaction back
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          bool
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -414,8 +402,6 @@ class Mysqli implements DatabaseInterface
      * Executes a query
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.6, 04.01.2021
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @param           string              $q           the sql query
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
@@ -493,8 +479,6 @@ class Mysqli implements DatabaseInterface
      * executes an already prepared statement
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.6, 04.01.2021
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
      * @return          \mysqli_result|bool
@@ -550,7 +534,6 @@ class Mysqli implements DatabaseInterface
      * Counts the rows of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           \mysqli_result  $result      the result resource
      * @return          int
@@ -577,7 +560,6 @@ class Mysqli implements DatabaseInterface
      * Gets a field out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           \mysqli_result  $result      the result resource
      * @param           int             $row         the row
@@ -622,8 +604,6 @@ class Mysqli implements DatabaseInterface
      * check if the connection to the server is still open
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @return          bool
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -650,7 +630,6 @@ class Mysqli implements DatabaseInterface
      * Frees the memory
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           \mysqli_result      $result      the result resource
      * @return          void
@@ -677,7 +656,6 @@ class Mysqli implements DatabaseInterface
      * Creates an array out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           \mysqli_result      $result         the result resource
      * @param           int                 $type           the type of the result
@@ -705,8 +683,6 @@ class Mysqli implements DatabaseInterface
      * Creates an associative array out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @param           \mysqli_result      $result      the result resource
      * @return          array|null
@@ -733,8 +709,6 @@ class Mysqli implements DatabaseInterface
      * Creates an enumerated array out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @param           \mysqli_result      $result      the result resource
      * @return          array|null
@@ -761,8 +735,6 @@ class Mysqli implements DatabaseInterface
      * creates an array containing all data of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
-     * @since           1.0.0, 11.11.2020, created
      * @copyright       t-error.ch
      * @param           \mysqli_result      $result         the result resource
      * @param           int                 $resulttype     type of array to return
@@ -790,7 +762,6 @@ class Mysqli implements DatabaseInterface
      * returns the id of the last inserted row
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          int
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -817,7 +788,6 @@ class Mysqli implements DatabaseInterface
      * returns the id of the last inserted row
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           \mysqli_result  $result      the result resource
      * @param           int             $row         the row to jump
@@ -845,7 +815,6 @@ class Mysqli implements DatabaseInterface
      * returns the number of affected rows
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          int
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -872,7 +841,6 @@ class Mysqli implements DatabaseInterface
      * escapes a string
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           string      $str         the string to escape
      * @return          string
@@ -900,7 +868,6 @@ class Mysqli implements DatabaseInterface
      * returns the client info
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          string
      * @uses            self::$client_info
@@ -918,7 +885,6 @@ class Mysqli implements DatabaseInterface
      * returns the host info
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          string
      * @uses            self::$host_info
@@ -936,7 +902,6 @@ class Mysqli implements DatabaseInterface
      * returns the proto info
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          string
      * @uses            self::$proto_info
@@ -954,7 +919,6 @@ class Mysqli implements DatabaseInterface
      * returns the server info
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          string
      * @uses            self::$server_info
@@ -972,7 +936,6 @@ class Mysqli implements DatabaseInterface
      * returns the size of the db
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @param           string      $dbname         optional mysqli connection
      * @return          int
@@ -1016,7 +979,6 @@ class Mysqli implements DatabaseInterface
      * returns the latest error number
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          int
      * @uses            self::$mysqli
@@ -1034,7 +996,6 @@ class Mysqli implements DatabaseInterface
      * returns the latest error string
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
      * @copyright       t-error.ch
      * @return          string
      * @uses            self::$mysqli
@@ -1052,7 +1013,6 @@ class Mysqli implements DatabaseInterface
      * shortens the parameter value to be printed as exception
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.0, 11.11.2020
      * @copyright       t-error.ch
      * @param           mixed       $value          value to format as string
      * @return          string
@@ -1067,8 +1027,6 @@ class Mysqli implements DatabaseInterface
      * throws an exception if connect() has not been used yet
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.1, 17.11.2020
-     * @since           1.0.0, 16.11.2020, created
      * @copyright       t-error.ch
      * @return          void
      * @uses            self::$isConnected

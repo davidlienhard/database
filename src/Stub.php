@@ -4,8 +4,6 @@
  *
  * @package         tourBase
  * @author          David Lienhard <david.lienhard@tourasia.ch>
- * @version         1.0.5, 14.12.2020
- * @since           1.0.3, 17.11.2020, created
  * @copyright       tourasia
  */
 
@@ -21,8 +19,6 @@ use \DavidLienhard\Database\ParameterInterface;
  *
  * @category        Database
  * @author          David Lienhard <david.lienhard@tourasia.ch>
- * @version         1.0.5, 14.12.2020
- * @since           1.0.3, 17.11.2020, created
  * @copyright       tourasia
  */
 class Stub implements DatabaseInterface
@@ -79,8 +75,6 @@ class Stub implements DatabaseInterface
      * connects to the database
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.5, 14.12.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           string          $host           the hostname to connect
      * @param           string          $user           the username
@@ -123,8 +117,6 @@ class Stub implements DatabaseInterface
      * reconnects to the database server
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.5, 14.12.2020
-     * @since           1.0.4, 04.12.2020, created
      * @copyright       t-error.ch
      * @return          bool
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -158,8 +150,6 @@ class Stub implements DatabaseInterface
      * closes the database connection
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @return          bool
      */
@@ -173,8 +163,6 @@ class Stub implements DatabaseInterface
      * changes the mode of autocommit
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           bool            $mode           the new mode to set
      * @return          bool
@@ -189,8 +177,6 @@ class Stub implements DatabaseInterface
      * Starts a transaction
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @return          bool
      */
@@ -204,8 +190,6 @@ class Stub implements DatabaseInterface
      * Commits a transaction
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @return          bool
      */
@@ -219,8 +203,6 @@ class Stub implements DatabaseInterface
      * Rolls a transaction back
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @return          bool
      */
@@ -234,8 +216,6 @@ class Stub implements DatabaseInterface
      * Executes a query
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           string              $q           the sql query
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
@@ -251,8 +231,6 @@ class Stub implements DatabaseInterface
      * executes an already prepared statement
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
      * @return          \mysqli_result|bool
@@ -267,8 +245,6 @@ class Stub implements DatabaseInterface
      * Counts the rows of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           \mysqli_result   $result      the result resource
      * @return          int
@@ -283,8 +259,6 @@ class Stub implements DatabaseInterface
      * Gets a field out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           \mysqli_result   $result      the result resource
      * @param           int              $row         the row
@@ -301,8 +275,6 @@ class Stub implements DatabaseInterface
      * Frees the memory
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           \mysqli_result      $result      the result resource
      * @return          void
@@ -317,8 +289,6 @@ class Stub implements DatabaseInterface
      * Creates an array out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           \mysqli_result      $result         the result resource
      * @param           int                 $type           the type of the result
@@ -334,8 +304,6 @@ class Stub implements DatabaseInterface
      * Creates an associative array out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           \mysqli_result      $result      the result resource
      * @return          array|null
@@ -350,8 +318,6 @@ class Stub implements DatabaseInterface
      * Creates an enumerated array out of a result resource
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           \mysqli_result      $result      the result resource
      * @return          array|null
@@ -366,8 +332,6 @@ class Stub implements DatabaseInterface
      * returns the id of the last inserted row
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @return          int
      */
@@ -381,8 +345,6 @@ class Stub implements DatabaseInterface
      * returns the id of the last inserted row
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           \mysqli_result   $result      the result resource
      * @param           int              $row         the row to jump
@@ -398,8 +360,6 @@ class Stub implements DatabaseInterface
      * returns the number of affected rows
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @return          int
      */
@@ -413,8 +373,6 @@ class Stub implements DatabaseInterface
      * escapes a string
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           string      $str         the string to escape
      * @return          string
@@ -429,8 +387,6 @@ class Stub implements DatabaseInterface
      * returns the client info
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @return          string
      */
@@ -444,8 +400,6 @@ class Stub implements DatabaseInterface
      * returns the host info
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @return          string
      */
@@ -459,8 +413,6 @@ class Stub implements DatabaseInterface
      * returns the proto info
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @return          string
      */
@@ -474,8 +426,6 @@ class Stub implements DatabaseInterface
      * returns the server info
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @return          string
      */
@@ -489,8 +439,6 @@ class Stub implements DatabaseInterface
      * returns the size of the db
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           string      $dbname         optional mysqli connection
      * @return          int
@@ -505,8 +453,6 @@ class Stub implements DatabaseInterface
      * returns the latest error number
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @return          int
      */
@@ -520,8 +466,6 @@ class Stub implements DatabaseInterface
      * returns the latest error string
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @return          string
      */
@@ -534,8 +478,6 @@ class Stub implements DatabaseInterface
      * adds payload to the object
      *
      * @author          David Lienhard <david@t-error.ch>
-     * @version         1.0.3, 17.11.2020
-     * @since           1.0.3, 17.11.2020, created
      * @copyright       tourasia
      * @param           array           $payload        the payload to add
      * @return          void
