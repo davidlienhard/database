@@ -112,11 +112,14 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @param           string              $q           the sql query
+     * @param           string              $query        the sql query
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
      * @return          \DavidLienhard\Database\ResultInterface|bool
       */
-    public function query(string $q, ParameterInterface ...$parameters) : ResultInterface | bool;
+    public function query(
+        string $query,
+        ParameterInterface ...$parameters
+    ) : ResultInterface | bool;
 
 
     /**
