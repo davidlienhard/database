@@ -9,7 +9,7 @@ use \DavidLienhard\Database\Parameter as DBParam;
 use \DavidLienhard\Database\Stub as Database;
 use \DavidLienhard\Database\DatabaseInterface;
 
-require_once dirname(__DIR__) . "/src/Stub.php";
+require_once dirname(__DIR__)."/src/Stub.php";
 
 class DatabaseStubTest extends TestCase
 {
