@@ -219,14 +219,14 @@ class DatabaseStubTest extends TestCase
     }
 
     /**
-     * @covers \DavidLienhard\Database\Stub::esc()
+     * @covers \DavidLienhard\Database\Stub::escape()
      * @test
     */
     public function testCanEscapeString(): void
     {
         $database = new Database;
         $input = "test-string";
-        $this->assertEquals($input, $database->esc($input));
+        $this->assertEquals($input, $database->escape($input));
     }
 
     /**

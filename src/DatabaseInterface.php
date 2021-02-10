@@ -140,7 +140,7 @@ interface DatabaseInterface
      * @copyright       David Lienhard
      * @param           string      $string      the string to escape
      */
-    public function esc(string $string) : string;
+    public function escape(string $string) : string;
 
 
     /**

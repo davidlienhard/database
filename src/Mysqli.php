@@ -595,7 +595,7 @@ class Mysqli implements DatabaseInterface
      * @uses            self::$mysqli
      * @uses            self::checkConnected()
      */
-    public function esc(string $string) : string
+    public function escape(string $string) : string
     {
         $this->checkConnected();
 
