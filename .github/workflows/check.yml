@@ -35,7 +35,7 @@ jobs:
         restore-keys: ${{ runner.os }}-${{ matrix.php }}-composer-
 
     - name: "Cache PHPStan Result"
-      uses: actions/cache@v2
+      uses: actions/cache@v2.1.4
       with:
         path: ./tmp
         key: "${{ runner.os }}-${{ matrix.php }}-phpstan-result-cache"
