@@ -23,39 +23,25 @@ use \DavidLienhard\Database\ParameterInterface;
  */
 class Stub implements DatabaseInterface
 {
-    /**
-     * host to connect to
-     */
+    /** host to connect to */
     private string $host;
 
-    /**
-     * username to use to connect
-     */
+    /** username to use to connect */
     private string $user;
 
-    /**
-     * password to use to connect
-     */
+    /** password to use to connect */
     private string $pass;
 
-    /**
-     * the name of the selected database
-     */
+    /** the name of the selected database */
     private string $dbname;
 
-    /**
-     * port to connect to
-     */
+    /** port to connect to */
     private ?int $port;
 
-    /**
-     * charset to use to connect
-     */
+    /** charset to use to connect */
     private string $charset;
 
-    /**
-     * collation to use to connect
-     */
+    /** collation to use to connect */
     private string $collation;
 
     /**

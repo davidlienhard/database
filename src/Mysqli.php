@@ -34,89 +34,55 @@ use \DavidLienhard\Database\Exception as DatabaseException;
  */
 class Mysqli implements DatabaseInterface
 {
-    /**
-     * defines whether connect() has been used yet
-     */
+    /** defines whether connect() has been used yet */
     private bool $isConnected = false;
 
-    /**
-     * The Database connection resource
-     */
+    /** The Database connection resource */
     private \mysqli $mysqli;
 
-    /**
-     * The miliseconds used by the database
-     */
+    /** The miliseconds used by the database */
     private float $dbTime = 0;
 
-    /**
-     * The number of queries
-     */
+    /** The number of queries */
     private int $totalQueries = 0;
 
-    /**
-     * contains infos about the client
-     */
+    /** contains infos about the client */
     private string $client_info = "";
 
-    /**
-     * contains infos about the host
-     */
+    /** contains infos about the host */
     private string $host_info = "";
 
-    /**
-     * contains infos about the protocol
-     */
+    /** contains infos about the protocol */
     private int $proto_info = 0;
 
-    /**
-     * contains infos about the server
-     */
+    /** contains infos about the server */
     private string $server_info = "";
 
-    /**
-     * host to connect to
-     */
+    /** host to connect to */
     private string $host;
 
-    /**
-     * username to use to connect
-     */
+    /** username to use to connect */
     private string $user;
 
-    /**
-     * password to use to connect
-     */
+    /** password to use to connect */
     private string $pass;
 
-    /**
-     * the name of the selected database
-     */
+    /** the name of the selected database */
     private string $dbname;
 
-    /**
-     * port to connect to
-     */
+    /** port to connect to */
     private ?int $port;
 
-    /**
-     * charset to use to connect
-     */
+    /** charset to use to connect */
     private string $charset;
 
-    /**
-     * collation to use to connect
-     */
+    /** collation to use to connect */
     private string $collation;
 
-    /**
-     * the last statement from the query
-     */
+    /** the last statement from the query */
     private \mysqli_stmt | false $stmt;
 
-    /**
-     * the last query that was executed
-     */
+    /** the last query that was executed */
     private string $lastquery = "";
 
 
