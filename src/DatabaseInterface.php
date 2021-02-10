@@ -33,7 +33,6 @@ interface DatabaseInterface
      * @param           int|null        $port           port to use to connect
      * @param           string          $charset        charset to use for the database connection
      * @param           string          $collation      collation to use for the database connection
-     * @return          void
      */
     public function connect(
         string $host,
@@ -51,7 +50,6 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      */
     public function reconnect() : void;
 
@@ -61,7 +59,6 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
       */
     public function close() : void;
 
@@ -72,7 +69,6 @@ interface DatabaseInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           bool            $mode           the new mode to set
-     * @return          void
      */
     public function autocommit(bool $mode) : void;
 
@@ -82,7 +78,6 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      */
     public function begin_transaction() : void;
 
@@ -92,7 +87,6 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      */
     public function commit() : void;
 
@@ -102,7 +96,6 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      */
     public function rollback() : void;
 
@@ -114,7 +107,6 @@ interface DatabaseInterface
      * @copyright       David Lienhard
      * @param           string              $query        the sql query
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
-     * @return          \DavidLienhard\Database\ResultInterface|bool
       */
     public function query(
         string $query,
@@ -128,7 +120,6 @@ interface DatabaseInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
-     * @return          \DavidLienhard\Database\ResultInterface|bool
       */
     public function execute(ParameterInterface ...$parameters) : ResultInterface | bool;
 
@@ -138,7 +129,6 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int
      */
     public function affected_rows() : int;
 
@@ -149,7 +139,6 @@ interface DatabaseInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           string      $string      the string to escape
-     * @return          string
      */
     public function esc(string $string) : string;
 
@@ -159,7 +148,6 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int
      */
     public function errno() : int;
 
@@ -169,7 +157,6 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          string
      */
     public function errstr() : string;
 
@@ -179,7 +166,6 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          float
      */
     public function getDbTime() : float;
 
@@ -189,7 +175,6 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int
      */
     public function getTotalQueries() : int;
 }

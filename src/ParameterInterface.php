@@ -29,14 +29,16 @@ interface ParameterInterface
      * @param           int|float|string|bool|null  $value  value of the parameter
      * @return          void
      */
-    public function __construct(string $type, int | float | string | bool | null $value);
+    public function __construct(
+        string $type,
+        int | float | string | bool | null $value
+    );
 
     /**
      * returns the type of this parameter
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
      * @copyright       David Lienhard
-     * @return          string
      */
     public function getType() : string;
 
@@ -45,7 +47,6 @@ interface ParameterInterface
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
      * @copyright       David Lienhard
-     * @return          string
      */
-    public function getValue();
+    public function getValue() : int | float | string | bool | null;
 }

@@ -11,6 +11,16 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database;
 
+use function microtime;
+use function ini_get;
+use function mysqli_report;
+use function count;
+use function implode;
+use function substr;
+use function str_replace;
+use function strlen;
+use function preg_replace;
+use function trim;
 use \DavidLienhard\Database\DatabaseInterface;
 use \DavidLienhard\Database\ParameterInterface;
 use \DavidLienhard\Database\Exception as DatabaseException;
@@ -122,7 +132,6 @@ class Mysqli implements DatabaseInterface
      * @param           int|null        $port           port to use to connect
      * @param           string          $charset        charset to use for the database connection
      * @param           string          $collation      collation to use for the database connection
-     * @return          void
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$host
      * @uses            self::$user
@@ -148,7 +157,7 @@ class Mysqli implements DatabaseInterface
         string $collation = "utf8mb4_unicode_ci"
     ) : void {
         try {
-            \mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);     // set mysqli to throw exceptions
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);      // set mysqli to throw exceptions
 
             $this->mysqli = new \mysqli(                                    // connect to database
                 $host,
@@ -159,8 +168,8 @@ class Mysqli implements DatabaseInterface
             );
 
             $this->isConnected = true;
-            $this->mysqli->set_charset($charset);                           // set charset
-            $this->query("SET NAMES '".$charset."' COLLATE '".$collation."'");                      // set charset / collation
+            $this->mysqli->set_charset($charset);                               // set charset
+            $this->query("SET NAMES '".$charset."' COLLATE '".$collation."'");  // set charset / collation
 
             $this->host = $host;
             $this->user = $user;
@@ -189,7 +198,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::connect()
      * @uses            self::$host
@@ -222,7 +230,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$client_info
      * @uses            self::$host_info
@@ -259,7 +266,6 @@ class Mysqli implements DatabaseInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           bool            $mode           the new mode to set
-     * @return          void
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
      * @uses            self::$dbTime
@@ -270,9 +276,9 @@ class Mysqli implements DatabaseInterface
         $this->checkConnected();
 
         try {
-            $dbStart = \microtime(true);
+            $dbStart = microtime(true);
             $result = $this->mysqli->autocommit($mode);
-            $this->dbTime = $this->dbTime + (\microtime(true) - $dbStart);
+            $this->dbTime = $this->dbTime + (microtime(true) - $dbStart);
 
             if ($result === false) {
                 throw new DatabaseException("unable to change autocommit mode");
@@ -292,7 +298,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
      * @uses            self::$dbTime
@@ -303,9 +308,9 @@ class Mysqli implements DatabaseInterface
         $this->checkConnected();
 
         try {
-            $dbStart = \microtime(true);
+            $dbStart = microtime(true);
             $result = $this->mysqli->begin_transaction();
-            $this->dbTime = $this->dbTime + (\microtime(true) - $dbStart);
+            $this->dbTime = $this->dbTime + (microtime(true) - $dbStart);
 
             if ($result === false) {
                 throw new DatabaseException("unable to start transaction to database");
@@ -325,7 +330,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
      * @uses            self::$dbTime
@@ -336,9 +340,9 @@ class Mysqli implements DatabaseInterface
         $this->checkConnected();
 
         try {
-            $dbStart = \microtime(true);
+            $dbStart = microtime(true);
             $result = $this->mysqli->commit();
-            $this->dbTime = $this->dbTime + (\microtime(true) - $dbStart);
+            $this->dbTime = $this->dbTime + (microtime(true) - $dbStart);
 
             if ($result === false) {
                 throw new DatabaseException("unable to commit transaction to database");
@@ -358,7 +362,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
      * @uses            self::$dbTime
@@ -369,9 +372,9 @@ class Mysqli implements DatabaseInterface
         $this->checkConnected();
 
         try {
-            $dbStart = \microtime(true);
+            $dbStart = microtime(true);
             $result = $this->mysqli->rollback();
-            $this->dbTime = $this->dbTime + (\microtime(true) - $dbStart);
+            $this->dbTime = $this->dbTime + (microtime(true) - $dbStart);
 
             if ($result === false) {
                 throw new DatabaseException("unable to rollback transaction to database");
@@ -393,7 +396,6 @@ class Mysqli implements DatabaseInterface
      * @copyright       David Lienhard
      * @param           string              $query       the sql query
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
-     * @return          \DavidLienhard\Database\MysqliResult | bool
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$lastquery
      * @uses            self::execute()
@@ -408,7 +410,7 @@ class Mysqli implements DatabaseInterface
     {
         $this->checkConnected();
 
-        $dbStart = \microtime(true);
+        $dbStart = microtime(true);
 
         if ($query === $this->lastquery && count($parameters) !== 0) {
             return $this->execute(...$parameters);
@@ -451,7 +453,7 @@ class Mysqli implements DatabaseInterface
                 $this->lastquery = $query;
             }//end if
 
-            $this->dbTime = $this->dbTime + (\microtime(true) - $dbStart);
+            $this->dbTime = $this->dbTime + (microtime(true) - $dbStart);
             $this->totalQueries++;
 
             return $result;
@@ -463,7 +465,7 @@ class Mysqli implements DatabaseInterface
                 $message .= implode(
                     "\n\t",
                     array_map(
-                        fn ($p) => " - ".$p->getType().": '".\substr(\str_replace("\r\n", " ", (string) $p->getValue()), 0, 100)."'",
+                        fn ($p) => " - ".$p->getType().": '".substr(str_replace("\r\n", " ", (string) $p->getValue()), 0, 100)."'",
                         $parameters
                     )
                 );
@@ -485,7 +487,6 @@ class Mysqli implements DatabaseInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
-     * @return          \DavidLienhard\Database\MysqliResult | bool
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$stmt
      * @uses            self::checkConnected()
@@ -524,7 +525,7 @@ class Mysqli implements DatabaseInterface
                 $message .= implode(
                     "\n\t",
                     array_map(
-                        fn ($p) => " - ".$p->getType().": '".\substr(\str_replace("\r\n", " ", (string) $p->getValue()), 0, 100)."'",
+                        fn ($p) => " - ".$p->getType().": '".substr(str_replace("\r\n", " ", (string) $p->getValue()), 0, 100)."'",
                         $parameters
                     )
                 );
@@ -541,81 +542,10 @@ class Mysqli implements DatabaseInterface
 
 
     /**
-     * Counts the rows of a result resource
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       t-error.ch
-     * @param           \mysqli_result  $result      the result resource
-     * @return          int
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
-     * @uses            self::checkConnected()
-     */
-    public function num_rows($result) : int
-    {
-        $this->checkConnected();
-
-        try {
-            return $result->num_rows;
-        } catch (\mysqli_sql_exception $e) {
-            throw new DatabaseException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e
-            );
-        }
-    }
-
-
-    /**
-     * Gets a field out of a result resource
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       t-error.ch
-     * @param           \mysqli_result  $result      the result resource
-     * @param           int             $row         the row
-     * @param           string          $field       the column
-     * @return          string|int
-     * @throws          \Exception if the required field is does not exist
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
-     * @uses            self::checkConnected()
-     */
-    public function result($result, int $row, string $field)
-    {
-        $this->checkConnected();
-
-        try {
-            $result->data_seek($row);
-            $dataRow = $result->fetch_assoc();
-
-            if ($dataRow === null) {
-                throw new \Exception(
-                    "unable to fetch assoc array"
-                );
-            }
-
-            if (!array_key_exists($field, $dataRow)) {
-                throw new \Exception(
-                    "field '".$field."' does not exist"
-                );
-            }
-
-            return $dataRow[$field];
-        } catch (\mysqli_sql_exception $e) {
-            throw new DatabaseException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e
-            );
-        }//end if
-    }
-
-
-    /**
      * check if the connection to the server is still open
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
      * @uses            self::checkConnected()
@@ -644,7 +574,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int | string
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
      * @uses            self::checkConnected()
@@ -670,7 +599,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
      * @uses            self::checkConnected()
@@ -697,7 +625,6 @@ class Mysqli implements DatabaseInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           string      $string      the string to escape
-     * @return          string
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
      * @uses            self::checkConnected()
@@ -723,7 +650,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          string
      * @uses            self::$client_info
      * @uses            self::checkConnected()
      */
@@ -740,7 +666,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          string
      * @uses            self::$host_info
      * @uses            self::checkConnected()
      */
@@ -757,7 +682,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int
      * @uses            self::$proto_info
      * @uses            self::checkConnected()
      */
@@ -774,7 +698,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          string
      * @uses            self::$server_info
      * @uses            self::checkConnected()
      */
@@ -792,7 +715,6 @@ class Mysqli implements DatabaseInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           string|null      $dbname         optional mysqli connection
-     * @return          int
      * @throws          \Exception if no database name is set
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$dbname
@@ -838,7 +760,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int
      * @uses            self::$mysqli
      * @uses            self::checkConnected()
      */
@@ -855,7 +776,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          string
      * @uses            self::$mysqli
      * @uses            self::checkConnected()
      */
@@ -873,12 +793,11 @@ class Mysqli implements DatabaseInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           string      $value          value to format as string
-     * @return          string
      */
     private static function formatParamter(string $value) : string
     {
         $value = preg_replace("/\s\s+/", " ", $value) ?? $value;
-        return \trim(\substr($value, 0, 100));
+        return trim(substr($value, 0, 100));
     }
 
 
@@ -887,7 +806,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      * @uses            self::$isConnected
      */
     private function checkConnected() : void
@@ -903,7 +821,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          float
      */
     public function getDbTime() : float
     {
@@ -916,7 +833,6 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int
      */
     public function getTotalQueries() : int
     {

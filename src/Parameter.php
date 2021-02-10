@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database;
 
+use function in_array;
 use DavidLienhard\Database\ParameterInterface;
 
 /**
@@ -22,18 +23,6 @@ use DavidLienhard\Database\ParameterInterface;
  */
 class Parameter implements ParameterInterface
 {
-    /**
-     * type of the parameter
-     * @var     string      $type
-     */
-    private $type;
-
-    /**
-     * value of the parameter
-     * @var     mixed       $value
-     */
-    private $value;
-
     /**
      * sets the parameters of this object
      *
@@ -46,14 +35,11 @@ class Parameter implements ParameterInterface
      * @uses            self::$type
      * @uses            self::$value
      */
-    public function __construct(string $type, int | float | string | bool | null $value)
+    public function __construct(private string $type, private int | float | string | bool | null $value)
     {
         if (!in_array($type, [ "i", "s", "d", "b"], true)) {
             throw new \InvalidArgumentException("type must be i, s, d or b. '".$type."' given");
         }
-
-        $this->type = $type;
-        $this->value = $value;
     }
 
     /**
@@ -61,7 +47,6 @@ class Parameter implements ParameterInterface
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
      * @copyright       David Lienhard
-     * @return          string
      * @uses            self::$type
      */
     public function getType() : string
@@ -74,10 +59,9 @@ class Parameter implements ParameterInterface
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
      * @copyright       David Lienhard
-     * @return          mixed
      * @uses            self::$value
      */
-    public function getValue()
+    public function getValue() : int | float | string | bool | null
     {
         return $this->value;
     }

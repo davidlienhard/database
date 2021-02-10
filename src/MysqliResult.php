@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database;
 
+use function array_key_exists;
 use \DavidLienhard\Database\ResultInterface;
 use \DavidLienhard\Database\Exception as DatabaseException;
 
@@ -15,7 +16,6 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           \mysqli_result      $result      the result resource
-     * @return          void
      */
     public function __construct(public \mysqli_result $result)
     {
@@ -26,7 +26,7 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array|null
+     * @return          mixed[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_assoc() : ?array
@@ -47,7 +47,7 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array
+     * @return          mixed[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row_assoc() : array
@@ -75,7 +75,7 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           int                 $resulttype     the type of the result
-     * @return          array|null
+     * @return          mixed[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_array(int $resulttype = MYSQLI_BOTH) : ?array
@@ -96,7 +96,6 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function num_rows() : int
@@ -117,7 +116,7 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array|null
+     * @return          mixed[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row() : ?array
@@ -139,7 +138,7 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           int                 $resulttype     type of array to return
-     * @return          array
+     * @return          mixed[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_all(int $resulttype = MYSQLI_NUM) : array
@@ -161,7 +160,6 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           int             $offset      the row to jump
-     * @return          bool
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function data_seek(int $offset) : bool
@@ -182,13 +180,11 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      */
     public function free() : void
     {
         try {
             $this->result->free();
-            return;
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
@@ -205,7 +201,6 @@ class MysqliResult implements ResultInterface
      * @copyright       David Lienhard
      * @param           int             $row         the row
      * @param           string          $field       the column
-     * @return          string|int|float|null
      * @throws          \Exception if the required field is does not exist
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */

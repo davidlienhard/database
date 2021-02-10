@@ -12,7 +12,6 @@ interface ResultInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           \mysqli_result      $result      the result resource
-     * @return          array|null
      */
     public function __construct(\mysqli_result $result);
 
@@ -21,7 +20,7 @@ interface ResultInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array|null
+     * @return          mixed[]
      */
     public function fetch_assoc() : ?array;
 
@@ -30,7 +29,7 @@ interface ResultInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array
+     * @return          mixed[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row_assoc() : array;
@@ -41,7 +40,7 @@ interface ResultInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           int                 $resulttype     the type of the result
-     * @return          array|null
+     * @return          mixed[]|null
      */
     public function fetch_array(int $resulttype = MYSQLI_BOTH) : ?array;
 
@@ -50,7 +49,6 @@ interface ResultInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int
      */
     public function num_rows() : int;
 
@@ -59,7 +57,7 @@ interface ResultInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array|null
+     * @return          mixed[]|null
      */
     public function fetch_row() : ?array;
 
@@ -69,7 +67,7 @@ interface ResultInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           int                 $resulttype     type of array to return
-     * @return          array
+     * @return          mixed[]
      */
     public function fetch_all(int $resulttype = MYSQLI_NUM) : array;
 
@@ -79,7 +77,6 @@ interface ResultInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           int             $offset      the row to jump
-     * @return          bool
      */
     public function data_seek(int $offset) : bool;
 
@@ -88,7 +85,6 @@ interface ResultInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      */
     public function free() : void;
 

@@ -25,51 +25,44 @@ class Stub implements DatabaseInterface
 {
     /**
      * host to connect to
-     * @var     string
      */
-    private $host;
+    private string $host;
 
     /**
      * username to use to connect
-     * @var     string
      */
-    private $user;
+    private string $user;
 
     /**
      * password to use to connect
-     * @var     string
      */
-    private $pass;
+    private string $pass;
 
     /**
      * the name of the selected database
-     * @var     string
      */
-    private $dbname;
+    private string $dbname;
 
     /**
      * port to connect to
-     * @var     int|null
      */
-    private $port;
+    private ?int $port;
 
     /**
      * charset to use to connect
-     * @var     string
      */
-    private $charset;
+    private string $charset;
 
     /**
      * collation to use to connect
-     * @var     string
      */
-    private $collation;
+    private string $collation;
 
     /**
      * the payload to use in the config
-     * @var     array
+     * @var     mixed[]
      */
-    private $payload = [];
+    private array $payload = [];
 
     /**
      * connects to the database
@@ -90,7 +83,6 @@ class Stub implements DatabaseInterface
      * @uses            self::$port
      * @uses            self::$charset
      * @uses            self::$collation
-     * @return          void
      */
     public function connect(
         string $host,
@@ -118,7 +110,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::connect()
      * @uses            self::$host
@@ -149,7 +140,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      */
     public function close() : void
     {
@@ -163,7 +153,6 @@ class Stub implements DatabaseInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           bool            $mode           the new mode to set
-     * @return          void
      */
     public function autocommit(bool $mode) : void
     {
@@ -176,7 +165,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      */
     public function begin_transaction() : void
     {
@@ -189,7 +177,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      */
     public function commit() : void
     {
@@ -202,7 +189,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          void
      */
     public function rollback() : void
     {
@@ -244,7 +230,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int
      */
     public function insert_id() : int
     {
@@ -257,7 +242,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int
      */
     public function affected_rows() : int
     {
@@ -270,12 +254,11 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @param           string      $str         the string to escape
-     * @return          string
+     * @param           string      $string      the string to escape
      */
-    public function esc($str) : string
+    public function esc(string $string) : string
     {
-        return $str;
+        return $string;
     }
 
 
@@ -284,7 +267,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          string
      */
     public function client_info() : string
     {
@@ -297,7 +279,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          string
      */
     public function host_info() : string
     {
@@ -310,7 +291,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int
      */
     public function proto_info() : int
     {
@@ -323,7 +303,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          string
      */
     public function server_info() : string
     {
@@ -337,7 +316,6 @@ class Stub implements DatabaseInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           string|null     $dbname         optional mysqli connection
-     * @return          int
      */
     public function size(?string $dbname = null) : int
     {
@@ -350,7 +328,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int
      */
     public function errno() : int
     {
@@ -363,7 +340,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          string
      */
     public function errstr() : string
     {
@@ -375,8 +351,7 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @param           array           $payload        the payload to add
-     * @return          void
+     * @param           mixed[]         $payload        the payload to add
      */
     public function addPayload(array $payload) : void
     {
@@ -388,7 +363,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          float
      */
     public function getDbTime() : float
     {
@@ -400,7 +374,6 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
-     * @return          int
      */
     public function getTotalQueries() : int
     {
