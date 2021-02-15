@@ -25,7 +25,7 @@
         "phpunit/phpunit": "^9",
         "squizlabs/php_codesniffer": "^3",
         "dancryer/php-docblock-checker": "^1",
-        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan": "^0",
         "slevomat/coding-standard": "^6.4"
     },
     "autoload": {
