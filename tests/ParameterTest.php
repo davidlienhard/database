@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace DavidLienhard;
 
-require_once dirname(__DIR__) . "/src/Parameter.php";
-require_once dirname(__DIR__) . "/src/ParameterInterface.php";
+require_once dirname(__DIR__)."/src/Parameter.php";
+require_once dirname(__DIR__)."/src/ParameterInterface.php";
 
 use \PHPUnit\Framework\TestCase;
 use \DavidLienhard\Database\Parameter;
