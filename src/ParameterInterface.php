@@ -4,7 +4,7 @@
  *
  * @package         tourBase
  * @subpackage      Core\Database
- * @author          David Lienhard <david@t-error.ch>
+ * @author          David Lienhard <david@lienhard.win>
  * @copyright       tourasia
  */
 
@@ -15,7 +15,7 @@ namespace DavidLienhard\Database;
 /**
  * interface to set parameters for a database query
  *
- * @author          David Lienhard <david@t-error.ch>
+ * @author          David Lienhard <david@lienhard.win>
  * @copyright       tourasia
  */
 interface ParameterInterface
@@ -24,19 +24,21 @@ interface ParameterInterface
      * sets the parameters of this object
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
-     * @param           string          $type           type of the parameter (can be i, s, d or d)
-     * @param           mixed           $value          value of the parameter
+     * @copyright       David Lienhard
+     * @param           string                      $type   type of the parameter (can be i, s, d or b)
+     * @param           int|float|string|bool|null  $value  value of the parameter
      * @return          void
      */
-    public function __construct(string $type, $value);
+    public function __construct(
+        string $type,
+        int | float | string | bool | null $value
+    );
 
     /**
      * returns the type of this parameter
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
-     * @return          string
+     * @copyright       David Lienhard
      */
     public function getType() : string;
 
@@ -44,8 +46,7 @@ interface ParameterInterface
      * returns the value of this parameter
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
-     * @return          string
+     * @copyright       David Lienhard
      */
-    public function getValue();
+    public function getValue() : int | float | string | bool | null;
 }

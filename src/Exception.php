@@ -21,5 +21,4 @@ namespace DavidLienhard\Database;
  */
 class Exception extends \Exception
 {
-    // do nothing
 }

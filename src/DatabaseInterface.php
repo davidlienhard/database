@@ -3,7 +3,7 @@
  * contains a custom database interface class
  *
  * @package         davidlienhard/database
- * @author          David Lienhard <david@t-error.ch>
+ * @author          David Lienhard <david@lienhard.win>
  * @copyright       tourasia
  */
 
@@ -16,7 +16,7 @@ use \DavidLienhard\Database\ParameterInterface;
 /**
  * defines an interface to use for database connections
  *
- * @author          David Lienhard <david@t-error.ch>
+ * @author          David Lienhard <david@lienhard.win>
  * @copyright       tourasia
  */
 interface DatabaseInterface
@@ -24,8 +24,8 @@ interface DatabaseInterface
     /**
      * connects to the database
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string          $host           the hostname to connect
      * @param           string          $user           the username
      * @param           string          $pass           the password
@@ -33,7 +33,6 @@ interface DatabaseInterface
      * @param           int|null        $port           port to use to connect
      * @param           string          $charset        charset to use for the database connection
      * @param           string          $collation      collation to use for the database connection
-     * @return          bool
      */
     public function connect(
         string $host,
@@ -43,200 +42,112 @@ interface DatabaseInterface
         ?int $port = null,
         string $charset = "utf8mb4",
         string $collation = "utf8mb4_unicode_ci"
-    ) : bool;
+    ) : void;
 
 
     /**
      * reconnects to the database server
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       t-error.ch
-     * @return          bool
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
-    public function reconnect() : bool;
+    public function reconnect() : void;
 
 
     /**
      * closes the database connection
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          bool
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
       */
-    public function close() : bool;
+    public function close() : void;
 
 
     /**
      * changes the mode of autocommit
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      * @param           bool            $mode           the new mode to set
-     * @return          bool
      */
-    public function autocommit(bool $mode) : bool;
+    public function autocommit(bool $mode) : void;
 
 
     /**
      * Starts a transaction
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          bool
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
-    public function begin_transaction() : bool;
+    public function begin_transaction() : void;
 
 
     /**
      * Commits a transaction
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          bool
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
-    public function commit() : bool;
+    public function commit() : void;
 
 
     /**
      * Rolls a transaction back
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          bool
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
-    public function rollback() : bool;
+    public function rollback() : void;
 
 
     /**
      * Executes a query
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           string              $q           the sql query
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           string              $query        the sql query
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
-     * @return          \mysqli_result|bool
       */
-    public function query(string $q, ParameterInterface ...$parameters);
+    public function query(
+        string $query,
+        ParameterInterface ...$parameters
+    ) : ResultInterface | bool;
 
 
     /**
      * executes an already prepared statement
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
-     * @return          \mysqli_result|bool
       */
-    public function execute(ParameterInterface ...$parameters);
-
-
-    /**
-     * Counts the rows of a result resource
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           \mysqli_result      $result      the result resource
-     * @return          int
-     */
-    public function num_rows($result) : int;
-
-
-    /**
-     * Gets a field out of a result resource
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           \mysqli_result      $result      the result resource
-     * @param           int              $row         the row
-     * @param           string           $field       the column
-     * @return          string|int
-     */
-    public function result($result, int $row, string $field);
-
-
-    /**
-     * Frees the memory
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           \mysqli_result      $result      the result resource
-     * @return          void
-     */
-    public function free_result($result) : void;
-
-
-    /**
-     * Creates an array out of a result resource
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           \mysqli_result      $result         the result resource
-     * @param           int                 $type           the type of the result
-     * @return          array|null
-     */
-    public function fetch_array($result, int $type = MYSQLI_BOTH);
-
-
-    /**
-     * Creates an associative array out of a result resource
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           \mysqli_result      $result      the result resource
-     * @return          array|null
-     */
-    public function fetch_assoc($result);
-
-
-    /**
-     * Creates an enumerated array out of a result resource
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           \mysqli_result      $result      the result resource
-     * @return          array|null
-     */
-    public function fetch_row($result);
-
-
-    /**
-     * returns the id of the last inserted row
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          int
-     */
-    public function insert_id() : int;
-
-
-    /**
-     * returns the id of the last inserted row
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           \mysqli_result      $result      the result resource
-     * @param           int                 $row         the row to jump
-     * @return          bool
-     */
-    public function data_seek($result, int $row) : bool;
+    public function execute(ParameterInterface ...$parameters) : ResultInterface | bool;
 
 
     /**
      * returns the number of affected rows
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          int
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
     public function affected_rows() : int;
 
 
     /**
+     * escapes a string
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           string      $string      the string to escape
+     */
+    public function escape(string $string) : string;
+
+
+    /**
      * returns the latest error number
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          int
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
     public function errno() : int;
 
@@ -244,9 +155,26 @@ interface DatabaseInterface
     /**
      * returns the latest error string
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          string
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
     public function errstr() : string;
+
+
+    /**
+     * returns the time used by the database
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function getDbTime() : float;
+
+
+    /**
+     * returns the number of queries executed
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function getTotalQueries() : int;
 }

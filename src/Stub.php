@@ -23,59 +23,38 @@ use \DavidLienhard\Database\ParameterInterface;
  */
 class Stub implements DatabaseInterface
 {
-    /**
-     * host to connect to
-     * @var         string
-     */
-    private $host;
+    /** host to connect to */
+    private string $host;
 
-    /**
-     * username to use to connect
-     * @var         string
-     */
-    private $user;
+    /** username to use to connect */
+    private string $user;
 
-    /**
-     * password to use to connect
-     * @var         string
-     */
-    private $pass;
+    /** password to use to connect */
+    private string $pass;
 
-    /**
-     * the name of the selected database
-     * @var         string
-     */
-    private $dbname;
+    /** the name of the selected database */
+    private string $dbname;
 
-    /**
-     * port to connect to
-     * @var         int|null
-     */
-    private $port;
+    /** port to connect to */
+    private ?int $port;
 
-    /**
-     * charset to use to connect
-     * @var         string
-     */
-    private $charset;
+    /** charset to use to connect */
+    private string $charset;
 
-    /**
-     * collation to use to connect
-     * @var         string
-     */
-    private $collation;
+    /** collation to use to connect */
+    private string $collation;
 
     /**
      * the payload to use in the config
-     * @var     array   $payload
+     * @var     mixed[]
      */
-    private $payload = [ ];
+    private array $payload = [];
 
     /**
      * connects to the database
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string          $host           the hostname to connect
      * @param           string          $user           the username
      * @param           string          $pass           the password
@@ -90,7 +69,6 @@ class Stub implements DatabaseInterface
      * @uses            self::$port
      * @uses            self::$charset
      * @uses            self::$collation
-     * @return          bool
      */
     public function connect(
         string $host,
@@ -100,7 +78,7 @@ class Stub implements DatabaseInterface
         ?int $port = null,
         string $charset = "utf8mb4_unicode_ci",
         string $collation = "utf8"
-    ) : bool {
+    ) : void {
         $this->host = $host;
         $this->user = $user;
         $this->pass = $pass;
@@ -109,16 +87,15 @@ class Stub implements DatabaseInterface
         $this->charset = $charset;
         $this->collation = $collation;
 
-        return true;
+        return;
     }
 
 
     /**
      * reconnects to the database server
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       t-error.ch
-     * @return          bool
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::connect()
      * @uses            self::$host
@@ -130,11 +107,9 @@ class Stub implements DatabaseInterface
      * @uses            self::$collation
      * @uses            self::checkConnected()
      */
-    public function reconnect() : bool
+    public function reconnect() : void
     {
-        $this->checkConnected();
-
-        return $this->connect(
+        $this->connect(
             $this->host,
             $this->user,
             $this->pass,
@@ -149,79 +124,74 @@ class Stub implements DatabaseInterface
     /**
      * closes the database connection
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          bool
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
-    public function close() : bool
+    public function close() : void
     {
-        return true;
+        return;
     }
 
 
     /**
      * changes the mode of autocommit
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      * @param           bool            $mode           the new mode to set
-     * @return          bool
      */
-    public function autocommit(bool $mode) : bool
+    public function autocommit(bool $mode) : void
     {
-        return true;
+        return;
     }
 
 
     /**
      * Starts a transaction
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          bool
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
-    public function begin_transaction() : bool
+    public function begin_transaction() : void
     {
-        return true;
+        return;
     }
 
 
     /**
      * Commits a transaction
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          bool
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
-    public function commit() : bool
+    public function commit() : void
     {
-        return true;
+        return;
     }
 
 
     /**
      * Rolls a transaction back
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          bool
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
-    public function rollback() : bool
+    public function rollback() : void
     {
-        return true;
+        return;
     }
 
 
     /**
      * Executes a query
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           string              $q           the sql query
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           string              $query        the sql query
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
-     * @return          \mysqli_result|bool
+     * @return          \DavidLienhard\Database\ResultInterface|bool
      */
-    public function query(string $q, ParameterInterface ...$parameters)
+    public function query(string $query, ParameterInterface ...$parameters) : ResultInterface | bool
     {
         return true;
     }
@@ -230,110 +200,22 @@ class Stub implements DatabaseInterface
     /**
      * executes an already prepared statement
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
-     * @return          \mysqli_result|bool
+     * @return          \DavidLienhard\Database\ResultInterface|bool
      */
-    public function execute(ParameterInterface ...$parameters)
+    public function execute(ParameterInterface ...$parameters) : ResultInterface | bool
     {
         return true;
     }
 
 
     /**
-     * Counts the rows of a result resource
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           \mysqli_result   $result      the result resource
-     * @return          int
-     */
-    public function num_rows($result) : int
-    {
-        return count($this->payload);
-    }
-
-
-    /**
-     * Gets a field out of a result resource
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           \mysqli_result   $result      the result resource
-     * @param           int              $row         the row
-     * @param           string           $field       the column
-     * @return          string|int
-     */
-    public function result($result, int $row, string $field)
-    {
-        return "result";
-    }
-
-
-    /**
-     * Frees the memory
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           \mysqli_result      $result      the result resource
-     * @return          void
-    */
-    public function free_result($result) : void
-    {
-        return;
-    }
-
-
-    /**
-     * Creates an array out of a result resource
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           \mysqli_result      $result         the result resource
-     * @param           int                 $type           the type of the result
-     * @return          array|null
-     */
-    public function fetch_array($result, int $type = MYSQLI_BOTH)
-    {
-        return $this->payload[0] ?? $this->payload;
-    }
-
-
-    /**
-     * Creates an associative array out of a result resource
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           \mysqli_result      $result      the result resource
-     * @return          array|null
-     */
-    public function fetch_assoc($result)
-    {
-        return $this->payload[0] ?? $this->payload;
-    }
-
-
-    /**
-     * Creates an enumerated array out of a result resource
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           \mysqli_result      $result      the result resource
-     * @return          array|null
-     */
-    public function fetch_row($result)
-    {
-        return $this->payload[0] ?? $this->payload;
-    }
-
-
-    /**
      * returns the id of the last inserted row
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          int
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
     public function insert_id() : int
     {
@@ -342,26 +224,10 @@ class Stub implements DatabaseInterface
 
 
     /**
-     * returns the id of the last inserted row
-     *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           \mysqli_result   $result      the result resource
-     * @param           int              $row         the row to jump
-     * @return          bool
-     */
-    public function data_seek($result, int $row) : bool
-    {
-        return true;
-    }
-
-
-    /**
      * returns the number of affected rows
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          int
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
     public function affected_rows() : int
     {
@@ -372,23 +238,21 @@ class Stub implements DatabaseInterface
     /**
      * escapes a string
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           string      $str         the string to escape
-     * @return          string
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           string      $string      the string to escape
      */
-    public function esc($str) : string
+    public function escape(string $string) : string
     {
-        return $str;
+        return $string;
     }
 
 
     /**
      * returns the client info
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          string
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
     public function client_info() : string
     {
@@ -399,9 +263,8 @@ class Stub implements DatabaseInterface
     /**
      * returns the host info
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          string
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
     public function host_info() : string
     {
@@ -412,22 +275,20 @@ class Stub implements DatabaseInterface
     /**
      * returns the proto info
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          string
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
-    public function proto_info() : string
+    public function proto_info() : int
     {
-        return "proto info";
+        return 1;
     }
 
 
     /**
      * returns the server info
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          string
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
     public function server_info() : string
     {
@@ -438,12 +299,11 @@ class Stub implements DatabaseInterface
     /**
      * returns the size of the db
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           string      $dbname         optional mysqli connection
-     * @return          int
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           string|null     $dbname         optional mysqli connection
      */
-    public function size($dbname = false) : int
+    public function size(?string $dbname = null) : int
     {
         return 1;
     }
@@ -452,9 +312,8 @@ class Stub implements DatabaseInterface
     /**
      * returns the latest error number
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          int
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
     public function errno() : int
     {
@@ -465,9 +324,8 @@ class Stub implements DatabaseInterface
     /**
      * returns the latest error string
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @return          string
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
      */
     public function errstr() : string
     {
@@ -477,13 +335,34 @@ class Stub implements DatabaseInterface
     /**
      * adds payload to the object
      *
-     * @author          David Lienhard <david@t-error.ch>
-     * @copyright       tourasia
-     * @param           array           $payload        the payload to add
-     * @return          void
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           mixed[]         $payload        the payload to add
      */
     public function addPayload(array $payload) : void
     {
         $this->payload = $payload;
+    }
+
+    /**
+     * returns the time used by the database
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function getDbTime() : float
+    {
+        return 1;
+    }
+
+    /**
+     * returns the number of queries executed
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function getTotalQueries() : int
+    {
+        return 1;
     }
 }
