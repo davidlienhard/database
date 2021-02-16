@@ -212,6 +212,18 @@ class Stub implements DatabaseInterface
 
 
     /**
+     * check if the connection to the server is still open
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function ping() : void
+    {
+        return;
+    }
+
+
+    /**
      * returns the id of the last inserted row
      *
      * @author          David Lienhard <david@lienhard.win>
