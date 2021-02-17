@@ -125,6 +125,24 @@ interface DatabaseInterface
 
 
     /**
+     * check if the connection to the server is still open
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function ping() : void;
+
+
+    /**
+     * returns the id of the last inserted row
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function insert_id() : int | string;
+
+
+    /**
      * returns the number of affected rows
      *
      * @author          David Lienhard <david@lienhard.win>
@@ -141,6 +159,50 @@ interface DatabaseInterface
      * @param           string      $string      the string to escape
      */
     public function escape(string $string) : string;
+
+
+    /**
+     * returns the client info
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     * @uses            self::$client_info
+     * @uses            self::checkConnected()
+     */
+    public function client_info() : string;
+
+
+    /**
+     * returns the host info
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     * @uses            self::$host_info
+     * @uses            self::checkConnected()
+     */
+    public function host_info() : string;
+
+
+    /**
+     * returns the proto info
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     * @uses            self::$proto_info
+     * @uses            self::checkConnected()
+     */
+    public function proto_info() : int;
+
+
+    /**
+     * returns the server info
+     *
+     * @author          David Lienhard <david@lienhard.win>
+     * @copyright       David Lienhard
+     * @uses            self::$server_info
+     * @uses            self::checkConnected()
+     */
+    public function server_info() : string;
 
 
     /**
