@@ -11,14 +11,24 @@ use \DavidLienhard\Database\Exception as DatabaseException;
 class MysqliResult implements ResultInterface
 {
     /**
+     * result returned by mysqli
+     */
+    private \mysqli_result $result;
+
+    /**
      * initiates the new object
      *
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           \mysqli_result      $result      the result resource
      */
-    public function __construct(public \mysqli_result $result)
+    public function __construct(\mysqli_result | array $result)
     {
+        if (!($result instanceof \mysqli_result)) {
+            throw new \TypeError("parameter \$result must be type of \mysqli_result. is '".gettype($result)."'");
+        }
+
+        $this->result = $result;
     }
 
     /**

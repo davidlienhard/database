@@ -13,6 +13,7 @@ namespace DavidLienhard\Database;
 
 use \DavidLienhard\Database\DatabaseInterface;
 use \DavidLienhard\Database\ParameterInterface;
+use \DavidLienhard\Database\StubResult;
 
 /**
  * stub for \DavidLienhard\Database\DatabaseInterface
@@ -193,7 +194,9 @@ class Stub implements DatabaseInterface
      */
     public function query(string $query, ParameterInterface ...$parameters) : ResultInterface | bool
     {
-        return true;
+        return strtolower(substr(trim($query), 0, 6)) === "select"
+            ? new StubResult($this->payload)
+            : true;
     }
 
 
