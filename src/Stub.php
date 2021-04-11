@@ -190,7 +190,6 @@ class Stub implements DatabaseInterface
      * @copyright       David Lienhard
      * @param           string              $query        the sql query
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
-     * @return          \DavidLienhard\Database\ResultInterface|bool
      */
     public function query(string $query, ParameterInterface ...$parameters) : ResultInterface | bool
     {
@@ -206,7 +205,6 @@ class Stub implements DatabaseInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
-     * @return          \DavidLienhard\Database\ResultInterface|bool
      */
     public function execute(ParameterInterface ...$parameters) : ResultInterface | bool
     {

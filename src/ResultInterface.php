@@ -95,7 +95,6 @@ interface ResultInterface
      * @copyright       David Lienhard
      * @param           int             $row         the row
      * @param           string          $field       the column
-     * @return          string|int|float|null
      */
     public function result(int $row, string $field) : string | int | float | null;
 }
