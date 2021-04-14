@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace tourBaseTests\Tests\Stubs;
 
-use \PHPUnit\Framework\TestCase;
-use \DavidLienhard\Database\Parameter as DBParam;
-use \DavidLienhard\Database\Stub as Database;
-use \DavidLienhard\Database\DatabaseInterface;
+use DavidLienhard\Database\DatabaseInterface;
+use DavidLienhard\Database\Parameter as DBParam;
+use DavidLienhard\Database\Stub as Database;
+use PHPUnit\Framework\TestCase;
 
 require_once dirname(__DIR__)."/src/Stub.php";
 
@@ -19,10 +19,7 @@ class DatabaseStubTest extends TestCase
     */
     public function testCanBeCreated(): void
     {
-        $this->assertInstanceOf(
-            Database::class,
-            new Database
-        );
+        $this->assertInstanceOf(Database::class, new Database);
     }
 
     /**

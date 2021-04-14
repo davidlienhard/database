@@ -11,19 +11,19 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database;
 
-use function microtime;
-use function ini_get;
-use function mysqli_report;
+use DavidLienhard\Database\DatabaseInterface;
+use DavidLienhard\Database\Exception as DatabaseException;
+use DavidLienhard\Database\ParameterInterface;
 use function count;
 use function implode;
-use function substr;
+use function ini_get;
+use function microtime;
+use function mysqli_report;
+use function preg_replace;
 use function str_replace;
 use function strlen;
-use function preg_replace;
+use function substr;
 use function trim;
-use \DavidLienhard\Database\DatabaseInterface;
-use \DavidLienhard\Database\ParameterInterface;
-use \DavidLienhard\Database\Exception as DatabaseException;
 
 /**
  * Methods for a comfortable use of the {@link http://www.mysql.com mySQL} database
@@ -71,7 +71,7 @@ class Mysqli implements DatabaseInterface
     private string $dbname;
 
     /** port to connect to */
-    private ?int $port;
+    private int|null $port;
 
     /** charset to use to connect */
     private string $charset;
@@ -80,7 +80,7 @@ class Mysqli implements DatabaseInterface
     private string $collation;
 
     /** the last statement from the query */
-    private \mysqli_stmt | false $stmt;
+    private \mysqli_stmt|false $stmt;
 
     /** the last query that was executed */
     private string $lastquery = "";
@@ -118,7 +118,7 @@ class Mysqli implements DatabaseInterface
         string $user,
         string $pass,
         string $dbname,
-        ?int $port = null,
+        int|null $port = null,
         string $charset = "utf8mb4",
         string $collation = "utf8mb4_unicode_ci"
     ) : void {
@@ -244,7 +244,7 @@ class Mysqli implements DatabaseInterface
         try {
             $dbStart = microtime(true);
             $result = $this->mysqli->autocommit($mode);
-            $this->dbTime = $this->dbTime + (microtime(true) - $dbStart);
+            $this->dbTime = $this->dbTime + microtime(true) - $dbStart;
 
             if ($result === false) {
                 throw new DatabaseException("unable to change autocommit mode");
@@ -276,7 +276,7 @@ class Mysqli implements DatabaseInterface
         try {
             $dbStart = microtime(true);
             $result = $this->mysqli->begin_transaction();
-            $this->dbTime = $this->dbTime + (microtime(true) - $dbStart);
+            $this->dbTime = $this->dbTime + microtime(true) - $dbStart;
 
             if ($result === false) {
                 throw new DatabaseException("unable to start transaction to database");
@@ -308,7 +308,7 @@ class Mysqli implements DatabaseInterface
         try {
             $dbStart = microtime(true);
             $result = $this->mysqli->commit();
-            $this->dbTime = $this->dbTime + (microtime(true) - $dbStart);
+            $this->dbTime = $this->dbTime + microtime(true) - $dbStart;
 
             if ($result === false) {
                 throw new DatabaseException("unable to commit transaction to database");
@@ -340,7 +340,7 @@ class Mysqli implements DatabaseInterface
         try {
             $dbStart = microtime(true);
             $result = $this->mysqli->rollback();
-            $this->dbTime = $this->dbTime + (microtime(true) - $dbStart);
+            $this->dbTime = $this->dbTime + microtime(true) - $dbStart;
 
             if ($result === false) {
                 throw new DatabaseException("unable to rollback transaction to database");
@@ -372,7 +372,7 @@ class Mysqli implements DatabaseInterface
      * @uses            self::$totalQueries
      * @uses            self::checkConnected()
      */
-    public function query(string $query, ParameterInterface ...$parameters) : MysqliResult | bool
+    public function query(string $query, ParameterInterface ...$parameters) : MysqliResult|bool
     {
         $this->checkConnected();
 
@@ -419,7 +419,7 @@ class Mysqli implements DatabaseInterface
                 $this->lastquery = $query;
             }//end if
 
-            $this->dbTime = $this->dbTime + (microtime(true) - $dbStart);
+            $this->dbTime = $this->dbTime + microtime(true) - $dbStart;
             $this->totalQueries++;
 
             return $result;
@@ -457,7 +457,7 @@ class Mysqli implements DatabaseInterface
      * @uses            self::$stmt
      * @uses            self::checkConnected()
      */
-    public function execute(ParameterInterface ...$parameters) : MysqliResult | bool
+    public function execute(ParameterInterface ...$parameters) : MysqliResult|bool
     {
         $this->checkConnected();
 
@@ -480,7 +480,7 @@ class Mysqli implements DatabaseInterface
             $stmt->execute();
             $result = $this->stmt->get_result();
 
-            return ($result instanceof \mysqli_result)
+            return $result instanceof \mysqli_result
                 ? new MysqliResult($result)
                 : $result;
         } catch (\mysqli_sql_exception $e) {
@@ -544,7 +544,7 @@ class Mysqli implements DatabaseInterface
      * @uses            self::$mysqli
      * @uses            self::checkConnected()
      */
-    public function insert_id() : int | string
+    public function insert_id() : int|string
     {
         $this->checkConnected();
 
@@ -686,7 +686,7 @@ class Mysqli implements DatabaseInterface
      * @uses            self::$dbname
      * @uses            self::checkConnected()
      */
-    public function size(?string $dbname = null) : int
+    public function size(string|null $dbname = null) : int
     {
         $this->checkConnected();
 
