@@ -37,7 +37,7 @@ class Stub implements DatabaseInterface
     private string $dbname;
 
     /** port to connect to */
-    private ?int $port;
+    private int|null $port;
 
     /** charset to use to connect */
     private string $charset;
@@ -76,7 +76,7 @@ class Stub implements DatabaseInterface
         string $user,
         string $pass,
         string $dbname,
-        ?int $port = null,
+        int|null $port = null,
         string $charset = "utf8mb4_unicode_ci",
         string $collation = "utf8"
     ) : void {
@@ -191,7 +191,7 @@ class Stub implements DatabaseInterface
      * @param           string              $query        the sql query
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
      */
-    public function query(string $query, ParameterInterface ...$parameters) : ResultInterface | bool
+    public function query(string $query, ParameterInterface ...$parameters) : ResultInterface|bool
     {
         return strtolower(substr(trim($query), 0, 6)) === "select"
             ? new StubResult($this->payload)
@@ -206,7 +206,7 @@ class Stub implements DatabaseInterface
      * @copyright       David Lienhard
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
      */
-    public function execute(ParameterInterface ...$parameters) : ResultInterface | bool
+    public function execute(ParameterInterface ...$parameters) : ResultInterface|bool
     {
         return true;
     }
@@ -316,7 +316,7 @@ class Stub implements DatabaseInterface
      * @copyright       David Lienhard
      * @param           string|null     $dbname         optional mysqli connection
      */
-    public function size(?string $dbname = null) : int
+    public function size(string|null $dbname = null) : int
     {
         return 1;
     }

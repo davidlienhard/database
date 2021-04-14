@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database;
 
+use DavidLienhard\Database\Exception as DatabaseException;
+use DavidLienhard\Database\ResultInterface;
 use function array_key_exists;
-use \DavidLienhard\Database\ResultInterface;
-use \DavidLienhard\Database\Exception as DatabaseException;
 
 class MysqliResult implements ResultInterface
 {
@@ -22,7 +22,7 @@ class MysqliResult implements ResultInterface
      * @copyright       David Lienhard
      * @param           \mysqli_result      $result      the result resource
      */
-    public function __construct(\mysqli_result | array $result)
+    public function __construct(\mysqli_result|array $result)
     {
         if (!($result instanceof \mysqli_result)) {
             throw new \TypeError("parameter \$result must be type of \mysqli_result. is '".gettype($result)."'");
@@ -39,7 +39,7 @@ class MysqliResult implements ResultInterface
      * @return          mixed[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_assoc() : ?array
+    public function fetch_assoc() : array|null
     {
         try {
             return $this->result->fetch_assoc();
@@ -88,7 +88,7 @@ class MysqliResult implements ResultInterface
      * @return          mixed[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_array(int $resulttype = MYSQLI_BOTH) : ?array
+    public function fetch_array(int $resulttype = MYSQLI_BOTH) : array|null
     {
         try {
             return $this->result->fetch_array($resulttype);
@@ -129,7 +129,7 @@ class MysqliResult implements ResultInterface
      * @return          mixed[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_row() : ?array
+    public function fetch_row() : array|null
     {
         try {
             return $this->result->fetch_row();
@@ -214,7 +214,7 @@ class MysqliResult implements ResultInterface
      * @throws          \Exception if the required field is does not exist
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function result(int $row, string $field) : string | int | float | null
+    public function result(int $row, string $field) : string|int|float|null
     {
         try {
             $this->data_seek($row);

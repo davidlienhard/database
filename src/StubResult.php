@@ -21,7 +21,7 @@ class StubResult implements ResultInterface
      * @copyright       David Lienhard
      * @param           \mysqli_result|mixed[]        $payload      payload to use
      */
-    public function __construct(\mysqli_result | array $payload)
+    public function __construct(\mysqli_result|array $payload)
     {
         if (!is_array($payload)) {
             throw new \TypeError("parameter \$payload must be type of array. is '".gettype($payload)."'");
@@ -38,7 +38,7 @@ class StubResult implements ResultInterface
      * @return          mixed[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_assoc() : ?array
+    public function fetch_assoc() : array|null
     {
         return $this->payload[0] ?? $this->payload;
     }
@@ -65,7 +65,7 @@ class StubResult implements ResultInterface
      * @return          mixed[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_array(int $resulttype = MYSQLI_BOTH) : ?array
+    public function fetch_array(int $resulttype = MYSQLI_BOTH) : array|null
     {
         return $this->payload[0] ?? $this->payload;
     }
@@ -90,7 +90,7 @@ class StubResult implements ResultInterface
      * @return          mixed[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_row() : ?array
+    public function fetch_row() : array|null
     {
         return $this->payload[0] ?? $this->payload;
     }
@@ -143,7 +143,7 @@ class StubResult implements ResultInterface
      * @throws          \Exception if the required field is does not exist
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function result(int $row, string $field) : string | int | float | null
+    public function result(int $row, string $field) : string|int|float|null
     {
         return "result";
     }

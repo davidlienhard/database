@@ -13,7 +13,7 @@ interface ResultInterface
      * @copyright       David Lienhard
      * @param           \mysqli_result|mixed[]      $result      the result resource
      */
-    public function __construct(\mysqli_result | array $result);
+    public function __construct(\mysqli_result|array $result);
 
     /**
      * Creates an associative array out of a result resource
@@ -22,7 +22,7 @@ interface ResultInterface
      * @copyright       David Lienhard
      * @return          mixed[]
      */
-    public function fetch_assoc() : ?array;
+    public function fetch_assoc() : array|null;
 
     /**
      * Creates an associative array out of a result resource
@@ -42,7 +42,7 @@ interface ResultInterface
      * @param           int                 $resulttype     the type of the result
      * @return          mixed[]|null
      */
-    public function fetch_array(int $resulttype = MYSQLI_BOTH) : ?array;
+    public function fetch_array(int $resulttype = MYSQLI_BOTH) : array|null;
 
     /**
      * Counts the rows of a result resource
@@ -59,7 +59,7 @@ interface ResultInterface
      * @copyright       David Lienhard
      * @return          mixed[]|null
      */
-    public function fetch_row() : ?array;
+    public function fetch_row() : array|null;
 
     /**
      * creates an array containing all data of a result resource
@@ -96,5 +96,5 @@ interface ResultInterface
      * @param           int             $row         the row
      * @param           string          $field       the column
      */
-    public function result(int $row, string $field) : string | int | float | null;
+    public function result(int $row, string $field) : string|int|float|null;
 }

@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database;
 
-use function in_array;
 use DavidLienhard\Database\ParameterInterface;
+use function in_array;
 
 /**
  * class to set parameters for a database query
@@ -35,7 +35,7 @@ class Parameter implements ParameterInterface
      * @uses            self::$type
      * @uses            self::$value
      */
-    public function __construct(private string $type, private int | float | string | bool | null $value)
+    public function __construct(private string $type, private int|float|string|bool|null $value)
     {
         if (!in_array($type, [ "i", "s", "d", "b"], true)) {
             throw new \InvalidArgumentException("type must be i, s, d or b. '".$type."' given");
@@ -61,7 +61,7 @@ class Parameter implements ParameterInterface
      * @copyright       David Lienhard
      * @uses            self::$value
      */
-    public function getValue() : int | float | string | bool | null
+    public function getValue() : int|float|string|bool|null
     {
         return $this->value;
     }

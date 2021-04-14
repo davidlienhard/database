@@ -39,7 +39,7 @@ interface DatabaseInterface
         string $user,
         string $pass,
         string $dbname,
-        ?int $port = null,
+        int|null $port = null,
         string $charset = "utf8mb4",
         string $collation = "utf8mb4_unicode_ci"
     ) : void;
@@ -111,7 +111,7 @@ interface DatabaseInterface
     public function query(
         string $query,
         ParameterInterface ...$parameters
-    ) : ResultInterface | bool;
+    ) : ResultInterface|bool;
 
 
     /**
@@ -121,7 +121,7 @@ interface DatabaseInterface
      * @copyright       David Lienhard
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
       */
-    public function execute(ParameterInterface ...$parameters) : ResultInterface | bool;
+    public function execute(ParameterInterface ...$parameters) : ResultInterface|bool;
 
 
     /**
@@ -139,7 +139,7 @@ interface DatabaseInterface
      * @author          David Lienhard <david@lienhard.win>
      * @copyright       David Lienhard
      */
-    public function insert_id() : int | string;
+    public function insert_id() : int|string;
 
 
     /**

@@ -31,7 +31,7 @@ interface ParameterInterface
      */
     public function __construct(
         string $type,
-        int | float | string | bool | null $value
+        int|float|string|bool|null $value
     );
 
     /**
@@ -48,5 +48,5 @@ interface ParameterInterface
      * @author          David Lienhard <david.lienhard@tourasia.ch>
      * @copyright       David Lienhard
      */
-    public function getValue() : int | float | string | bool | null;
+    public function getValue() : int|float|string|bool|null;
 }
