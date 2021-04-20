@@ -3,8 +3,8 @@
  * contains a custom database interface class
  *
  * @package         davidlienhard/database
- * @author          David Lienhard <david@lienhard.win>
- * @copyright       tourasia
+ * @author          David Lienhard <github@lienhard.win>
+ * @copyright       David Lienhard
  */
 
 declare(strict_types=1);
@@ -16,15 +16,15 @@ use \DavidLienhard\Database\ParameterInterface;
 /**
  * defines an interface to use for database connections
  *
- * @author          David Lienhard <david@lienhard.win>
- * @copyright       tourasia
+ * @author          David Lienhard <github@lienhard.win>
+ * @copyright       David Lienhard
  */
 interface DatabaseInterface
 {
     /**
      * connects to the database
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $host           the hostname to connect
      * @param           string          $user           the username
@@ -48,7 +48,7 @@ interface DatabaseInterface
     /**
      * reconnects to the database server
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function reconnect() : void;
@@ -57,7 +57,7 @@ interface DatabaseInterface
     /**
      * closes the database connection
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
       */
     public function close() : void;
@@ -66,7 +66,7 @@ interface DatabaseInterface
     /**
      * changes the mode of autocommit
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           bool            $mode           the new mode to set
      */
@@ -76,7 +76,7 @@ interface DatabaseInterface
     /**
      * Starts a transaction
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function begin_transaction() : void;
@@ -85,7 +85,7 @@ interface DatabaseInterface
     /**
      * Commits a transaction
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function commit() : void;
@@ -94,7 +94,7 @@ interface DatabaseInterface
     /**
      * Rolls a transaction back
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function rollback() : void;
@@ -103,7 +103,7 @@ interface DatabaseInterface
     /**
      * Executes a query
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string              $query        the sql query
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
@@ -117,7 +117,7 @@ interface DatabaseInterface
     /**
      * executes an already prepared statement
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
       */
@@ -127,7 +127,7 @@ interface DatabaseInterface
     /**
      * check if the connection to the server is still open
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function ping() : void;
@@ -136,7 +136,7 @@ interface DatabaseInterface
     /**
      * returns the id of the last inserted row
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function insert_id() : int|string;
@@ -145,7 +145,7 @@ interface DatabaseInterface
     /**
      * returns the number of affected rows
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function affected_rows() : int;
@@ -154,7 +154,7 @@ interface DatabaseInterface
     /**
      * escapes a string
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string      $string      the string to escape
      */
@@ -164,7 +164,7 @@ interface DatabaseInterface
     /**
      * returns the client info
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @uses            self::$client_info
      * @uses            self::checkConnected()
@@ -175,7 +175,7 @@ interface DatabaseInterface
     /**
      * returns the host info
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @uses            self::$host_info
      * @uses            self::checkConnected()
@@ -186,7 +186,7 @@ interface DatabaseInterface
     /**
      * returns the proto info
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @uses            self::$proto_info
      * @uses            self::checkConnected()
@@ -197,7 +197,7 @@ interface DatabaseInterface
     /**
      * returns the server info
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @uses            self::$server_info
      * @uses            self::checkConnected()
@@ -208,7 +208,7 @@ interface DatabaseInterface
     /**
      * returns the latest error number
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function errno() : int;
@@ -217,7 +217,7 @@ interface DatabaseInterface
     /**
      * returns the latest error string
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function errstr() : string;
@@ -226,7 +226,7 @@ interface DatabaseInterface
     /**
      * returns the time used by the database
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getDbTime() : float;
@@ -235,7 +235,7 @@ interface DatabaseInterface
     /**
      * returns the number of queries executed
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getTotalQueries() : int;

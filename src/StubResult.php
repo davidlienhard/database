@@ -17,7 +17,7 @@ class StubResult implements ResultInterface
     /**
      * initiates the new object
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           \mysqli_result|mixed[]        $payload      payload to use
      */
@@ -33,7 +33,7 @@ class StubResult implements ResultInterface
     /**
      * Creates an associative array out of a result resource
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @return          mixed[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -46,7 +46,7 @@ class StubResult implements ResultInterface
     /**
      * Creates an associative array out of a result resource
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @return          mixed[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -59,7 +59,7 @@ class StubResult implements ResultInterface
     /**
      * Creates an array out of a result resource
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int                 $resulttype     the type of the result
      * @return          mixed[]|null
@@ -73,7 +73,7 @@ class StubResult implements ResultInterface
     /**
      * Counts the rows of a result resource
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
@@ -85,7 +85,7 @@ class StubResult implements ResultInterface
     /**
      * Creates an enumerated array out of a result resource
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @return          mixed[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -98,7 +98,7 @@ class StubResult implements ResultInterface
     /**
      * creates an array containing all data of a result resource
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int                 $resulttype     type of array to return
      * @return          mixed[]
@@ -112,7 +112,7 @@ class StubResult implements ResultInterface
     /**
      * returns the id of the last inserted row
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int             $offset      the row to jump
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -125,7 +125,7 @@ class StubResult implements ResultInterface
     /**
      * Frees the memory
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function free() : void
@@ -136,7 +136,7 @@ class StubResult implements ResultInterface
     /**
      * Gets a field out of a result resource
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int             $row         the row
      * @param           string          $field       the column

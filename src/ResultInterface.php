@@ -9,7 +9,7 @@ interface ResultInterface
     /**
      * initiates the new object
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           \mysqli_result|mixed[]      $result      the result resource
      */
@@ -18,7 +18,7 @@ interface ResultInterface
     /**
      * Creates an associative array out of a result resource
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @return          mixed[]
      */
@@ -27,7 +27,7 @@ interface ResultInterface
     /**
      * Creates an associative array out of a result resource
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @return          mixed[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -37,7 +37,7 @@ interface ResultInterface
     /**
      * Creates an array out of a result resource
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int                 $resulttype     the type of the result
      * @return          mixed[]|null
@@ -47,7 +47,7 @@ interface ResultInterface
     /**
      * Counts the rows of a result resource
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function num_rows() : int;
@@ -55,7 +55,7 @@ interface ResultInterface
     /**
      * Creates an enumerated array out of a result resource
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @return          mixed[]|null
      */
@@ -64,7 +64,7 @@ interface ResultInterface
     /**
      * creates an array containing all data of a result resource
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int                 $resulttype     type of array to return
      * @return          mixed[]
@@ -74,7 +74,7 @@ interface ResultInterface
     /**
      * returns the id of the last inserted row
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int             $offset      the row to jump
      */
@@ -83,7 +83,7 @@ interface ResultInterface
     /**
      * Frees the memory
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function free() : void;
@@ -91,7 +91,7 @@ interface ResultInterface
     /**
      * Gets a field out of a result resource
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int             $row         the row
      * @param           string          $field       the column
