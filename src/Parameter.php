@@ -4,8 +4,8 @@
  *
  * @package         tourBase
  * @subpackage      Core\Database
- * @author          David Lienhard <david@lienhard.win>
- * @copyright       tourasia
+ * @author          David Lienhard <github@lienhard.win>
+ * @copyright       David Lienhard
  */
 
 declare(strict_types=1);
@@ -18,15 +18,15 @@ use function in_array;
 /**
  * class to set parameters for a database query
  *
- * @author          David Lienhard <david@lienhard.win>
- * @copyright       tourasia
+ * @author          David Lienhard <github@lienhard.win>
+ * @copyright       David Lienhard
  */
 class Parameter implements ParameterInterface
 {
     /**
      * sets the parameters of this object
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string                      $type   type of the parameter (can be i, s, d or b)
      * @param           int|float|string|bool|null  $value  value of the parameter
@@ -45,7 +45,7 @@ class Parameter implements ParameterInterface
     /**
      * returns the type of this parameter
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @uses            self::$type
      */
@@ -57,7 +57,7 @@ class Parameter implements ParameterInterface
     /**
      * returns the value of this parameter
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @uses            self::$value
      */

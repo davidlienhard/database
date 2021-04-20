@@ -3,7 +3,7 @@
  * contains a custom mysql class
  *
  * @package         Database
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
@@ -29,7 +29,7 @@ use function trim;
  * Methods for a comfortable use of the {@link http://www.mysql.com mySQL} database
  *
  * @category        Database
- * @author          David Lienhard <david@lienhard.win>
+ * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 class Mysqli implements DatabaseInterface
@@ -89,7 +89,7 @@ class Mysqli implements DatabaseInterface
     /**
      * connects to the database
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $host           the hostname to connect
      * @param           string          $user           the username
@@ -162,7 +162,7 @@ class Mysqli implements DatabaseInterface
     /**
      * reconnects to the database server
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::connect()
@@ -194,7 +194,7 @@ class Mysqli implements DatabaseInterface
     /**
      * closes the database connection
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$client_info
@@ -229,7 +229,7 @@ class Mysqli implements DatabaseInterface
     /**
      * changes the mode of autocommit
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           bool            $mode           the new mode to set
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -262,7 +262,7 @@ class Mysqli implements DatabaseInterface
     /**
      * Starts a transaction
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
@@ -294,7 +294,7 @@ class Mysqli implements DatabaseInterface
     /**
      * Commits a transaction
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
@@ -326,7 +326,7 @@ class Mysqli implements DatabaseInterface
     /**
      * Rolls a transaction back
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
@@ -358,7 +358,7 @@ class Mysqli implements DatabaseInterface
     /**
      * Executes a query
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string              $query       the sql query
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
@@ -450,7 +450,7 @@ class Mysqli implements DatabaseInterface
     /**
      * executes an already prepared statement
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -510,7 +510,7 @@ class Mysqli implements DatabaseInterface
     /**
      * check if the connection to the server is still open
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
@@ -538,7 +538,7 @@ class Mysqli implements DatabaseInterface
     /**
      * returns the id of the last inserted row
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
@@ -563,7 +563,7 @@ class Mysqli implements DatabaseInterface
     /**
      * returns the number of affected rows
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      * @uses            self::$mysqli
@@ -588,7 +588,7 @@ class Mysqli implements DatabaseInterface
     /**
      * escapes a string
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string      $string      the string to escape
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
@@ -614,7 +614,7 @@ class Mysqli implements DatabaseInterface
     /**
      * returns the client info
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @uses            self::$client_info
      * @uses            self::checkConnected()
@@ -630,7 +630,7 @@ class Mysqli implements DatabaseInterface
     /**
      * returns the host info
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @uses            self::$host_info
      * @uses            self::checkConnected()
@@ -646,7 +646,7 @@ class Mysqli implements DatabaseInterface
     /**
      * returns the proto info
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @uses            self::$proto_info
      * @uses            self::checkConnected()
@@ -662,7 +662,7 @@ class Mysqli implements DatabaseInterface
     /**
      * returns the server info
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @uses            self::$server_info
      * @uses            self::checkConnected()
@@ -678,7 +678,7 @@ class Mysqli implements DatabaseInterface
     /**
      * returns the size of the db
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string|null      $dbname         optional mysqli connection
      * @throws          \Exception if no database name is set
@@ -724,7 +724,7 @@ class Mysqli implements DatabaseInterface
     /**
      * returns the latest error number
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @uses            self::$mysqli
      * @uses            self::checkConnected()
@@ -740,7 +740,7 @@ class Mysqli implements DatabaseInterface
     /**
      * returns the latest error string
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @uses            self::$mysqli
      * @uses            self::checkConnected()
@@ -756,7 +756,7 @@ class Mysqli implements DatabaseInterface
     /**
      * shortens the parameter value to be printed as exception
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string      $value          value to format as string
      */
@@ -770,7 +770,7 @@ class Mysqli implements DatabaseInterface
     /**
      * throws an exception if connect() has not been used yet
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @uses            self::$isConnected
      */
@@ -785,7 +785,7 @@ class Mysqli implements DatabaseInterface
     /**
      * returns the time used by the database
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getDbTime() : float
@@ -797,7 +797,7 @@ class Mysqli implements DatabaseInterface
     /**
      * returns the number of queries executed
      *
-     * @author          David Lienhard <david@lienhard.win>
+     * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function getTotalQueries() : int
