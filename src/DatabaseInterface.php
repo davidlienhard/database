@@ -2,7 +2,6 @@
 /**
  * contains a custom database interface class
  *
- * @package         davidlienhard/database
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -166,8 +165,6 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @uses            self::$client_info
-     * @uses            self::checkConnected()
      */
     public function client_info() : string;
 
@@ -177,8 +174,6 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @uses            self::$host_info
-     * @uses            self::checkConnected()
      */
     public function host_info() : string;
 
@@ -188,8 +183,6 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @uses            self::$proto_info
-     * @uses            self::checkConnected()
      */
     public function proto_info() : int;
 
@@ -199,8 +192,6 @@ interface DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @uses            self::$server_info
-     * @uses            self::checkConnected()
      */
     public function server_info() : string;
 
