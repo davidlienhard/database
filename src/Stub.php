@@ -2,7 +2,6 @@
 /**
  * contains a stub for database interface
  *
- * @package         tourBase
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -18,7 +17,6 @@ use \DavidLienhard\Database\StubResult;
 /**
  * stub for \DavidLienhard\Database\DatabaseInterface
  *
- * @category        Database
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -63,13 +61,6 @@ class Stub implements DatabaseInterface
      * @param           int|null        $port           port to use to connect
      * @param           string          $charset        charset to use for the database connection
      * @param           string          $collation      encoding to use for the database connection
-     * @uses            self::$host
-     * @uses            self::$user
-     * @uses            self::$pass
-     * @uses            self::$dbname
-     * @uses            self::$port
-     * @uses            self::$charset
-     * @uses            self::$collation
      */
     public function connect(
         string $host,
@@ -98,15 +89,6 @@ class Stub implements DatabaseInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
-     * @uses            self::connect()
-     * @uses            self::$host
-     * @uses            self::$user
-     * @uses            self::$pass
-     * @uses            self::$dbname
-     * @uses            self::$port
-     * @uses            self::$charset
-     * @uses            self::$collation
-     * @uses            self::checkConnected()
      */
     public function reconnect() : void
     {

@@ -2,8 +2,6 @@
 /**
  * contains parameter class for Database
  *
- * @package         tourBase
- * @subpackage      Core\Database
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -32,8 +30,6 @@ class Parameter implements ParameterInterface
      * @param           int|float|string|bool|null  $value  value of the parameter
      * @return          void
      * @throws          \InvalidArgumentException           if given type is invalid
-     * @uses            self::$type
-     * @uses            self::$value
      */
     public function __construct(private string $type, private int|float|string|bool|null $value)
     {
@@ -47,7 +43,6 @@ class Parameter implements ParameterInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @uses            self::$type
      */
     public function getType() : string
     {
@@ -59,7 +54,6 @@ class Parameter implements ParameterInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @uses            self::$value
      */
     public function getValue() : int|float|string|bool|null
     {

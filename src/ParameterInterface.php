@@ -2,8 +2,6 @@
 /**
  * contains parameter interface for Database
  *
- * @package         tourBase
- * @subpackage      Core\Database
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
