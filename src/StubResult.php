@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database;
 
-use \DavidLienhard\Database\ResultInterface;
+use DavidLienhard\Database\ResultInterface;
 
 class StubResult implements ResultInterface
 {
