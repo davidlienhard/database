@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database;
 
-use \DavidLienhard\Database\ParameterInterface;
+use DavidLienhard\Database\ParameterInterface;
 
 /**
  * defines an interface to use for database connections

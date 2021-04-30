@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Database;
 
-use \DavidLienhard\Database\DatabaseInterface;
-use \DavidLienhard\Database\ParameterInterface;
-use \DavidLienhard\Database\StubResult;
+use DavidLienhard\Database\DatabaseInterface;
+use DavidLienhard\Database\ParameterInterface;
+use DavidLienhard\Database\StubResult;
 
 /**
  * stub for \DavidLienhard\Database\DatabaseInterface
