@@ -13,6 +13,7 @@ namespace DavidLienhard\Database;
 use DavidLienhard\Database\DatabaseInterface;
 use DavidLienhard\Database\Exception as DatabaseException;
 use DavidLienhard\Database\ParameterInterface;
+use DavidLienhard\FunctionCaller\Call as FunctionCaller;
 use function count;
 use function implode;
 use function ini_get;
@@ -467,9 +468,12 @@ class Mysqli implements DatabaseInterface
         $this->checkConnected();
 
         try {
-            $result = $this->mysqli->ping();
+            $caller = new FunctionCaller([ $this->mysqli, "ping" ]);
+            $result = $caller->getResult();
+
             if ($result === false) {
-                throw new DatabaseException("unable to close connection to database");
+                $error = $caller->getLastError()?->getErrstr();
+                throw new DatabaseException("unable to ping database host: ".$error);
             }
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
