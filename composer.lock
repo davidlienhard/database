@@ -4,8 +4,63 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0425d1ab70f88333004d59244767d100",
-    "packages": [],
+    "content-hash": "48ba8609df85394ed508f8f079eef35e",
+    "packages": [
+        {
+            "name": "davidlienhard/functioncaller",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/davidlienhard/functioncaller.git",
+                "reference": "a3933b6cae45be9a237bff91671570852c28f03d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/davidlienhard/functioncaller/zipball/a3933b6cae45be9a237bff91671570852c28f03d",
+                "reference": "a3933b6cae45be9a237bff91671570852c28f03d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "davidlienhard/coding-standard": "^1",
+                "phpstan/phpstan": "^0",
+                "squizlabs/php_codesniffer": "^3"
+            },
+            "type": "libary",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Lienhard",
+                    "email": "github@lienhard.win",
+                    "homepage": "http://www.lienhard.win/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "🐘 php library to call functions and catch triggered errors",
+            "homepage": "https://github.com/davidlienhard/functioncaller/",
+            "keywords": [
+                "errorhandler",
+                "library",
+                "php"
+            ],
+            "support": {
+                "email": "github@lienhard.win",
+                "issues": "https://github.com/davidlienhard/functioncaller/issues/",
+                "source": "https://github.com/davidlienhard/functioncaller/tree/1.0.2"
+            },
+            "time": "2021-04-30T14:02:51+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "davidlienhard/coding-standard",
