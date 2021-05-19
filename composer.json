@@ -3,7 +3,7 @@
     "license": ["MIT"],
     "description": "🐘 php library for easy access to databases",
     "keywords": [ "database", "mysql", "php", "library" ],
-    "type": "libary",
+    "type": "library",
     "homepage": "https://github.com/davidlienhard/database/",
     "authors": [
         {
