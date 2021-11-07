@@ -110,12 +110,15 @@ class Mysqli implements DatabaseInterface
         try {
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);      // set mysqli to throw exceptions
 
+            $iniPort = ini_get("mysqli.default_port");
+            $iniPort = $iniPort === false ? null : intval($iniPort);
+
             $this->mysqli = new \mysqli(                                    // connect to database
                 $host,
                 $user,
                 $pass,
                 $dbname,
-                (int) ($port ?? ini_get("mysqli.default_port") ?? 3306)
+                $port ?? $iniPort ?? 3306
             );
 
             $this->isConnected = true;
