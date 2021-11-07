@@ -104,19 +104,10 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function num_rows() : int
     {
-        try {
-            return $this->result->num_rows;
-        } catch (\mysqli_sql_exception $e) {
-            throw new DatabaseException(
-                $e->getMessage(),
-                intval($e->getCode()),
-                $e
-            );
-        }
+        return $this->result->num_rows;
     }
 
     /**
