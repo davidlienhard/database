@@ -44,7 +44,7 @@ class MysqliResult implements ResultInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -65,7 +65,7 @@ class MysqliResult implements ResultInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -93,7 +93,7 @@ class MysqliResult implements ResultInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -113,7 +113,7 @@ class MysqliResult implements ResultInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -134,7 +134,7 @@ class MysqliResult implements ResultInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -156,7 +156,7 @@ class MysqliResult implements ResultInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -177,7 +177,7 @@ class MysqliResult implements ResultInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -196,7 +196,7 @@ class MysqliResult implements ResultInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -230,7 +230,7 @@ class MysqliResult implements ResultInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }

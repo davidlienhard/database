@@ -137,7 +137,7 @@ class Mysqli implements DatabaseInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }//end try
@@ -189,7 +189,7 @@ class Mysqli implements DatabaseInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -219,7 +219,7 @@ class Mysqli implements DatabaseInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -248,7 +248,7 @@ class Mysqli implements DatabaseInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -277,7 +277,7 @@ class Mysqli implements DatabaseInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -306,7 +306,7 @@ class Mysqli implements DatabaseInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -390,7 +390,7 @@ class Mysqli implements DatabaseInterface
 
             throw new DatabaseException(
                 $message,
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }//end try
@@ -448,7 +448,7 @@ class Mysqli implements DatabaseInterface
 
             throw new DatabaseException(
                 $message,
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }//end try
@@ -477,7 +477,7 @@ class Mysqli implements DatabaseInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -500,7 +500,7 @@ class Mysqli implements DatabaseInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -523,7 +523,7 @@ class Mysqli implements DatabaseInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -547,7 +547,7 @@ class Mysqli implements DatabaseInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }
@@ -647,7 +647,7 @@ class Mysqli implements DatabaseInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                $e->getCode(),
+                intval($e->getCode()),
                 $e
             );
         }//end try
