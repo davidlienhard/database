@@ -2,6 +2,7 @@
 
 namespace DavidLienhard\Database;
 
+use DavidLienhard\Database\Exception as DatabaseException;
 use DavidLienhard\Database\ResultInterface;
 
 class StubResult implements ResultInterface
@@ -38,7 +39,12 @@ class StubResult implements ResultInterface
      */
     public function fetch_assoc() : array|null
     {
-        return $this->payload[0] ?? $this->payload;
+        $data = $this->payload[0] ?? $this->payload;
+        if (!is_array($data)) {
+            throw new DatabaseException("payload must be array");
+        }
+
+        return $data;
     }
 
     /**
@@ -51,7 +57,12 @@ class StubResult implements ResultInterface
      */
     public function fetch_row_assoc() : array
     {
-        return $this->payload[0] ?? $this->payload;
+        $data = $this->payload[0] ?? $this->payload;
+        if (!is_array($data)) {
+            throw new DatabaseException("payload must be array");
+        }
+
+        return $data;
     }
 
     /**
@@ -65,7 +76,12 @@ class StubResult implements ResultInterface
      */
     public function fetch_array(int $resulttype = MYSQLI_BOTH) : array|null
     {
-        return $this->payload[0] ?? $this->payload;
+        $data = $this->payload[0] ?? $this->payload;
+        if (!is_array($data)) {
+            throw new DatabaseException("payload must be array");
+        }
+
+        return $data;
     }
 
     /**
@@ -90,7 +106,12 @@ class StubResult implements ResultInterface
      */
     public function fetch_row() : array|null
     {
-        return $this->payload[0] ?? $this->payload;
+        $data = $this->payload[0] ?? $this->payload;
+        if (!is_array($data)) {
+            throw new DatabaseException("payload must be array");
+        }
+
+        return $data;
     }
 
     /**
