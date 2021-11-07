@@ -384,7 +384,7 @@ class Mysqli implements DatabaseInterface
                 $message .= implode(
                     "\n\t",
                     array_map(
-                        fn ($p) => " - ".$p->getType().": '".substr(str_replace("\r\n", " ", (string) $p->getValue()), 0, 100)."'",
+                        fn ($p) => " - ".$p->getType().": '".self::formatParameter(strval($p->getValue()))."'",
                         $parameters
                     )
                 );
@@ -682,7 +682,7 @@ class Mysqli implements DatabaseInterface
      * @copyright       David Lienhard
      * @param           string      $value          value to format as string
      */
-    private static function formatParamter(string $value) : string
+    private static function formatParameter(string $value) : string
     {
         $value = preg_replace("/\s\s+/", " ", $value) ?? $value;
         return trim(substr($value, 0, 100));
