@@ -643,7 +643,7 @@ class Mysqli implements DatabaseInterface
 
             $size = 0;
             while ($data = $result->fetch_assoc()) {
-                $size += (int) $data['Data_length'] + (int) $data['Index_length'];
+                $size += intval($data['Data_length']) + intval($data['Index_length']);
             }
 
             return $size;
