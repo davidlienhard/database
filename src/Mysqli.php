@@ -492,21 +492,20 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function insert_id() : int|string
     {
         $this->checkConnected();
 
-        try {
-            return $this->mysqli->insert_id;
-        } catch (\mysqli_sql_exception $e) {
+        $id = $this->mysqli->insert_id;
+
+        if ($id === 0) {
             throw new DatabaseException(
-                $e->getMessage(),
-                intval($e->getCode()),
-                $e
+                "no auto increment id is available at this point",
             );
         }
+
+        return $id;
     }
 
 
@@ -515,21 +514,12 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function affected_rows() : int
     {
         $this->checkConnected();
 
-        try {
-            return $this->mysqli->affected_rows;
-        } catch (\mysqli_sql_exception $e) {
-            throw new DatabaseException(
-                $e->getMessage(),
-                intval($e->getCode()),
-                $e
-            );
-        }
+        return $this->mysqli->affected_rows;
     }
 
 
