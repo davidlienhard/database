@@ -107,7 +107,7 @@ class MysqliResult implements ResultInterface
      */
     public function num_rows() : int
     {
-        return $this->result->num_rows;
+        return intval($this->result->num_rows);
     }
 
     /**
