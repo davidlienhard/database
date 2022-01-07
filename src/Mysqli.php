@@ -520,7 +520,7 @@ class Mysqli implements DatabaseInterface
     {
         $this->checkConnected();
 
-        return $this->mysqli->affected_rows;
+        return intval($this->mysqli->affected_rows);
     }
 
 
