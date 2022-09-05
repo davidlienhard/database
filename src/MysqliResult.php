@@ -217,13 +217,19 @@ class MysqliResult implements ResultInterface
                 throw new DatabaseException("field '".$field."' does not exist");
             }
 
-            return $dataRow[$field];
+            $fieldValue = $dataRow[$field];
+
+            if (!\is_string($fieldValue) && !\is_int($fieldValue) && !\is_float($fieldValue) && !\is_null($fieldValue)) {
+                throw new DatabaseException("field '".$field."' must be of type string, int, float or null. is of type '".\gettype($field)."'");
+            }
+
+            return $fieldValue;
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
                 intval($e->getCode()),
                 $e
             );
-        }
+        }//end try
     }
 }
