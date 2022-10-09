@@ -134,7 +134,7 @@ class Mysqli implements DatabaseInterface
             $this->charset = $charset;
             $this->collation = $collation;
 
-            $this->client_info = mysqli_get_client_info();
+            $this->client_info = $this->mysqli->client_info;
             $this->host_info = $this->mysqli->host_info;
             $this->proto_info = (int) $this->mysqli->protocol_version;
             $this->server_info = $this->mysqli->server_info;
