@@ -17,7 +17,6 @@ use function count;
 use function implode;
 use function ini_get;
 use function microtime;
-use function mysqli_get_client_info;
 use function mysqli_report;
 use function preg_replace;
 use function str_replace;
