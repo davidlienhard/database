@@ -41,7 +41,12 @@ class StubResult implements ResultInterface
      */
     public function fetch_assoc() : array|null
     {
-        $data = $this->payload[0] ?? $this->payload;
+        if (!array_key_exists(0, $this->payload)) {
+            throw new DatabaseException("no data on key 0");
+        }
+
+        $data = $this->payload[0];
+
         if (!is_array($data)) {
             throw new DatabaseException("payload must be array");
         }
@@ -59,7 +64,12 @@ class StubResult implements ResultInterface
      */
     public function fetch_object(ResultType $resultType = ResultType::assoc) : RowInterface|null
     {
-        $data = $this->payload[0] ?? $this->payload;
+        if (!array_key_exists(0, $this->payload)) {
+            throw new DatabaseException("no data on key 0");
+        }
+
+        $data = $this->payload[0];
+
         if (!is_array($data)) {
             throw new DatabaseException("payload must be array");
         }
@@ -77,7 +87,12 @@ class StubResult implements ResultInterface
      */
     public function fetch_row_assoc() : array
     {
-        $data = $this->payload[0] ?? $this->payload;
+        if (!array_key_exists(0, $this->payload)) {
+            throw new DatabaseException("no data on key 0");
+        }
+
+        $data = $this->payload[0];
+
         if (!is_array($data)) {
             throw new DatabaseException("payload must be array");
         }
@@ -96,7 +111,12 @@ class StubResult implements ResultInterface
      */
     public function fetch_array(ResultTypeInterface $resultType = ResultType::assoc) : array|null
     {
-        $data = $this->payload[0] ?? $this->payload;
+        if (!array_key_exists(0, $this->payload)) {
+            throw new DatabaseException("no data on key 0");
+        }
+
+        $data = $this->payload[0];
+
         if (!is_array($data)) {
             throw new DatabaseException("payload must be array");
         }
@@ -126,7 +146,12 @@ class StubResult implements ResultInterface
      */
     public function fetch_row() : array|null
     {
-        $data = $this->payload[0] ?? $this->payload;
+        if (!array_key_exists(0, $this->payload)) {
+            throw new DatabaseException("no data on key 0");
+        }
+
+        $data = $this->payload[0];
+
         if (!is_array($data)) {
             throw new DatabaseException("payload must be array");
         }
@@ -143,7 +168,12 @@ class StubResult implements ResultInterface
      */
     public function fetch_row_object() : RowInterface|null
     {
-        $data = $this->payload[0] ?? $this->payload;
+        if (!array_key_exists(0, $this->payload)) {
+            throw new DatabaseException("no data on key 0");
+        }
+
+        $data = $this->payload[0];
+
         if (!is_array($data)) {
             throw new DatabaseException("payload must be array");
         }
