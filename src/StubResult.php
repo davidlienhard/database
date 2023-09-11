@@ -208,10 +208,10 @@ class StubResult implements ResultInterface
      */
     public function fetch_all_object(ResultTypeInterface $resultType = ResultType::assoc) : array
     {
-        $data = \array_map(
-            fn ($row) => new Row($row, $resultType),
-            $this->payload
-        );
+        $data = [];
+        foreach ($this->payload as $row) {
+            $data[] = new Row($row, $resultType);
+        }
 
         return $data;
     }
