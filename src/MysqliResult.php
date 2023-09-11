@@ -215,7 +215,7 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultTypeInterface         $resultType     the type of the result
-     * @return          array<int, Row[]>
+     * @return          array<int, array<DavidLienhard\Database\Row>>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_all_object(ResultTypeInterface $resultType = ResultType::assoc) : array
