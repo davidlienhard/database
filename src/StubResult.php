@@ -4,6 +4,8 @@ namespace DavidLienhard\Database;
 
 use DavidLienhard\Database\Exception as DatabaseException;
 use DavidLienhard\Database\ResultInterface;
+use DavidLienhard\Database\ResultType;
+use DavidLienhard\Database\Row;
 
 class StubResult implements ResultInterface
 {
@@ -48,6 +50,24 @@ class StubResult implements ResultInterface
     }
 
     /**
+     * creates an object out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           ResultType              $resultType     the type of the result
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function fetch_object(ResultType $resultType = ResultType::assoc) : RowInterface|null
+    {
+        $data = $this->payload[0] ?? $this->payload;
+        if (!is_array($data)) {
+            throw new DatabaseException("payload must be array");
+        }
+
+        return new Row($data, $resultType);
+    }
+
+    /**
      * Creates an associative array out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
@@ -70,11 +90,11 @@ class StubResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           int                 $resulttype     the type of the result
-     * @return          mixed[]|null
+     * @param           ResultTypeInterface     $resultType     the type of the result
+     * @return          (int|float|string|bool|null)[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_array(int $resulttype = MYSQLI_BOTH) : array|null
+    public function fetch_array(ResultTypeInterface $resultType = ResultType::assoc) : array|null
     {
         $data = $this->payload[0] ?? $this->payload;
         if (!is_array($data)) {
@@ -115,17 +135,53 @@ class StubResult implements ResultInterface
     }
 
     /**
+     * creates an enumerated array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function fetch_row_object() : RowInterface|null
+    {
+        $data = $this->payload[0] ?? $this->payload;
+        if (!is_array($data)) {
+            throw new DatabaseException("payload must be array");
+        }
+
+        return new Row($data, ResultType::both);
+    }
+
+    /**
      * creates an array containing all data of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           int                 $resulttype     type of array to return
+     * @param           ResultTypeInterface     $resultType     the type of the result
+     * @return          array<int, (int|float|string|bool|null)[]>
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function fetch_all(ResultTypeInterface $resultType = ResultType::assoc) : array
+    {
+        return $this->payload;
+    }
+
+    /**
+     * creates an array containing all data of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           ResultTypeInterface         $resultType     the type of the result
      * @return          mixed[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_all(int $resulttype = MYSQLI_NUM) : array
+    public function fetch_all_object(ResultTypeInterface $resultType = ResultType::assoc) : array
     {
-        return $this->payload;
+        $data = [];
+        foreach ($this->payload as $row) {
+            $data[] = new Row($row, $resultType);
+        }
+
+        return $data;
     }
 
     /**

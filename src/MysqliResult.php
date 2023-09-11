@@ -5,6 +5,7 @@ namespace DavidLienhard\Database;
 use DavidLienhard\Database\Exception as DatabaseException;
 use DavidLienhard\Database\ResultInterface;
 use DavidLienhard\Database\ResultType;
+use DavidLienhard\Database\Row;
 
 class MysqliResult implements ResultInterface
 {
