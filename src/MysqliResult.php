@@ -4,13 +4,14 @@ namespace DavidLienhard\Database;
 
 use DavidLienhard\Database\Exception as DatabaseException;
 use DavidLienhard\Database\ResultInterface;
-use function array_key_exists;
+use DavidLienhard\Database\ResultType;
+use DavidLienhard\Database\ResultTypeInterface;
+use DavidLienhard\Database\Row;
+use DavidLienhard\Database\RowInterface;
 
 class MysqliResult implements ResultInterface
 {
-    /**
-     * result returned by mysqli
-     */
+    /** result returned by mysqli */
     private \mysqli_result $result;
 
     /**
@@ -30,11 +31,11 @@ class MysqliResult implements ResultInterface
     }
 
     /**
-     * Creates an associative array out of a result resource
+     * creates an associative array out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]
+     * @return          array<(int|string), (int|float|string|bool|null)>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_assoc() : array|null
@@ -44,18 +45,45 @@ class MysqliResult implements ResultInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                intval($e->getCode()),
+                \intval($e->getCode()),
                 $e
             );
         }
     }
 
     /**
-     * Creates an associative array out of a result resource
+     * creates an object out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]
+     * @param           ResultTypeInterface     $resultType     the type of the result
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function fetch_object(ResultTypeInterface $resultType = ResultType::assoc) : RowInterface|null
+    {
+        try {
+            $result = $this->result->fetch_array($resultType->toMysqli());
+        } catch (\mysqli_sql_exception $e) {
+            throw new DatabaseException(
+                $e->getMessage(),
+                \intval($e->getCode()),
+                $e
+            );
+        }
+
+        if ($result !== null) {
+            return new Row($result, $resultType);
+        }
+
+        return null;
+    }
+
+    /**
+     * creates an associative array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @return          array<(int|string), (int|float|string|bool|null)>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row_assoc() : array
@@ -65,7 +93,7 @@ class MysqliResult implements ResultInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                intval($e->getCode()),
+                \intval($e->getCode()),
                 $e
             );
         }
@@ -78,44 +106,37 @@ class MysqliResult implements ResultInterface
     }
 
     /**
-     * Creates an array out of a result resource
+     * creates an object out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           int                 $resulttype     the type of the result
-     * @return          (int|float|string|bool|null)[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_array(int $resulttype = MYSQLI_BOTH) : array|null
+    public function fetch_row_object() : RowInterface|null
     {
         try {
-            return $this->result->fetch_array($resulttype);
+            $result = $this->result->fetch_row();
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                intval($e->getCode()),
+                \intval($e->getCode()),
                 $e
             );
         }
+
+        if ($result !== null) {
+            return new Row($result, ResultType::both);
+        }
+
+        return null;
     }
 
     /**
-     * Counts the rows of a result resource
+     * creates an enumerated array out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     */
-    public function num_rows() : int
-    {
-        return intval($this->result->num_rows);
-    }
-
-    /**
-     * Creates an enumerated array out of a result resource
-     *
-     * @author          David Lienhard <github@lienhard.win>
-     * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]|null
+     * @return          array<(int|string), (int|float|string|bool|null)>|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row() : array|null
@@ -125,10 +146,43 @@ class MysqliResult implements ResultInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                intval($e->getCode()),
+                \intval($e->getCode()),
                 $e
             );
         }
+    }
+
+    /**
+     * creates an array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           ResultTypeInterface     $resultType     the type of the result
+     * @return          array<(int|string), (int|float|string|bool|null)>|null
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function fetch_array(ResultTypeInterface $resultType = ResultType::assoc) : array|null
+    {
+        try {
+            return $this->result->fetch_array($resultType->toMysqli());
+        } catch (\mysqli_sql_exception $e) {
+            throw new DatabaseException(
+                $e->getMessage(),
+                \intval($e->getCode()),
+                $e
+            );
+        }
+    }
+
+    /**
+     * returns the number of rows of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function num_rows() : int
+    {
+        return \intval($this->result->num_rows);
     }
 
     /**
@@ -136,25 +190,54 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           int                 $resulttype     type of array to return
-     * @return          array<int, (int|float|string|bool|null)[]>
+     * @param           ResultTypeInterface     $resultType     the type of the result
+     * @return          array<int, array<(int|string), (int|float|string|bool|null)>>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_all(int $resulttype = MYSQLI_NUM) : array
+    public function fetch_all(ResultTypeInterface $resultType = ResultType::assoc) : array
     {
         try {
-            return $this->result->fetch_all($resulttype);
+            return $this->result->fetch_all($resultType->toMysqli());
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                intval($e->getCode()),
+                \intval($e->getCode()),
                 $e
             );
         }
     }
 
     /**
-     * returns the id of the last inserted row
+     * creates an array containing all data of a result resource as Row objects
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           ResultTypeInterface         $resultType     the type of the result
+     * @return          array<int<0, max>, RowInterface>
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function fetch_all_object(ResultTypeInterface $resultType = ResultType::assoc) : array
+    {
+        try {
+            $result = $this->result->fetch_all($resultType->toMysqli());
+        } catch (\mysqli_sql_exception $e) {
+            throw new DatabaseException(
+                $e->getMessage(),
+                \intval($e->getCode()),
+                $e
+            );
+        }
+
+        $data = \array_map(
+            fn ($row) => new Row($row, $resultType),
+            $result
+        );
+
+        return $data;
+    }
+
+    /**
+     * sets the pointer to the given row
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -168,14 +251,14 @@ class MysqliResult implements ResultInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                intval($e->getCode()),
+                \intval($e->getCode()),
                 $e
             );
         }
     }
 
     /**
-     * Frees the memory
+     * frees the memory
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -187,14 +270,14 @@ class MysqliResult implements ResultInterface
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                intval($e->getCode()),
+                \intval($e->getCode()),
                 $e
             );
         }
     }
 
     /**
-     * Gets a field out of a result resource
+     * gets a field out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -203,7 +286,7 @@ class MysqliResult implements ResultInterface
      * @throws          \Exception if the required field is does not exist
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function result(int $row, string $field) : string|int|float|null
+    public function result(int $row, string $field) : string|int|float|bool|null
     {
         try {
             $this->data_seek($row);
@@ -219,17 +302,85 @@ class MysqliResult implements ResultInterface
 
             $fieldValue = $dataRow[$field];
 
-            if (!\is_string($fieldValue) && !\is_int($fieldValue) && !\is_float($fieldValue) && !\is_null($fieldValue)) {
-                throw new DatabaseException("field '".$field."' must be of type string, int, float or null. is of type '".\gettype($field)."'");
+            if (!\is_string($fieldValue) &&
+                !\is_int($fieldValue) &&
+                !\is_float($fieldValue) &&
+                !\is_null($fieldValue) &&
+                !\is_bool($fieldValue)
+            ) {
+                throw new DatabaseException(
+                    "field '".$field."' must be of type string, int, float or null. ".
+                    "is of type '".\gettype($field)."'"
+                );
             }
 
             return $fieldValue;
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
-                intval($e->getCode()),
+                \intval($e->getCode()),
                 $e
             );
         }//end try
+    }
+
+    /**
+     * gets a field out of a result resource as an int
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int             $row         the row
+     * @param           string          $field       the column
+     * @throws          \Exception if the required field is does not exist
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function resultAsInt(int $row, string $field) : int
+    {
+        return \intval($this->result($row, $field));
+    }
+
+    /**
+     * gets a field out of a result resource as a float
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int             $row         the row
+     * @param           string          $field       the column
+     * @throws          \Exception if the required field is does not exist
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function resultAsFloat(int $row, string $field) : float
+    {
+        return \floatval($this->result($row, $field));
+    }
+
+    /**
+     * gets a field out of a result resource as a string
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int             $row         the row
+     * @param           string          $field       the column
+     * @throws          \Exception if the required field is does not exist
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function resultAsString(int $row, string $field) : string
+    {
+        return \strval($this->result($row, $field));
+    }
+
+    /**
+     * gets a field out of a result resource as a bool
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int             $row         the row
+     * @param           string          $field       the column
+     * @throws          \Exception if the required field is does not exist
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function resultAsBool(int $row, string $field) : bool
+    {
+        return \boolval($this->result($row, $field));
     }
 }

@@ -2,6 +2,9 @@
 
 namespace DavidLienhard\Database;
 
+use DavidLienhard\Database\ResultTypeInterface;
+use DavidLienhard\Database\RowInterface;
+
 interface ResultInterface
 {
     /**
@@ -9,41 +12,69 @@ interface ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           \mysqli_result|mixed[]      $result      the result resource
+     * @param           \mysqli_result|array<int, array<(int|string), (int|float|string|bool|null)>>   $result      the result resource
      */
     public function __construct(\mysqli_result|array $result);
 
     /**
-     * Creates an associative array out of a result resource
+     * creates an associative array out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]
+     * @return          array<(int|string), (int|float|string|bool|null)>
      */
     public function fetch_assoc() : array|null;
 
     /**
-     * Creates an associative array out of a result resource
+     * creates an object out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]
+     * @param           ResultTypeInterface     $resultType     the type of the result
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function fetch_object(ResultTypeInterface $resultType) : RowInterface|null;
+
+    /**
+     * creates an associative array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @return          array<(int|string), (int|float|string|bool|null)>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row_assoc() : array;
 
     /**
-     * Creates an array out of a result resource
+     * creates an object array out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           int                 $resulttype     the type of the result
-     * @return          (int|float|string|bool|null)[]|null
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_array(int $resulttype = MYSQLI_BOTH) : array|null;
+    public function fetch_row_object() : RowInterface|null;
 
     /**
-     * Counts the rows of a result resource
+     * creates an enumerated array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @return          array<(int|string), (int|float|string|bool|null)>|null
+     */
+    public function fetch_row() : array|null;
+
+    /**
+     * creates an array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           ResultTypeInterface     $resultType     the type of the result
+     * @return          array<(int|string), (int|float|string|bool|null)>|null
+     */
+    public function fetch_array(ResultTypeInterface $resultType) : array|null;
+
+    /**
+     * counts the rows of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -51,23 +82,25 @@ interface ResultInterface
     public function num_rows() : int;
 
     /**
-     * Creates an enumerated array out of a result resource
-     *
-     * @author          David Lienhard <github@lienhard.win>
-     * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]|null
-     */
-    public function fetch_row() : array|null;
-
-    /**
      * creates an array containing all data of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           int                 $resulttype     type of array to return
-     * @return          array<int, (int|float|string|bool|null)[]>
+     * @param           ResultTypeInterface     $resultType     type of array to return
+     * @return          array<int, array<(int|string), (int|float|string|bool|null)>>
      */
-    public function fetch_all(int $resulttype = MYSQLI_NUM) : array;
+    public function fetch_all(ResultTypeInterface $resultType) : array;
+
+    /**
+     * creates an array containing all data of a result resource as Row objects
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           ResultTypeInterface     $resultType     the type of the result
+     * @return          array<int<0, max>, RowInterface>
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function fetch_all_object(ResultTypeInterface $resultType) : array;
 
     /**
      * returns the id of the last inserted row
@@ -94,5 +127,5 @@ interface ResultInterface
      * @param           int             $row         the row
      * @param           string          $field       the column
      */
-    public function result(int $row, string $field) : string|int|float|null;
+    public function result(int $row, string $field) : string|int|float|bool|null;
 }
