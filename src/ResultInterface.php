@@ -27,10 +27,10 @@ interface ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           ResultType              $resultType     the type of the result
+     * @param           resultType              $resultType     the type of the result
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_object(ResultType $resultType = ResultType::assoc) : RowInterface|null;
+    public function fetch_object(resultType $resultType = resultType::assoc) : RowInterface|null;
 
     /**
      * Creates an associative array out of a result resource
@@ -56,10 +56,10 @@ interface ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           int                 $resulttype     the type of the result
+     * @param           int                 $resultType     the type of the result
      * @return          (int|float|string|bool|null)[]|null
      */
-    public function fetch_array(ResultTypeInterface $resultType) : array|null;
+    public function fetch_array(resultTypeInterface $resultType) : array|null;
 
     /**
      * Counts the rows of a result resource
@@ -83,21 +83,21 @@ interface ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           int                 $resulttype     type of array to return
+     * @param           int                 $resultType     type of array to return
      * @return          array<int, (int|float|string|bool|null)[]>
      */
-    public function fetch_all(ResultTypeInterface $resultType) : array;
+    public function fetch_all(resultTypeInterface $resultType) : array;
 
     /**
      * creates an array containing all data of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           ResultType              $resultType     the type of the result
+     * @param           resultType              $resultType     the type of the result
      * @return          mixed[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_all_object(ResultType $resultType = ResultType::assoc) : array;
+    public function fetch_all_object(resultType $resultType = resultType::assoc) : array;
 
     /**
      * returns the id of the last inserted row

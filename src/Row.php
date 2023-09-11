@@ -59,7 +59,7 @@ class Row implements RowInterface
      */
     public function getAsString(int|string $key) : string
     {
-        return \strval($this->get[$key]);
+        return \strval($this->data[$key]);
     }
 
     /**
