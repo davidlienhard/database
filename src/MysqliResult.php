@@ -34,7 +34,7 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          mixed[]
+     * @return          (int|float|string|bool|null)[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_assoc() : array|null
@@ -83,7 +83,7 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          mixed[]
+     * @return          (int|float|string|bool|null)[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row_assoc() : array
@@ -138,7 +138,7 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultType              $resultType     the type of the result
-     * @return          mixed[]|null
+     * @return          (int|float|string|bool|null)[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_array(ResultType $resultType = ResultType::assoc) : array|null
@@ -170,7 +170,7 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          mixed[]|null
+     * @return          (int|float|string|bool|null)[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row() : array|null
@@ -192,7 +192,7 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultType              $resultType     the type of the result
-     * @return          mixed[]
+     * @return          array<int, (int|float|string|bool|null)[]>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_all(ResultType $resultType = ResultType::assoc) : array
