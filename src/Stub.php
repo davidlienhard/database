@@ -331,7 +331,7 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           mixed[]         $payload        the payload to add
+     * @param           array<int, (int|float|string|bool|null)[]>  $payload        the payload to add
      */
     public function addPayload(array $payload) : void
     {

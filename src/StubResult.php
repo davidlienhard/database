@@ -59,10 +59,10 @@ class StubResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           ResultType              $resultType     the type of the result
+     * @param           ResultTypeInterface     $resultType     the type of the result
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_object(ResultType $resultType = ResultType::assoc) : RowInterface|null
+    public function fetch_object(ResultTypeInterface $resultType = ResultType::assoc) : RowInterface|null
     {
         if (!array_key_exists(0, $this->payload)) {
             throw new DatabaseException("no data on key 0");
@@ -141,7 +141,7 @@ class StubResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<int, (int|float|string|bool|null)[]>|null
+     * @return          (int|float|string|bool|null)[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row() : array|null
@@ -201,7 +201,7 @@ class StubResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultTypeInterface         $resultType     the type of the result
-     * @return          array<int, (int|float|string|bool|null)[]>
+     * @return          array<int, Row[]>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_all_object(ResultTypeInterface $resultType = ResultType::assoc) : array
