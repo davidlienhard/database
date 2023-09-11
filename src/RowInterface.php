@@ -44,4 +44,12 @@ interface RowInterface
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function getAsString(int|string $key) : string;
+
+    /**
+     * returns the result type of this row
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function getResultType() : ResultTypeInterface;
 }

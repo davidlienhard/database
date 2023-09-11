@@ -14,9 +14,9 @@ class Row implements RowInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           (int|float|string|bool|null)[]   $data        the result resource
-     * @param           ResultTypeInterface              $type        the result resource
+     * @param           ResultTypeInterface              $resultType  the result resource
      */
-    public function __construct(private array $data, private ResultTypeInterface $type)
+    public function __construct(private array $data, private ResultTypeInterface $resultType)
     {
     }
 
@@ -60,5 +60,16 @@ class Row implements RowInterface
     public function getAsString(int|string $key) : string
     {
         return \strval($this->get[$key]);
+    }
+
+    /**
+     * returns the result type of this row
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     */
+    public function getResultType() : ResultTypeInterface
+    {
+        return $this->resultType;
     }
 }
