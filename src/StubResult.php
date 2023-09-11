@@ -36,7 +36,7 @@ class StubResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<int, (int|float|string|bool|null)[]>
+     * @return          (int|float|string|bool|null)[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_assoc() : array|null
@@ -72,7 +72,7 @@ class StubResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<int, (int|float|string|bool|null)[]>
+     * @return          (int|float|string|bool|null)[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row_assoc() : array

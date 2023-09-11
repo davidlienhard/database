@@ -70,6 +70,6 @@ class Row implements RowInterface
      */
     public function getResultType() : ResultTypeInterface
     {
-        return $this->ResultType;
+        return $this->resultType;
     }
 }
