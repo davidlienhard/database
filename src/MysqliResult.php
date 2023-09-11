@@ -215,7 +215,7 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultTypeInterface         $resultType     the type of the result
-     * @return          array<int, array<DavidLienhard\Database\Row>>
+     * @return          array<int, (Row)[]>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_all_object(ResultTypeInterface $resultType = ResultType::assoc) : array
@@ -230,10 +230,10 @@ class MysqliResult implements ResultInterface
             );
         }
 
-        $data = [];
-        foreach ($result as $row) {
-            $data[] = new Row($row, $resultType);
-        }
+        $data = \array_map(
+            fn ($row) => new Row($row, $resultType),
+            $result
+        );
 
         return $data;
     }
