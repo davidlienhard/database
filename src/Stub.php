@@ -44,7 +44,7 @@ class Stub implements DatabaseInterface
 
     /**
      * the payload to use in the config
-     * @var     mixed[]
+     * @var     array<int, (int|float|string|bool|null)[]>
      */
     private array $payload = [];
 
