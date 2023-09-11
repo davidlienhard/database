@@ -43,7 +43,37 @@ interface RowInterface
      * @param           int|string          $key         key to use
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
+    public function getAsInt(int|string $key) : int;
+
+    /**
+     * Creates an associative array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int|string          $key         key to use
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function getAsFloat(int|string $key) : float;
+
+    /**
+     * Creates an associative array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int|string          $key         key to use
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
     public function getAsString(int|string $key) : string;
+
+    /**
+     * Creates an associative array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int|string          $key         key to use
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function getAsBool(int|string $key) : bool;
 
     /**
      * returns the result type of this row

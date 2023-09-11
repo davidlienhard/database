@@ -57,9 +57,48 @@ class Row implements RowInterface
      * @param           int|string          $key         key to use
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
+    public function getAsInt(int|string $key) : int
+    {
+        return \intval($this->data[$key]);
+    }
+
+    /**
+     * Creates an associative array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int|string          $key         key to use
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function getAsFloat(int|string $key) : float
+    {
+        return \floatval($this->data[$key]);
+    }
+
+    /**
+     * Creates an associative array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int|string          $key         key to use
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
     public function getAsString(int|string $key) : string
     {
         return \strval($this->data[$key]);
+    }
+
+    /**
+     * Creates an associative array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int|string          $key         key to use
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function getAsBool(int|string $key) : bool
+    {
+        return \boolval($this->data[$key]);
     }
 
     /**
