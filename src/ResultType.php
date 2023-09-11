@@ -10,6 +10,12 @@ enum ResultType implements ResultTypeInterface
     case num;
     case both;
 
+    /**
+     * returns the corresponding mysqli code
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     */
     public function toMysqli() : int
     {
         return match ($this) {

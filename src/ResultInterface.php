@@ -17,7 +17,7 @@ interface ResultInterface
     public function __construct(\mysqli_result|array $result);
 
     /**
-     * Creates an associative array out of a result resource
+     * creates an associative array out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -36,7 +36,7 @@ interface ResultInterface
     public function fetch_object(ResultTypeInterface $resultType) : RowInterface|null;
 
     /**
-     * Creates an associative array out of a result resource
+     * creates an associative array out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -46,7 +46,7 @@ interface ResultInterface
     public function fetch_row_assoc() : array;
 
     /**
-     * creates an enumerated array out of a result resource
+     * creates an object array out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -55,7 +55,16 @@ interface ResultInterface
     public function fetch_row_object() : RowInterface|null;
 
     /**
-     * Creates an array out of a result resource
+     * creates an enumerated array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @return          (int|float|string|bool|null)[]|null
+     */
+    public function fetch_row() : array|null;
+
+    /**
+     * creates an array out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -65,21 +74,12 @@ interface ResultInterface
     public function fetch_array(ResultTypeInterface $resultType) : array|null;
 
     /**
-     * Counts the rows of a result resource
+     * counts the rows of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      */
     public function num_rows() : int;
-
-    /**
-     * Creates an enumerated array out of a result resource
-     *
-     * @author          David Lienhard <github@lienhard.win>
-     * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]|null
-     */
-    public function fetch_row() : array|null;
 
     /**
      * creates an array containing all data of a result resource
@@ -92,12 +92,12 @@ interface ResultInterface
     public function fetch_all(ResultTypeInterface $resultType) : array;
 
     /**
-     * creates an array containing all data of a result resource
+     * creates an array containing all data of a result resource as Row objects
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultTypeInterface     $resultType     the type of the result
-     * @return          array<int<0, max>, Row>
+     * @return          array<int<0, max>, RowInterface>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_all_object(ResultTypeInterface $resultType) : array;

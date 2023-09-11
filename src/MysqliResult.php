@@ -11,9 +11,7 @@ use DavidLienhard\Database\RowInterface;
 
 class MysqliResult implements ResultInterface
 {
-    /**
-     * result returned by mysqli
-     */
+    /** result returned by mysqli */
     private \mysqli_result $result;
 
     /**
@@ -33,7 +31,7 @@ class MysqliResult implements ResultInterface
     }
 
     /**
-     * Creates an associative array out of a result resource
+     * creates an associative array out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -81,7 +79,7 @@ class MysqliResult implements ResultInterface
     }
 
     /**
-     * Creates an associative array out of a result resource
+     * creates an associative array out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -108,7 +106,7 @@ class MysqliResult implements ResultInterface
     }
 
     /**
-     * creates an enumerated array out of a result resource
+     * creates an object out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -134,7 +132,28 @@ class MysqliResult implements ResultInterface
     }
 
     /**
-     * Creates an array out of a result resource
+     * creates an enumerated array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @return          (int|float|string|bool|null)[]|null
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function fetch_row() : array|null
+    {
+        try {
+            return $this->result->fetch_row();
+        } catch (\mysqli_sql_exception $e) {
+            throw new DatabaseException(
+                $e->getMessage(),
+                \intval($e->getCode()),
+                $e
+            );
+        }
+    }
+
+    /**
+     * creates an array out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -156,7 +175,7 @@ class MysqliResult implements ResultInterface
     }
 
     /**
-     * counts the rows of a result resource
+     * returns the number of rows of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -164,27 +183,6 @@ class MysqliResult implements ResultInterface
     public function num_rows() : int
     {
         return \intval($this->result->num_rows);
-    }
-
-    /**
-     * Creates an enumerated array out of a result resource
-     *
-     * @author          David Lienhard <github@lienhard.win>
-     * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]|null
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
-     */
-    public function fetch_row() : array|null
-    {
-        try {
-            return $this->result->fetch_row();
-        } catch (\mysqli_sql_exception $e) {
-            throw new DatabaseException(
-                $e->getMessage(),
-                \intval($e->getCode()),
-                $e
-            );
-        }
     }
 
     /**
@@ -210,12 +208,12 @@ class MysqliResult implements ResultInterface
     }
 
     /**
-     * creates an array containing all data of a result resource
+     * creates an array containing all data of a result resource as Row objects
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultTypeInterface         $resultType     the type of the result
-     * @return          array<int<0, max>, Row>
+     * @return          array<int<0, max>, RowInterface>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_all_object(ResultTypeInterface $resultType = ResultType::assoc) : array
@@ -260,7 +258,7 @@ class MysqliResult implements ResultInterface
     }
 
     /**
-     * Frees the memory
+     * frees the memory
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -279,7 +277,7 @@ class MysqliResult implements ResultInterface
     }
 
     /**
-     * Gets a field out of a result resource
+     * gets a field out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard

@@ -21,7 +21,7 @@ class Row implements RowInterface
     }
 
     /**
-     * Creates an associative array out of a result resource
+     * returns the whole row as an array
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -33,7 +33,7 @@ class Row implements RowInterface
     }
 
     /**
-     * Creates an associative array out of a result resource
+     * returns one single element from the row
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -50,7 +50,7 @@ class Row implements RowInterface
     }
 
     /**
-     * Creates an associative array out of a result resource
+     * returns one single element from the row as an int
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -63,7 +63,7 @@ class Row implements RowInterface
     }
 
     /**
-     * Creates an associative array out of a result resource
+     * returns one single element from the row as a float
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -76,7 +76,7 @@ class Row implements RowInterface
     }
 
     /**
-     * Creates an associative array out of a result resource
+     * returns one single element from the row as a string
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -89,7 +89,7 @@ class Row implements RowInterface
     }
 
     /**
-     * Creates an associative array out of a result resource
+     * returns one single element from the row as a bool
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard

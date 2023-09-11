@@ -201,7 +201,7 @@ class StubResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultTypeInterface         $resultType     the type of the result
-     * @return          array<int<0, max>, Row>
+     * @return          array<int<0, max>, RowInterface>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_all_object(ResultTypeInterface $resultType = ResultType::assoc) : array
