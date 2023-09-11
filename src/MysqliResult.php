@@ -4,10 +4,10 @@ namespace DavidLienhard\Database;
 
 use DavidLienhard\Database\Exception as DatabaseException;
 use DavidLienhard\Database\ResultInterface;
-use DavidLienhard\Database\ResultTypeInterface;
 use DavidLienhard\Database\ResultType;
-use DavidLienhard\Database\RowInterface;
+use DavidLienhard\Database\ResultTypeInterface;
 use DavidLienhard\Database\Row;
+use DavidLienhard\Database\RowInterface;
 
 class MysqliResult implements ResultInterface
 {
