@@ -61,7 +61,7 @@ class MysqliResult implements ResultInterface
     public function fetch_object(ResultType $resultType = ResultType::assoc) : RowInterface|null
     {
         try {
-            $result = $this->result->fetch_array($resultType::toMysqli());
+            $result = $this->result->fetch_array($resultType->toMysqli());
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
@@ -135,11 +135,11 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           ResultType              $resultType     the type of the result
+     * @param           ResultTypeInterface     $resultType     the type of the result
      * @return          (int|float|string|bool|null)[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_array(ResultType $resultType = ResultType::assoc) : array|null
+    public function fetch_array(ResultTypeInterface $resultType = ResultType::assoc) : array|null
     {
         try {
             return $this->result->fetch_array($resultType->toMysqli());
@@ -189,14 +189,14 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           ResultType              $resultType     the type of the result
+     * @param           ResultTypeInterface     $resultType     the type of the result
      * @return          array<int, (int|float|string|bool|null)[]>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_all(ResultType $resultType = ResultType::assoc) : array
+    public function fetch_all(ResultTypeInterface $resultType = ResultType::assoc) : array
     {
         try {
-            return $this->result->fetch_all($resultType, $resultType::toMysqli());
+            return $this->result->fetch_all($resultType->toMysqli());
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
@@ -211,14 +211,14 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           ResultType              $resultType     the type of the result
+     * @param           ResultTypeInterface         $resultType     the type of the result
      * @return          mixed[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_all_object(ResultType $resultType = ResultType::assoc) : array
+    public function fetch_all_object(ResultTypeInterface $resultType = ResultType::assoc) : array
     {
         try {
-            $result = $this->result->fetch_all($resultType);
+            $result = $this->result->fetch_all($resultType->toMysqli());
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),

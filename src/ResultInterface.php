@@ -59,7 +59,7 @@ interface ResultInterface
      * @param           int                 $resulttype     the type of the result
      * @return          (int|float|string|bool|null)[]|null
      */
-    public function fetch_array(int $resulttype = MYSQLI_BOTH) : array|null;
+    public function fetch_array(ResultTypeInterface $resultType) : array|null;
 
     /**
      * Counts the rows of a result resource
@@ -86,7 +86,7 @@ interface ResultInterface
      * @param           int                 $resulttype     type of array to return
      * @return          array<int, (int|float|string|bool|null)[]>
      */
-    public function fetch_all(int $resulttype = MYSQLI_NUM) : array;
+    public function fetch_all(ResultTypeInterface $resultType) : array;
 
     /**
      * creates an array containing all data of a result resource
@@ -124,5 +124,5 @@ interface ResultInterface
      * @param           int             $row         the row
      * @param           string          $field       the column
      */
-    public function result(int $row, string $field) : string|int|float|null;
+    public function result(int $row, string $field) : string|int|float|bool|null;
 }
