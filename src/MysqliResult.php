@@ -34,7 +34,7 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          mixed[]
+     * @return          (int|float|string|bool|null)[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_assoc() : array|null
@@ -55,7 +55,7 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          mixed[]
+     * @return          (int|float|string|bool|null)[]
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row_assoc() : array
@@ -83,7 +83,7 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int                 $resulttype     the type of the result
-     * @return          mixed[]|null
+     * @return          (int|float|string|bool|null)[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_array(int $resulttype = MYSQLI_BOTH) : array|null
@@ -115,7 +115,7 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          mixed[]|null
+     * @return          (int|float|string|bool|null)[]|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row() : array|null
@@ -137,7 +137,7 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int                 $resulttype     type of array to return
-     * @return          mixed[]
+     * @return          array<int, (int|float|string|bool|null)[]>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_all(int $resulttype = MYSQLI_NUM) : array
