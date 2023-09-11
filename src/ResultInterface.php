@@ -12,7 +12,7 @@ interface ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           \mysqli_result|array<int, (int|float|string|bool|null)[]>   $result      the result resource
+     * @param           \mysqli_result|array<int, array<(int|string), (int|float|string|bool|null)>>   $result      the result resource
      */
     public function __construct(\mysqli_result|array $result);
 
@@ -21,7 +21,7 @@ interface ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]
+     * @return          array<(int|string), (int|float|string|bool|null)>
      */
     public function fetch_assoc() : array|null;
 
@@ -40,7 +40,7 @@ interface ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]
+     * @return          array<(int|string), (int|float|string|bool|null)>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row_assoc() : array;
@@ -59,7 +59,7 @@ interface ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]|null
+     * @return          array<(int|string), (int|float|string|bool|null)>|null
      */
     public function fetch_row() : array|null;
 
@@ -69,7 +69,7 @@ interface ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultTypeInterface     $resultType     the type of the result
-     * @return          (int|float|string|bool|null)[]|null
+     * @return          array<(int|string), (int|float|string|bool|null)>|null
      */
     public function fetch_array(ResultTypeInterface $resultType) : array|null;
 
@@ -87,7 +87,7 @@ interface ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultTypeInterface     $resultType     type of array to return
-     * @return          array<int, (int|float|string|bool|null)[]>
+     * @return          array<int, array<(int|string), (int|float|string|bool|null)>>
      */
     public function fetch_all(ResultTypeInterface $resultType) : array;
 

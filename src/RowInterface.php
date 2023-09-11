@@ -11,7 +11,7 @@ interface RowInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           (int|float|string|bool|null)[]   $data        the result resource
+     * @param           array<(int|string), (int|float|string|bool|null)>   $data        the result resource
      * @param           ResultType                       $type        the result resource
      */
     public function __construct(array $data, ResultTypeInterface $type);
@@ -21,7 +21,7 @@ interface RowInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]
+     * @return          array<(int|string), (int|float|string|bool|null)>
      */
     public function getAll() : array;
 

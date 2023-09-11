@@ -44,7 +44,7 @@ class Stub implements DatabaseInterface
 
     /**
      * the payload to use in the config
-     * @var     array<int, (int|float|string|bool|null)[]>
+     * @var     array<int, array<(int|string), (int|float|string|bool|null)>>
      */
     private array $payload = [];
 
@@ -331,7 +331,7 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           array<int, (int|float|string|bool|null)[]>  $payload        the payload to add
+     * @param           array<int, array<(int|string), (int|float|string|bool|null)>>  $payload        the payload to add
      */
     public function addPayload(array $payload) : void
     {

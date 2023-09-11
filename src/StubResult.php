@@ -13,7 +13,7 @@ class StubResult implements ResultInterface
 {
     /**
      * payloads
-     * @var     array<int, (int|float|string|bool|null)[]>
+     * @var     array<int, array<(int|string), (int|float|string|bool|null)>>
      */
     private array $payload;
 
@@ -22,7 +22,7 @@ class StubResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           \mysqli_result|array<int, (int|float|string|bool|null)[]>   $payload      payload to use
+     * @param           \mysqli_result|array<int, array<(int|string), (int|float|string|bool|null)>>   $payload      payload to use
      */
     public function __construct(\mysqli_result|array $payload)
     {
@@ -38,7 +38,7 @@ class StubResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]|null
+     * @return          array<(int|string), (int|float|string|bool|null)>|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_assoc() : array|null
@@ -84,7 +84,7 @@ class StubResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]
+     * @return          array<(int|string), (int|float|string|bool|null)>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row_assoc() : array
@@ -108,7 +108,7 @@ class StubResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultTypeInterface     $resultType     the type of the result
-     * @return          (int|float|string|bool|null)[]|null
+     * @return          array<(int|string), (int|float|string|bool|null)>|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_array(ResultTypeInterface $resultType = ResultType::assoc) : array|null
@@ -143,7 +143,7 @@ class StubResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          (int|float|string|bool|null)[]|null
+     * @return          array<(int|string), (int|float|string|bool|null)>|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row() : array|null
@@ -189,7 +189,7 @@ class StubResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultTypeInterface     $resultType     the type of the result
-     * @return          array<int, (int|float|string|bool|null)[]>
+     * @return          array<int, array<(int|string), (int|float|string|bool|null)>>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_all(ResultTypeInterface $resultType = ResultType::assoc) : array
