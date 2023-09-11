@@ -56,7 +56,6 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultType              $resultType     the type of the result
-     * @return          RowInterface|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_object(ResultType $resultType = ResultType::assoc) : RowInterface|null
@@ -110,7 +109,6 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          RowInterface|null
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row_object() : RowInterface|null

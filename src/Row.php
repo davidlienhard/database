@@ -3,8 +3,8 @@
 namespace DavidLienhard\Database;
 
 use DavidLienhard\Database\Exception as DatabaseException;
-use DavidLienhard\Database\RowInterface;
 use DavidLienhard\Database\ResultTypeInterface;
+use DavidLienhard\Database\RowInterface;
 
 class Row implements RowInterface
 {
