@@ -23,6 +23,17 @@ interface ResultInterface
     public function fetch_assoc() : array|null;
 
     /**
+     * creates an object out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           ResultType              $resultType     the type of the result
+     * @return          RowInterface|null
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function fetch_object(ResultType $resultType = ResultType::assoc) : RowInterface|null;
+
+    /**
      * Creates an associative array out of a result resource
      *
      * @author          David Lienhard <github@lienhard.win>
@@ -31,6 +42,16 @@ interface ResultInterface
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row_assoc() : array;
+
+    /**
+     * creates an enumerated array out of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @return          RowInterface|null
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function fetch_row_object() : RowInterface|null;
 
     /**
      * Creates an array out of a result resource
@@ -68,6 +89,17 @@ interface ResultInterface
      * @return          mixed[]
      */
     public function fetch_all(int $resulttype = MYSQLI_NUM) : array;
+
+    /**
+     * creates an array containing all data of a result resource
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           ResultType              $resultType     the type of the result
+     * @return          mixed[]
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function fetch_all_object(ResultType $resultType = ResultType::assoc) : array;
 
     /**
      * returns the id of the last inserted row
