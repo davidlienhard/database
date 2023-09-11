@@ -12,7 +12,7 @@ enum ResultType implements ResultTypeInterface
 
     public function toMysqli() : int
     {
-        return match($this) {
+        return match ($this) {
             self::assoc => MYSQLI_ASSOC,
             self::num => MYSQLI_NUM,
             self::both => MYSQLI_BOTH
