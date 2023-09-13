@@ -112,7 +112,7 @@ class MysqliResult implements ResultInterface
      * @copyright       David Lienhard
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_row_object() : RowInterface|null
+    public function fetch_row_object() : RowInterface
     {
         try {
             $result = $this->result->fetch_row();
@@ -124,11 +124,11 @@ class MysqliResult implements ResultInterface
             );
         }
 
-        if ($result !== null) {
-            return new Row($result, ResultType::both);
+        if ($result === null) {
+            throw new DatabaseException("no more rows to fetch");
         }
 
-        return null;
+        return new Row($result, ResultType::both);
     }
 
     /**

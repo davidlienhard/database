@@ -168,7 +168,7 @@ class StubResult implements ResultInterface
      * @copyright       David Lienhard
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_row_object() : RowInterface|null
+    public function fetch_row_object() : RowInterface
     {
         if (!array_key_exists(0, $this->payload)) {
             throw new DatabaseException("no data on key 0");

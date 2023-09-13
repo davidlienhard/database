@@ -52,7 +52,7 @@ interface ResultInterface
      * @copyright       David Lienhard
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_row_object() : RowInterface|null;
+    public function fetch_row_object() : RowInterface;
 
     /**
      * creates an enumerated array out of a result resource
