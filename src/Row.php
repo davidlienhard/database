@@ -59,6 +59,10 @@ class Row implements RowInterface
      */
     public function getAsInt(int|string $key) : int
     {
+        if (!\array_key_exists($key, $this->data)) {
+            throw new DatabaseException("key '".$key."' does not exixt");
+        }
+
         return \intval($this->data[$key]);
     }
 
@@ -72,6 +76,10 @@ class Row implements RowInterface
      */
     public function getAsFloat(int|string $key) : float
     {
+        if (!\array_key_exists($key, $this->data)) {
+            throw new DatabaseException("key '".$key."' does not exixt");
+        }
+
         return \floatval($this->data[$key]);
     }
 
@@ -85,6 +93,10 @@ class Row implements RowInterface
      */
     public function getAsString(int|string $key) : string
     {
+        if (!\array_key_exists($key, $this->data)) {
+            throw new DatabaseException("key '".$key."' does not exixt");
+        }
+
         return \strval($this->data[$key]);
     }
 
@@ -98,6 +110,10 @@ class Row implements RowInterface
      */
     public function getAsBool(int|string $key) : bool
     {
+        if (!\array_key_exists($key, $this->data)) {
+            throw new DatabaseException("key '".$key."' does not exixt");
+        }
+
         return \boolval($this->data[$key]);
     }
 
