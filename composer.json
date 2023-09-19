@@ -39,6 +39,7 @@
         "phpcs": "./vendor/bin/phpcs",
         "phpcs-diff": "@composer changed-files | xargs ls -d 2>/dev/null | xargs ./vendor/bin/phpcs",
         "phpstan": "./vendor/bin/phpstan analyse",
+        "coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html=./coverage/",
         "test": [
             "@phpunit",
             "@phpcs",
