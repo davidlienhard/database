@@ -17,7 +17,7 @@ interface RowInterface
     public function __construct(array $data, ResultTypeInterface $type);
 
     /**
-     * Creates an associative array out of a result resource
+     * returns the whole row as an array
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
@@ -26,54 +26,85 @@ interface RowInterface
     public function getAll() : array;
 
     /**
-     * Creates an associative array out of a result resource
+     * returns one single element from the row
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int|string          $key         key to use
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function get(int|string $key) : int|float|string|bool|null;
 
     /**
-     * Creates an associative array out of a result resource
+     * returns one single element from the row as an int
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int|string          $key         key to use
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function getAsInt(int|string $key) : int;
 
     /**
-     * Creates an associative array out of a result resource
+     * returns one single element from the row as an int or null
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int|string          $key         key to use
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function getAsNullableInt(int|string $key) : int|null;
+
+    /**
+     * returns one single element from the row as a float
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int|string          $key         key to use
      */
     public function getAsFloat(int|string $key) : float;
 
     /**
-     * Creates an associative array out of a result resource
+     * returns one single element from the row as a float or null
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int|string          $key         key to use
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function getAsNullableFloat(int|string $key) : float|null;
+
+    /**
+     * returns one single element from the row as a string
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int|string          $key         key to use
      */
     public function getAsString(int|string $key) : string;
 
     /**
-     * Creates an associative array out of a result resource
+     * returns one single element from the row as a string or null
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int|string          $key         key to use
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function getAsNullableString(int|string $key) : string|null;
+
+    /**
+     * returns one single element from the row as a bool
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int|string          $key         key to use
      */
     public function getAsBool(int|string $key) : bool;
+
+    /**
+     * returns one single element from the row as a bool or null
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int|string          $key         key to use
+     */
+    public function getAsNullableBool(int|string $key) : bool|null;
 
     /**
      * returns the result type of this row

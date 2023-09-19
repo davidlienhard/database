@@ -43,7 +43,7 @@ class Row implements RowInterface
     public function get(int|string $key) : int|float|string|bool|null
     {
         if (!\array_key_exists($key, $this->data)) {
-            throw new DatabaseException("key '".$key."' does not exixt");
+            throw new DatabaseException("key '".$key."' does not exist");
         }
 
         return $this->data[$key];
@@ -60,10 +60,29 @@ class Row implements RowInterface
     public function getAsInt(int|string $key) : int
     {
         if (!\array_key_exists($key, $this->data)) {
-            throw new DatabaseException("key '".$key."' does not exixt");
+            throw new DatabaseException("key '".$key."' does not exist");
         }
 
         return \intval($this->data[$key]);
+    }
+
+    /**
+     * returns one single element from the row as an int or null
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int|string          $key         key to use
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function getAsNullableInt(int|string $key) : int|null
+    {
+        if (!\array_key_exists($key, $this->data)) {
+            throw new DatabaseException("key '".$key."' does not exist");
+        }
+
+        return $this->data[$key] === null
+            ? null
+            : \intval($this->data[$key]);
     }
 
     /**
@@ -77,10 +96,29 @@ class Row implements RowInterface
     public function getAsFloat(int|string $key) : float
     {
         if (!\array_key_exists($key, $this->data)) {
-            throw new DatabaseException("key '".$key."' does not exixt");
+            throw new DatabaseException("key '".$key."' does not exist");
         }
 
         return \floatval($this->data[$key]);
+    }
+
+    /**
+     * returns one single element from the row as a float or null
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int|string          $key         key to use
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function getAsNullableFloat(int|string $key) : float|null
+    {
+        if (!\array_key_exists($key, $this->data)) {
+            throw new DatabaseException("key '".$key."' does not exist");
+        }
+
+        return $this->data[$key] === null
+            ? null
+            : \floatval($this->data[$key]);
     }
 
     /**
@@ -94,10 +132,29 @@ class Row implements RowInterface
     public function getAsString(int|string $key) : string
     {
         if (!\array_key_exists($key, $this->data)) {
-            throw new DatabaseException("key '".$key."' does not exixt");
+            throw new DatabaseException("key '".$key."' does not exist");
         }
 
         return \strval($this->data[$key]);
+    }
+
+    /**
+     * returns one single element from the row as a string or null
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int|string          $key         key to use
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function getAsNullableString(int|string $key) : string|null
+    {
+        if (!\array_key_exists($key, $this->data)) {
+            throw new DatabaseException("key '".$key."' does not exist");
+        }
+
+        return $this->data[$key] === null
+            ? null
+            : \strval($this->data[$key]);
     }
 
     /**
@@ -111,10 +168,29 @@ class Row implements RowInterface
     public function getAsBool(int|string $key) : bool
     {
         if (!\array_key_exists($key, $this->data)) {
-            throw new DatabaseException("key '".$key."' does not exixt");
+            throw new DatabaseException("key '".$key."' does not exist");
         }
 
         return \boolval($this->data[$key]);
+    }
+
+    /**
+     * returns one single element from the row as a bool or null
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int|string          $key         key to use
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function getAsNullableBool(int|string $key) : bool|null
+    {
+        if (!\array_key_exists($key, $this->data)) {
+            throw new DatabaseException("key '".$key."' does not exist");
+        }
+
+        return $this->data[$key] === null
+            ? null
+            : \boolval($this->data[$key]);
     }
 
     /**
