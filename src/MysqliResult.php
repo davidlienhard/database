@@ -115,7 +115,7 @@ class MysqliResult implements ResultInterface
     public function fetch_row_object() : RowInterface
     {
         try {
-            $result = $this->result->fetch_row();
+            $result = $this->result->fetch_assoc();
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
