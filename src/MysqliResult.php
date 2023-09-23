@@ -43,7 +43,11 @@ class MysqliResult implements ResultInterface
     public function fetch_array(ResultTypeInterface $resultType = ResultType::assoc) : array|null
     {
         try {
-            return $this->result->fetch_array($resultType->toMysqli());
+            return match ($resultType) {
+                ResultType::assoc => $this->result->fetch_assoc(),
+                ResultType::num => $this->result->fetch_row(),
+                default => $this->result->fetch_array(ResultType::both->toMysqli())
+            };
         } catch (\mysqli_sql_exception $e) {
             throw new DatabaseException(
                 $e->getMessage(),
@@ -155,7 +159,11 @@ class MysqliResult implements ResultInterface
      */
     public function fetch_single_array(ResultTypeInterface $resultType = ResultType::assoc) : array
     {
-        $result = $this->fetch_array($resultType);
+        $result = match ($resultType) {
+            ResultType::assoc => $this->result->fetch_assoc(),
+            ResultType::num => $this->result->fetch_row(),
+            default => $this->result->fetch_array(ResultType::both->toMysqli())
+        };
 
         if ($result === null) {
             throw new NoRowsException("no more rows to fetch");
