@@ -60,11 +60,21 @@ class StubResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<(int|string), (int|float|string|bool|null)>|null
+     * @return          array<string, (int|float|string|bool|null)>|null
      */
     public function fetch_array_assoc(ResultTypeInterface $resultType = ResultType::assoc) : array|null
     {
-        return $this->fetch_array(ResultType::assoc);
+        $data = $this->fetch_array(ResultType::assoc);
+
+        if ($data === null) {
+            return null;
+        }
+
+        $keys = \array_keys($data);
+        $keys = \array_map("strval", $keys);
+        $data = \array_combine($keys, $data);
+
+        return $data;
     }
 
     /**
@@ -73,7 +83,7 @@ class StubResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<(int|string), (int|float|string|bool|null)>
+     * @return          array<string, (int|float|string|bool|null)>
      */
     public function fetch_assoc() : array|null
     {
@@ -85,11 +95,21 @@ class StubResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<(int|string), (int|float|string|bool|null)>
+     * @return          array<int, (int|float|string|bool|null)>
      */
     public function fetch_array_num() : array|null
     {
-        return $this->fetch_array(ResultType::num);
+        $data = $this->fetch_array(ResultType::num);
+
+        if ($data === null) {
+            return null;
+        }
+
+        $keys = \array_keys($data);
+        $keys = \array_map("intval", $keys);
+        $data = \array_combine($keys, $data);
+
+        return $data;
     }
 
     /**
@@ -98,7 +118,7 @@ class StubResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<(int|string), (int|float|string|bool|null)>
+     * @return          array<int, (int|float|string|bool|null)>
      */
     public function fetch_row() : array|null
     {

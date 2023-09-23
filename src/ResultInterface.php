@@ -31,7 +31,7 @@ interface ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<(int|string), (int|float|string|bool|null)>
+     * @return          array<string, (int|float|string|bool|null)>
      */
     public function fetch_array_assoc() : array|null;
 
@@ -41,7 +41,7 @@ interface ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<(int|string), (int|float|string|bool|null)>
+     * @return          array<string, (int|float|string|bool|null)>
      */
     public function fetch_assoc() : array|null;
 
@@ -50,7 +50,7 @@ interface ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<(int|string), (int|float|string|bool|null)>
+     * @return          array<int, (int|float|string|bool|null)>
      */
     public function fetch_array_num() : array|null;
 
@@ -60,7 +60,7 @@ interface ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<(int|string), (int|float|string|bool|null)>
+     * @return          array<int, (int|float|string|bool|null)>
      */
     public function fetch_row() : array|null;
 

@@ -58,7 +58,7 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<(int|string), (int|float|string|bool|null)>
+     * @return          array<string, (int|float|string|bool|null)>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_array_assoc() : array|null
@@ -80,7 +80,7 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<(int|string), (int|float|string|bool|null)>
+     * @return          array<string, (int|float|string|bool|null)>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_assoc() : array|null
@@ -93,7 +93,7 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<(int|string), (int|float|string|bool|null)>
+     * @return          array<int, (int|float|string|bool|null)>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_array_num() : array|null
@@ -115,7 +115,7 @@ class MysqliResult implements ResultInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @return          array<(int|string), (int|float|string|bool|null)>
+     * @return          array<int, (int|float|string|bool|null)>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
     public function fetch_row() : array|null
@@ -151,6 +151,7 @@ class MysqliResult implements ResultInterface
      * @param           ResultTypeInterface     $resultType     the type of the result
      * @return          array<(int|string), (int|float|string|bool|null)>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\NoRowsException if no row can be fetched
      */
     public function fetch_single_array(ResultTypeInterface $resultType = ResultType::assoc) : array
     {
@@ -171,6 +172,7 @@ class MysqliResult implements ResultInterface
      * @copyright       David Lienhard
      * @return          array<(int|string), (int|float|string|bool|null)>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\NoRowsException if no row can be fetched
      */
     public function fetch_single_array_assoc() : array
     {
@@ -191,6 +193,7 @@ class MysqliResult implements ResultInterface
      * @copyright       David Lienhard
      * @return          array<(int|string), (int|float|string|bool|null)>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\NoRowsException if no row can be fetched
      */
     public function fetch_single_array_num() : array
     {
@@ -211,6 +214,7 @@ class MysqliResult implements ResultInterface
      * @copyright       David Lienhard
      * @param           ResultTypeInterface     $resultType     the type of the result
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\NoRowsException if no row can be fetched
      */
     public function fetch_single_object(ResultTypeInterface $resultType = ResultType::assoc) : RowInterface
     {
