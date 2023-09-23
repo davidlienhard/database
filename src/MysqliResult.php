@@ -86,9 +86,15 @@ class MysqliResult implements ResultInterface
      * @copyright       David Lienhard
      * @return          array<string, (int|float|string|bool|null)>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @deprecated      3.0.0 use fetch_array_assoc() whenever possible
      */
     public function fetch_assoc() : array|null
     {
+        trigger_error(
+            "method MysqliResult\\fetch_assoc() is deprecated as of version 3.0.0",
+            E_USER_DEPRECATED
+        );
+
         return $this->fetch_array_assoc();
     }
 
@@ -121,9 +127,15 @@ class MysqliResult implements ResultInterface
      * @copyright       David Lienhard
      * @return          array<int, (int|float|string|bool|null)>
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @deprecated      3.0.0 use fetch_array_num() whenever possible
      */
     public function fetch_row() : array|null
     {
+        trigger_error(
+            "method MysqliResult\\fetch_row() is deprecated as of version 3.0.0",
+            E_USER_DEPRECATED
+        );
+
         return $this->fetch_array_num();
     }
 
