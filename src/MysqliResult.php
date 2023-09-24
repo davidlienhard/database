@@ -363,7 +363,7 @@ class MysqliResult implements ResultInterface
     {
         try {
             $this->data_seek($row);
-            $dataRow = $this->fetch_assoc();
+            $dataRow = $this->fetch_array_assoc();
 
             if ($dataRow === null) {
                 throw new DatabaseException("unable to fetch assoc array");
