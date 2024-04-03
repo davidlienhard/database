@@ -44,9 +44,12 @@ class Stub implements DatabaseInterface
 
     /**
      * the payload to use in the config
-     * @var     array<int, array<(int|string), (int|float|string|bool|null)>>
+     * @var     array<int, array<int, array<(int|string), (int|float|string|bool|null)>>>
      */
     private array $payload = [];
+
+    /** current query number */
+    private int $queryNumber = 0;
 
     /**
      * connects to the database
@@ -174,9 +177,19 @@ class Stub implements DatabaseInterface
      */
     public function query(string $query, ParameterInterface ...$parameters) : ResultInterface|bool
     {
-        return strtolower(substr(trim($query), 0, 6)) === "select"
-            ? new StubResult($this->payload)
-            : true;
+        $queryType = \strtolower(\substr(\trim($query), 0, 6));
+
+        if ($queryType === "select") {
+            $payload = \array_key_exists($this->queryNumber, $this->payload)
+                ? $this->payload[$this->queryNumber]
+                : [];
+
+            $result = new StubResult($payload);
+            $this->queryNumber++;
+            return $result;
+        }
+
+        return true;
     }
 
 
@@ -332,10 +345,19 @@ class Stub implements DatabaseInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           array<int, array<(int|string), (int|float|string|bool|null)>>  $payload        the payload to add
+     * @param           null|int            $queryNumber        number of query to return the payload
      */
-    public function addPayload(array $payload) : void
+    public function addPayload(array $payload, int $queryNumber = null) : void
     {
-        $this->payload = $payload;
+        if ($queryNumber === null) {
+            $maxKey = count($this->payload) !== 0
+                ? \max(\array_keys($this->payload)) + 1
+                : 0;
+
+            $queryNumber = $maxKey;
+        }
+
+        $this->payload[$queryNumber] = $payload;
     }
 
     /**
