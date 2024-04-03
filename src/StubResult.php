@@ -17,6 +17,9 @@ class StubResult implements ResultInterface
      */
     private array $payload;
 
+    /** number of runs to fetch data */
+    private int $runCount = 0;
+
     /**
      * initiates the new object
      *
@@ -26,7 +29,7 @@ class StubResult implements ResultInterface
      */
     public function __construct(\mysqli_result|array $payload)
     {
-        if (!is_array($payload)) {
+        if (!\is_array($payload)) {
             throw new \TypeError("parameter \$payload must be type of array. is '".gettype($payload)."'");
         }
 
@@ -42,16 +45,18 @@ class StubResult implements ResultInterface
      */
     public function fetch_array(ResultTypeInterface $resultType = ResultType::assoc) : array|null
     {
-        if (!array_key_exists(0, $this->payload)) {
-            throw new DatabaseException("no data on key 0");
+        if (!\array_key_exists($this->runCount, $this->payload)) {
+            $this->runCount++;
+            return null;
         }
 
-        $data = $this->payload[0];
+        $data = $this->payload[$this->runCount];
 
-        if (!is_array($data)) {
+        if (!\is_array($data)) {
             throw new DatabaseException("payload must be array");
         }
 
+        $this->runCount++;
         return $data;
     }
 
@@ -146,16 +151,18 @@ class StubResult implements ResultInterface
      */
     public function fetch_object(ResultTypeInterface $resultType = ResultType::assoc) : RowInterface|null
     {
-        if (!array_key_exists(0, $this->payload)) {
-            throw new DatabaseException("no data on key 0");
+        if (!\array_key_exists($this->runCount, $this->payload)) {
+            $this->runCount++;
+            return null;
         }
 
-        $data = $this->payload[0];
+        $data = $this->payload[$this->runCount];
 
-        if (!is_array($data)) {
+        if (!\is_array($data)) {
             throw new DatabaseException("payload must be array");
         }
 
+        $this->runCount++;
         return new Row($data, $resultType);
     }
 
@@ -287,6 +294,7 @@ class StubResult implements ResultInterface
      */
     public function data_seek(int $offset) : bool
     {
+        $this->runCount = $offset;
         return true;
     }
 
