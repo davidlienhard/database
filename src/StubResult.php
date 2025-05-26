@@ -52,10 +52,6 @@ class StubResult implements ResultInterface
 
         $data = $this->payload[$this->runCount];
 
-        if (!\is_array($data)) {
-            throw new DatabaseException("payload must be array");
-        }
-
         $this->runCount++;
         return $data;
     }
@@ -157,10 +153,6 @@ class StubResult implements ResultInterface
         }
 
         $data = $this->payload[$this->runCount];
-
-        if (!\is_array($data)) {
-            throw new DatabaseException("payload must be array");
-        }
 
         $this->runCount++;
         return new Row($data, $resultType);
@@ -316,7 +308,6 @@ class StubResult implements ResultInterface
      * @copyright       David Lienhard
      * @param           int             $row         the row
      * @param           string          $field       the column
-     * @throws          \Exception if the required field is does not exist
      */
     public function result(int $row, string $field) : string|int|float|null
     {
@@ -330,7 +321,6 @@ class StubResult implements ResultInterface
      * @copyright       David Lienhard
      * @param           int             $row         the row
      * @param           string          $field       the column
-     * @throws          \Exception if the required field is does not exist
      */
     public function resultAsInt(int $row, string $field) : int
     {
@@ -344,7 +334,6 @@ class StubResult implements ResultInterface
      * @copyright       David Lienhard
      * @param           int             $row         the row
      * @param           string          $field       the column
-     * @throws          \Exception if the required field is does not exist
      */
     public function resultAsFloat(int $row, string $field) : float
     {
@@ -358,7 +347,6 @@ class StubResult implements ResultInterface
      * @copyright       David Lienhard
      * @param           int             $row         the row
      * @param           string          $field       the column
-     * @throws          \Exception if the required field is does not exist
      */
     public function resultAsString(int $row, string $field) : string
     {
@@ -372,7 +360,6 @@ class StubResult implements ResultInterface
      * @copyright       David Lienhard
      * @param           int             $row         the row
      * @param           string          $field       the column
-     * @throws          \Exception if the required field is does not exist
      */
     public function resultAsBool(int $row, string $field) : bool
     {

@@ -347,7 +347,7 @@ class Stub implements DatabaseInterface
      * @param           array<int, array<(int|string), (int|float|string|bool|null)>>  $payload        the payload to add
      * @param           null|int            $queryNumber        number of query to return the payload
      */
-    public function addPayload(array $payload, int $queryNumber = null) : void
+    public function addPayload(array $payload, int|null $queryNumber = null) : void
     {
         if ($queryNumber === null) {
             $maxKey = count($this->payload) !== 0
