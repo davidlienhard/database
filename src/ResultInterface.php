@@ -186,6 +186,18 @@ interface ResultInterface
     public function resultAsInt(int $row, string $field) : int;
 
     /**
+     * gets a field out of a result resource as an int
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int             $row         the row
+     * @param           string          $field       the column
+     * @throws          \Exception if the required field is does not exist
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function resultAsNullableInt(int $row, string $field) : int|null;
+
+    /**
      * gets a field out of a result resource as a float
      *
      * @author          David Lienhard <github@lienhard.win>
@@ -195,6 +207,17 @@ interface ResultInterface
      * @throws          \Exception if the required field is does not exist
      */
     public function resultAsFloat(int $row, string $field) : float;
+
+    /**
+     * gets a field out of a result resource as a float
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int             $row         the row
+     * @param           string          $field       the column
+     * @throws          \Exception if the required field is does not exist
+     */
+    public function resultAsNullableFloat(int $row, string $field) : float|null;
 
     /**
      * gets a field out of a result resource as a string
@@ -208,6 +231,17 @@ interface ResultInterface
     public function resultAsString(int $row, string $field) : string;
 
     /**
+     * gets a field out of a result resource as a string
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int             $row         the row
+     * @param           string          $field       the column
+     * @throws          \Exception if the required field is does not exist
+     */
+    public function resultAsNullableString(int $row, string $field) : string|null;
+
+    /**
      * gets a field out of a result resource as a bool
      *
      * @author          David Lienhard <github@lienhard.win>
@@ -217,4 +251,15 @@ interface ResultInterface
      * @throws          \Exception if the required field is does not exist
      */
     public function resultAsBool(int $row, string $field) : bool;
+
+    /**
+     * gets a field out of a result resource as a bool
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int             $row         the row
+     * @param           string          $field       the column
+     * @throws          \Exception if the required field is does not exist
+     */
+    public function resultAsNullableBool(int $row, string $field) : bool|null;
 }

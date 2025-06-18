@@ -413,6 +413,24 @@ class MysqliResult implements ResultInterface
     }
 
     /**
+     * gets a field out of a result resource as an int
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int             $row         the row
+     * @param           string          $field       the column
+     * @throws          \Exception if the required field is does not exist
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function resultAsNullableInt(int $row, string $field) : int|null
+    {
+        $result = $this->result($row, $field);
+        return $result === null
+            ? null
+            : \intval($result);
+    }
+
+    /**
      * gets a field out of a result resource as a float
      *
      * @author          David Lienhard <github@lienhard.win>
@@ -425,6 +443,24 @@ class MysqliResult implements ResultInterface
     public function resultAsFloat(int $row, string $field) : float
     {
         return \floatval($this->result($row, $field));
+    }
+
+    /**
+     * gets a field out of a result resource as a float
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int             $row         the row
+     * @param           string          $field       the column
+     * @throws          \Exception if the required field is does not exist
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function resultAsNullableFloat(int $row, string $field) : float|null
+    {
+        $result = $this->result($row, $field);
+        return $result === null
+            ? null
+            : \floatval($result);
     }
 
     /**
@@ -443,6 +479,24 @@ class MysqliResult implements ResultInterface
     }
 
     /**
+     * gets a field out of a result resource as a string
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int             $row         the row
+     * @param           string          $field       the column
+     * @throws          \Exception if the required field is does not exist
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function resultAsNullableString(int $row, string $field) : string|null
+    {
+        $result = $this->result($row, $field);
+        return $result === null
+            ? null
+            : \strval($result);
+    }
+
+    /**
      * gets a field out of a result resource as a bool
      *
      * @author          David Lienhard <github@lienhard.win>
@@ -455,5 +509,23 @@ class MysqliResult implements ResultInterface
     public function resultAsBool(int $row, string $field) : bool
     {
         return \boolval($this->result($row, $field));
+    }
+
+    /**
+     * gets a field out of a result resource as a bool
+     *
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
+     * @param           int             $row         the row
+     * @param           string          $field       the column
+     * @throws          \Exception if the required field is does not exist
+     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     */
+    public function resultAsNullableBool(int $row, string $field) : bool|null
+    {
+        $result = $this->result($row, $field);
+        return $result === null
+            ? null
+            : \boolval($result);
     }
 }
