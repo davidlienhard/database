@@ -488,7 +488,7 @@ class MysqliResult implements ResultInterface
      * @throws          \Exception if the required field is does not exist
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function resultAsString(int $row, string $field) : string|null
+    public function resultAsNullableString(int $row, string $field) : string|null
     {
         $result = $this->result($row, $field);
         return $result === null
