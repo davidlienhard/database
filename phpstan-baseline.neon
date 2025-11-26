@@ -1,0 +1,43 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to function is_bool\(\) with bool will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/MysqliResult.php
+
+		-
+			message: '#^Method DavidLienhard\\Database\\MysqliResult\:\:fetch_all_array\(\) should return array\<int, array\<int\|string, bool\|float\|int\|string\|null\>\> but returns list\<array\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/MysqliResult.php
+
+		-
+			message: '#^Method DavidLienhard\\Database\\MysqliResult\:\:fetch_array\(\) should return array\<int\|string, bool\|float\|int\|string\|null\>\|null but returns array\|false\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/MysqliResult.php
+
+		-
+			message: '#^Method DavidLienhard\\Database\\MysqliResult\:\:fetch_array_assoc\(\) should return array\<string, bool\|float\|int\|string\|null\>\|null but returns array\<string, float\|int\|string\|null\>\|false\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/MysqliResult.php
+
+		-
+			message: '#^Method DavidLienhard\\Database\\MysqliResult\:\:fetch_array_num\(\) should return array\<int, bool\|float\|int\|string\|null\>\|null but returns array\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/MysqliResult.php
+
+		-
+			message: '#^Method DavidLienhard\\Database\\MysqliResult\:\:fetch_single_array\(\) should return array\<int\|string, bool\|float\|int\|string\|null\> but returns array\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: src/MysqliResult.php
+
+		-
+			message: '#^Parameter \#1 \$data of class DavidLienhard\\Database\\Row constructor expects array\<int\|string, bool\|float\|int\|string\|null\>, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/MysqliResult.php

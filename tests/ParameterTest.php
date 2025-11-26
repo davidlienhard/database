@@ -1,15 +1,13 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace DavidLienhard;
 
-require_once dirname(__DIR__) . "/src/Parameter.php";
-require_once dirname(__DIR__) . "/src/ParameterInterface.php";
+require_once dirname(__DIR__)."/src/Parameter.php";
+require_once dirname(__DIR__)."/src/ParameterInterface.php";
 
-use \PHPUnit\Framework\TestCase;
-use \DavidLienhard\Database\Parameter;
-use \DavidLienhard\Database\ParameterInterface;
+use DavidLienhard\Database\Parameter;
+use DavidLienhard\Database\ParameterInterface;
+use PHPUnit\Framework\TestCase;
 
 class DatabaseParameterTest extends TestCase
 {
@@ -20,16 +18,8 @@ class DatabaseParameterTest extends TestCase
     public function testCanBeCreated(): void
     {
         $param = new Parameter("i", 1);
-
-        $this->assertInstanceOf(
-            Parameter::class,
-            $param
-        );
-
-        $this->assertInstanceOf(
-            ParameterInterface::class,
-            $param
-        );
+        $this->assertInstanceOf(Parameter::class, $param);
+        $this->assertInstanceOf(ParameterInterface::class, $param);
     }
 
     /**
@@ -84,7 +74,6 @@ class DatabaseParameterTest extends TestCase
         $type = "i";
         $value = 1;
         $param = new Parameter($type, $value);
-
         $this->assertEquals($value, $param->getValue());
     }
 }

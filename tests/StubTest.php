@@ -1,15 +1,13 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace tourBaseTests\Tests\Stubs;
 
-use \PHPUnit\Framework\TestCase;
-use \DavidLienhard\Database\Parameter as DBParam;
-use \DavidLienhard\Database\Stub as Database;
-use \DavidLienhard\Database\DatabaseInterface;
+use DavidLienhard\Database\DatabaseInterface;
+use DavidLienhard\Database\Parameter as DBParam;
+use DavidLienhard\Database\Stub as Database;
+use PHPUnit\Framework\TestCase;
 
-require_once dirname(__DIR__) . "/src/Stub.php";
+require_once dirname(__DIR__)."/src/Stub.php";
 
 class DatabaseStubTest extends TestCase
 {
@@ -19,10 +17,7 @@ class DatabaseStubTest extends TestCase
     */
     public function testCanBeCreated(): void
     {
-        $this->assertInstanceOf(
-            Database::class,
-            new Database
-        );
+        $this->assertInstanceOf(Database::class, new Database);
     }
 
     /**
@@ -45,7 +40,8 @@ class DatabaseStubTest extends TestCase
     {
         $database = new Database;
         $database->addPayload([
-            "test" => "test"]);
+            "test" => "test"
+        ]);
         $this->assertTrue(true);
     }
 
@@ -70,7 +66,7 @@ class DatabaseStubTest extends TestCase
         $database = new Database;
 
         // can connect with correct attributes
-        $this->assertTrue(
+        $this->assertNull(
             $database->connect(
                 "hostname",
                 "username",
@@ -91,7 +87,7 @@ class DatabaseStubTest extends TestCase
     public function testCanCloseConnection(): void
     {
         $database = new Database;
-        $this->assertTrue($database->close());
+        $this->assertNull($database->close());
     }
 
     /**
@@ -101,8 +97,8 @@ class DatabaseStubTest extends TestCase
     public function testCanSetAutocommit(): void
     {
         $database = new Database;
-        $this->assertTrue($database->autocommit(true));
-        $this->assertTrue($database->autocommit(false));
+        $this->assertNull($database->autocommit(true));
+        $this->assertNull($database->autocommit(false));
 
         // get exception without attributes
         $this->expectException(\TypeError::class);
@@ -120,7 +116,7 @@ class DatabaseStubTest extends TestCase
     public function testCanSetBeginTransaction(): void
     {
         $database = new Database;
-        $this->assertTrue($database->begin_transaction());
+        $this->assertNull($database->begin_transaction());
     }
 
     /**
@@ -130,7 +126,7 @@ class DatabaseStubTest extends TestCase
     public function testCanCommit(): void
     {
         $database = new Database;
-        $this->assertTrue($database->commit());
+        $this->assertNull($database->commit());
     }
 
     /**
@@ -140,7 +136,7 @@ class DatabaseStubTest extends TestCase
     public function testCanRollback(): void
     {
         $database = new Database;
-        $this->assertTrue($database->rollback());
+        $this->assertNull($database->rollback());
     }
 
     /**
@@ -198,157 +194,6 @@ class DatabaseStubTest extends TestCase
     }
 
     /**
-     * @covers \DavidLienhard\Database\Stub::num_rows()
-     * @test
-    */
-    public function testCanGetNumberOfRows(): void
-    {
-        $database = new Database;
-        $result = $database->query("query");
-        $this->assertIsInt($database->num_rows($result));
-
-        $this->expectException(\TypeError::class);
-        $database->num_rows();
-    }
-
-    /**
-     * @covers \DavidLienhard\Database\Stub::result()
-     * @test
-    */
-    public function testCanGetResult(): void
-    {
-        $database = new Database;
-
-        $result = $database->query("query");
-
-        $this->assertIsString(
-            $database->result(
-                $result,
-                0,
-                "column"
-            )
-        );
-
-        $this->expectException(\TypeError::class);
-        $database->result();
-    }
-
-    /**
-     * @covers \DavidLienhard\Database\Stub::free_result()
-     * @test
-    */
-    public function testCanFreeResult(): void
-    {
-        $database = new Database;
-
-        $result = $database->query("query");
-
-        $this->assertEquals(null, $database->free_result($result));
-
-        $this->expectException(\TypeError::class);
-        $database->free_result();
-    }
-
-    /**
-     * @covers \DavidLienhard\Database\Stub::fetch_array()
-     * @test
-    */
-    public function testCanFetchArray(): void
-    {
-        $database = new Database;
-
-        $payload = [
-            "user" => "hamu",
-            "surename" => "Hans",
-            "lastname" => "Muster"
-        ];
-
-        $result = $database->query("query");
-
-        // empty array by default
-        $this->assertEquals(
-            [ ],
-            $database->fetch_array($result)
-        );
-
-        // payload if set
-        $database->addPayload($payload);
-        $this->assertEquals(
-            $payload,
-            $database->fetch_array($result)
-        );
-
-        $this->expectException(\TypeError::class);
-        $database->fetch_array();
-    }
-
-    /**
-     * @covers \DavidLienhard\Database\Stub::fetch_assoc()
-     * @test
-    */
-    public function testCanFetchAssoc(): void
-    {
-        $database = new Database;
-
-        $payload = [
-            "user" => "hamu",
-            "surename" => "Hans",
-            "lastname" => "Muster"
-        ];
-
-        $result = $database->query("query");
-
-        // empty array by default
-        $this->assertEquals(
-            [ ],
-            $database->fetch_assoc($result)
-        );
-
-        // payload if set
-        $database->addPayload($payload);
-        $this->assertEquals(
-            $payload,
-            $database->fetch_assoc($result)
-        );
-
-        $this->expectException(\TypeError::class);
-        $database->fetch_assoc();
-    }
-
-    /**
-     * @covers \DavidLienhard\Database\Stub::fetch_row()
-     * @test
-    */
-    public function testCanFetchRow(): void
-    {
-        $database = new Database;
-
-        $payload = [
-            "user" => "hamu",
-            "surename" => "Hans",
-            "lastname" => "Muster"
-        ];
-
-        $result = $database->query("query");
-
-        // empty array by default
-        $this->assertEquals(
-            [ ],
-            $database->fetch_row($result)
-        );
-
-        // payload if set
-        $database->addPayload($payload);
-        $this->assertEquals(
-            $payload,
-            $database->fetch_row($result)
-        );
-
-        $this->expectException(\TypeError::class);
-        $database->fetch_row();
-    }
-
-    /**
      * @covers \DavidLienhard\Database\Stub::insert_id()
      * @test
     */
@@ -356,23 +201,6 @@ class DatabaseStubTest extends TestCase
     {
         $database = new Database;
         $this->assertIsInt($database->insert_id());
-    }
-
-    /**
-     * @covers \DavidLienhard\Database\Stub::data_seek()
-     * @test
-    */
-    public function testCanSeekData(): void
-    {
-        $database = new Database;
-
-        $result = $database->query("query");
-
-        // empty array by default
-        $this->assertTrue($database->data_seek($result, 0));
-
-        $this->expectException(\TypeError::class);
-        $database->data_seek();
     }
 
     /**
@@ -386,14 +214,14 @@ class DatabaseStubTest extends TestCase
     }
 
     /**
-     * @covers \DavidLienhard\Database\Stub::esc()
+     * @covers \DavidLienhard\Database\Stub::escape()
      * @test
     */
     public function testCanEscapeString(): void
     {
         $database = new Database;
         $input = "test-string";
-        $this->assertEquals($input, $database->esc($input));
+        $this->assertEquals($input, $database->escape($input));
     }
 
     /**
@@ -423,7 +251,7 @@ class DatabaseStubTest extends TestCase
     public function testCanGetProtoInfo(): void
     {
         $database = new Database;
-        $this->assertIsString($database->proto_info());
+        $this->assertIsInt($database->proto_info());
     }
 
     /**

@@ -6,7 +6,7 @@ updates:
       interval: "daily"
     open-pull-requests-limit: 10
     assignees:
-    - "davidlienhard"
+      - "davidlienhard"
     labels:
       - "enhancement"
       - "dependencies"
@@ -16,7 +16,7 @@ updates:
     schedule:
       interval: "daily"
     assignees:
-    - "davidlienhard"
+      - "davidlienhard"
     labels:
       - "enhancement"
       - "dependencies"
