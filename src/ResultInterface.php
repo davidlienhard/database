@@ -74,7 +74,7 @@ interface ResultInterface
      * @param           ResultTypeInterface     $resultType     the type of the result
      * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
      */
-    public function fetch_object(ResultTypeInterface $resultType) : RowInterface|null;
+    public function fetch_object(ResultTypeInterface $resultType = ResultType::assoc) : RowInterface|null;
 
     /**
      * creates an associative array out of a result resource
