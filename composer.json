@@ -18,8 +18,8 @@
         "email": "github@lienhard.win"
     },
     "require": {
-        "php": "^8.0",
-        "ext-mysqli": "^8.0",
+        "php": "^8.4",
+        "ext-mysqli": "^8.4",
         "davidlienhard/functioncaller": "^1"
     },
     "require-dev": {
