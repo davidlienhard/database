@@ -49,7 +49,7 @@ jobs:
         -h localhost \
         -u root \
         -p${MYSQL_ROOT_PASSWORD} \
-        testdb < ./tests/db/template.sql
+        testdb < ./tests/database/template.sql
     
     - name: Verify MySQL connection from host
       env:
