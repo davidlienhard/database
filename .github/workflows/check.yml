@@ -45,8 +45,8 @@ jobs:
       run: |
         mysql \
         -h localhost \
-        -u testuser \
-        -ptestpass \
+        -u root \
+        -proot \
         testdb < ./db/schema.sql
     
     - name: Verify MySQL connection from host
