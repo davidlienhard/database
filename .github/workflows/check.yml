@@ -18,14 +18,14 @@ jobs:
       mysql:
         image: mysql:9.5
         env:
-          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           MYSQL_DATABASE: testdb
           MYSQL_USER: testuser
-          MYSQL_PASSWORD: testpass
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h localhost -u root -proot"
+          --health-cmd="mysqladmin ping -h localhost -u root -p${MYSQL_ROOT_PASSWORD}"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -42,17 +42,21 @@ jobs:
         done
 
     - name: Import database schema/data
+      env:
+        MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
       run: |
         mysql \
         -h localhost \
         -u root \
-        -proot \
-        testdb < ./db/schema.sql
+        -p${MYSQL_ROOT_PASSWORD} \
+        testdb < ./tests/db/template.sql
     
     - name: Verify MySQL connection from host
+      env:
+        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
       run: |
         sudo apt-get install -y mysql-client
-        mysql --host localhost --port 32574 -utestuser -ptestpass -e "SHOW DATABASES"
+        mysql --host localhost --port 32574 -utestuser -p${MYSQL_PASSWORD} -e "SHOW DATABASES"
         
     - uses: actions/checkout@v6
     - run: git fetch origin master
@@ -99,6 +103,10 @@ jobs:
       run: composer phpcs-diff
 
     - name: Run phpunit
+      env:
+        MYSQL_DATABASE: testdb
+        MYSQL_USER: testuser
+        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
       run: composer phpunit
 
     - name: Run phpstan
