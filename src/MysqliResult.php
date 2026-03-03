@@ -2,8 +2,8 @@
 
 namespace DavidLienhard\Database;
 
-use DavidLienhard\Database\Exception as DatabaseException;
-use DavidLienhard\Database\NoRowsException;
+use DavidLienhard\Database\Exceptions\Exception as DatabaseException;
+use DavidLienhard\Database\Exceptions\NoRowsException;
 use DavidLienhard\Database\ResultInterface;
 use DavidLienhard\Database\ResultType;
 use DavidLienhard\Database\ResultTypeInterface;
@@ -38,7 +38,7 @@ class MysqliResult implements ResultInterface
      * @copyright       David Lienhard
      * @param           ResultTypeInterface     $resultType     the type of the result
      * @return          array<(int|string), (int|float|string|bool|null)>
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function fetch_array(ResultTypeInterface $resultType = ResultType::assoc) : array|null
     {
@@ -63,7 +63,7 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @return          array<string, (int|float|string|bool|null)>
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function fetch_array_assoc() : array|null
     {
@@ -85,7 +85,7 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @return          array<string, (int|float|string|bool|null)>
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      * @deprecated      3.0.0 use fetch_array_assoc() whenever possible
      */
     public function fetch_assoc() : array|null
@@ -104,7 +104,7 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @return          array<int, (int|float|string|bool|null)>
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function fetch_array_num() : array|null
     {
@@ -126,7 +126,7 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @return          array<int, (int|float|string|bool|null)>
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      * @deprecated      3.0.0 use fetch_array_num() whenever possible
      */
     public function fetch_row() : array|null
@@ -145,7 +145,7 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultTypeInterface     $resultType     the type of the result
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function fetch_object(ResultTypeInterface $resultType = ResultType::assoc) : RowInterface|null
     {
@@ -166,8 +166,8 @@ class MysqliResult implements ResultInterface
      * @copyright       David Lienhard
      * @param           ResultTypeInterface     $resultType     the type of the result
      * @return          array<(int|string), (int|float|string|bool|null)>
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
-     * @throws          \DavidLienhard\Database\NoRowsException if no row can be fetched
+     * @throws          DatabaseException       if any mysqli function failed
+     * @throws          NoRowsException         if no row can be fetched
      */
     public function fetch_single_array(ResultTypeInterface $resultType = ResultType::assoc) : array
     {
@@ -191,8 +191,8 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @return          array<(int|string), (int|float|string|bool|null)>
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
-     * @throws          \DavidLienhard\Database\NoRowsException if no row can be fetched
+     * @throws          DatabaseException       if any mysqli function failed
+     * @throws          NoRowsException         if no row can be fetched
      */
     public function fetch_single_array_assoc() : array
     {
@@ -212,8 +212,8 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @return          array<(int|string), (int|float|string|bool|null)>
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
-     * @throws          \DavidLienhard\Database\NoRowsException if no row can be fetched
+     * @throws          DatabaseException       if any mysqli function failed
+     * @throws          NoRowsException         if no row can be fetched
      */
     public function fetch_single_array_num() : array
     {
@@ -233,8 +233,8 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultTypeInterface     $resultType     the type of the result
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
-     * @throws          \DavidLienhard\Database\NoRowsException if no row can be fetched
+     * @throws          DatabaseException       if any mysqli function failed
+     * @throws          NoRowsException         if no row can be fetched
      */
     public function fetch_single_object(ResultTypeInterface $resultType = ResultType::assoc) : RowInterface
     {
@@ -265,7 +265,7 @@ class MysqliResult implements ResultInterface
      * @copyright       David Lienhard
      * @param           ResultTypeInterface     $resultType     the type of the result
      * @return          array<int, array<(int|string), (int|float|string|bool|null)>>
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function fetch_all_array(ResultTypeInterface $resultType = ResultType::assoc) : array
     {
@@ -287,7 +287,7 @@ class MysqliResult implements ResultInterface
      * @copyright       David Lienhard
      * @param           ResultTypeInterface         $resultType     the type of the result
      * @return          array<int<0, max>, RowInterface>
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function fetch_all_object(ResultTypeInterface $resultType = ResultType::assoc) : array
     {
@@ -315,7 +315,7 @@ class MysqliResult implements ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int             $offset      the row to jump
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function data_seek(int $offset) : bool
     {
@@ -357,7 +357,7 @@ class MysqliResult implements ResultInterface
      * @param           int             $row         the row
      * @param           string          $field       the column
      * @throws          \Exception if the required field is does not exist
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function result(int $row, string $field) : string|int|float|bool|null
     {
@@ -405,7 +405,7 @@ class MysqliResult implements ResultInterface
      * @param           int             $row         the row
      * @param           string          $field       the column
      * @throws          \Exception if the required field is does not exist
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function resultAsInt(int $row, string $field) : int
     {
@@ -420,7 +420,7 @@ class MysqliResult implements ResultInterface
      * @param           int             $row         the row
      * @param           string          $field       the column
      * @throws          \Exception if the required field is does not exist
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function resultAsNullableInt(int $row, string $field) : int|null
     {
@@ -438,7 +438,7 @@ class MysqliResult implements ResultInterface
      * @param           int             $row         the row
      * @param           string          $field       the column
      * @throws          \Exception if the required field is does not exist
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function resultAsFloat(int $row, string $field) : float
     {
@@ -453,7 +453,7 @@ class MysqliResult implements ResultInterface
      * @param           int             $row         the row
      * @param           string          $field       the column
      * @throws          \Exception if the required field is does not exist
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function resultAsNullableFloat(int $row, string $field) : float|null
     {
@@ -471,7 +471,7 @@ class MysqliResult implements ResultInterface
      * @param           int             $row         the row
      * @param           string          $field       the column
      * @throws          \Exception if the required field is does not exist
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function resultAsString(int $row, string $field) : string
     {
@@ -486,7 +486,7 @@ class MysqliResult implements ResultInterface
      * @param           int             $row         the row
      * @param           string          $field       the column
      * @throws          \Exception if the required field is does not exist
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function resultAsNullableString(int $row, string $field) : string|null
     {
@@ -504,7 +504,7 @@ class MysqliResult implements ResultInterface
      * @param           int             $row         the row
      * @param           string          $field       the column
      * @throws          \Exception if the required field is does not exist
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function resultAsBool(int $row, string $field) : bool
     {
@@ -519,7 +519,7 @@ class MysqliResult implements ResultInterface
      * @param           int             $row         the row
      * @param           string          $field       the column
      * @throws          \Exception if the required field is does not exist
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function resultAsNullableBool(int $row, string $field) : bool|null
     {

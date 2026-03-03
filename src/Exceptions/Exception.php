@@ -7,7 +7,7 @@
  * @copyright       David Lienhard
  */
 
-namespace DavidLienhard\Database;
+namespace DavidLienhard\Database\Exceptions;
 
 /**
  * Database Exception Class

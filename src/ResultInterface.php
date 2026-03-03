@@ -72,7 +72,7 @@ interface ResultInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           ResultTypeInterface     $resultType     the type of the result
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exceptions\Exception if any mysqli function failed
      */
     public function fetch_object(ResultTypeInterface $resultType = ResultType::assoc) : RowInterface|null;
 
@@ -142,7 +142,7 @@ interface ResultInterface
      * @copyright       David Lienhard
      * @param           ResultTypeInterface     $resultType     the type of the result
      * @return          array<int<0, max>, RowInterface>
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exceptions\Exception if any mysqli function failed
      */
     public function fetch_all_object(ResultTypeInterface $resultType) : array;
 
@@ -181,7 +181,7 @@ interface ResultInterface
      * @param           int             $row         the row
      * @param           string          $field       the column
      * @throws          \Exception if the required field is does not exist
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exceptions\Exception if any mysqli function failed
      */
     public function resultAsInt(int $row, string $field) : int;
 
@@ -193,7 +193,7 @@ interface ResultInterface
      * @param           int             $row         the row
      * @param           string          $field       the column
      * @throws          \Exception if the required field is does not exist
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exceptions\Exception if any mysqli function failed
      */
     public function resultAsNullableInt(int $row, string $field) : int|null;
 
