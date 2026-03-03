@@ -406,11 +406,11 @@ class Mysqli implements DatabaseInterface
             $rowNumber = Convert::toInt($matches[2]);
 
             throw new DatabaseDataTooLongException(
+                $columnName,
+                $rowNumber,
                 $message,
                 intval($e->getCode()),
-                $e,
-                $columnName,
-                $rowNumber
+                $e
             );
         }
 

@@ -20,11 +20,11 @@ use DavidLienhard\Database\Exception as DatabaseException;
 class DataTooLongException extends DatabaseException
 {
     public function __construct(
+        private string $columnName,
+        private int $rowNumber,
         string $message = "",
         int $code = 0,
-        \Throwable $previous,
-        private string $columnName,
-        private int $rowNumber
+        \Throwable|null $previous = null
     ) {
         parent::__construct($message, $code, $previous);
     }
