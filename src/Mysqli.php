@@ -321,9 +321,9 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           string              $query       the sql query
-     * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @param           string              $query          the sql query
+     * @param           ParameterInterface  $parameters     parameters to add to the query
+     * @throws          Exception                           if any mysqli function failed
      */
     public function query(string $query, ParameterInterface ...$parameters) : MysqliResult|bool
     {
@@ -377,26 +377,47 @@ class Mysqli implements DatabaseInterface
 
             return $result;
         } catch (\mysqli_sql_exception $e) {
-            // create error message with given parameters
-            $message = "error in mysql query: ".$e->getMessage();
-            if (count($parameters) > 0) {
-                $message .= "\n\tparameters given:\n\t";
-                $message .= implode(
-                    "\n\t",
-                    array_map(
-                        fn ($p) => " - ".$p->getType().": '".self::formatParameter(strval($p->getValue()))."'",
-                        $parameters
-                    )
-                );
-                $message .= "\n\t";
-            }
+            $this->parseException($e);
+        }//end try
+    }
 
-            throw new DatabaseException(
+    private function parseException(\mysqli_sql_exception $e) : void
+    {
+        $exceptionMessage = $e->getMessage();
+
+        // create error message with given parameters
+        $message = "error in mysql query: ".$exceptionMessage;
+        if (count($parameters) > 0) {
+            $message .= "\n\tparameters given:\n\t";
+            $message .= implode(
+                "\n\t",
+                array_map(
+                    fn ($p) => " - ".$p->getType().": '".self::formatParameter(strval($p->getValue()))."'",
+                    $parameters
+                )
+            );
+            $message .= "\n\t";
+        }
+
+        # grab Data too long excptions
+        if (preg_match("/Data too long for column '(\w+)' at row (\d+)/", $exceptionMessage, $matches)) {
+            $columnName = Convert::toString($matches[1]);
+            $rowNumber = Convert::toInt($matches[2]);
+
+            throw new DatabaseDataTooLongException(
                 $message,
                 intval($e->getCode()),
-                $e
+                $e,
+                $columnName,
+                $rowNumber
             );
-        }//end try
+        }
+
+        throw new DatabaseException(
+            $message,
+            intval($e->getCode()),
+            $e
+        );
     }
 
 
