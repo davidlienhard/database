@@ -394,7 +394,7 @@ class Mysqli implements DatabaseInterface
             $message .= implode(
                 "\n\t",
                 array_map(
-                    fn (ParameterInterface $p) => " - ".$p->getType().": '".self::formatParameter(strval($p->getValue()))."'",
+                    fn (ParameterInterface $p) => " - ".$p->getType().": '".self::formatParameter($p->getValue())."'",
                     $parameters
                 )
             );
