@@ -383,15 +383,11 @@ class Mysqli implements DatabaseInterface
     }
 
     /**
-     * array<ParameterInterface>|null    $paramaters     list of parametzers from the query
+     * array<ParameterInterface>    $paramaters     list of parametzers from the query
      */
-    private function parseException(\mysqli_sql_exception $e, array|null $parameters = null) : never
+    private function parseException(\mysqli_sql_exception $e, array $parameters) : never
     {
         $exceptionMessage = $e->getMessage();
-
-        if ($parameters === null) {
-            $parameters = [];
-        }
 
         // create error message with given parameters
         $message = "error in mysql query: ".$exceptionMessage;
