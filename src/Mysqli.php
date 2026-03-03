@@ -378,14 +378,12 @@ class Mysqli implements DatabaseInterface
 
             return $result;
         } catch (\mysqli_sql_exception $e) {
-            $this->parseException($e);
+            $this->parseException($e, ...$parameters);
         }//end try
     }
 
-    /**
-     * array<ParameterInterface>    $paramaters     list of parametzers from the query
-     */
-    private function parseException(\mysqli_sql_exception $e, array $parameters) : never
+
+    private function parseException(\mysqli_sql_exception $e, ParameterInterface ...$parameters) : never
     {
         $exceptionMessage = $e->getMessage();
 
