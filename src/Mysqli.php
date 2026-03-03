@@ -389,7 +389,7 @@ class Mysqli implements DatabaseInterface
     {
         $exceptionMessage = $e->getMessage();
 
-        if ($paramaters === null) {
+        if ($parameters === null) {
             $parameters = [];
         }
 
