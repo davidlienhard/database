@@ -10,6 +10,7 @@
 namespace DavidLienhard\Database;
 
 use DavidLienhard\Database\DatabaseInterface;
+use DavidLienhard\Database\DataTooLongException as DatabaseDataTooLongException;
 use DavidLienhard\Database\Exception as DatabaseException;
 use DavidLienhard\Database\ParameterInterface;
 use DavidLienhard\FunctionCaller\Call as FunctionCaller;
@@ -321,9 +322,9 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           string              $query       the sql query
-     * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @param           string              $query          the sql query
+     * @param           ParameterInterface  $parameters     parameters to add to the query
+     * @throws          Exception                           if any mysqli function failed
      */
     public function query(string $query, ParameterInterface ...$parameters) : MysqliResult|bool
     {
@@ -377,26 +378,48 @@ class Mysqli implements DatabaseInterface
 
             return $result;
         } catch (\mysqli_sql_exception $e) {
-            // create error message with given parameters
-            $message = "error in mysql query: ".$e->getMessage();
-            if (count($parameters) > 0) {
-                $message .= "\n\tparameters given:\n\t";
-                $message .= implode(
-                    "\n\t",
-                    array_map(
-                        fn ($p) => " - ".$p->getType().": '".self::formatParameter(strval($p->getValue()))."'",
-                        $parameters
-                    )
-                );
-                $message .= "\n\t";
-            }
+            $this->parseException($e, ...$parameters);
+        }//end try
+    }
 
-            throw new DatabaseException(
+
+    private function parseException(\mysqli_sql_exception $e, ParameterInterface ...$parameters) : never
+    {
+        $exceptionMessage = $e->getMessage();
+
+        // create error message with given parameters
+        $message = "error in mysql query: ".$exceptionMessage;
+        if (count($parameters) > 0) {
+            $message .= "\n\tparameters given:\n\t";
+            $message .= implode(
+                "\n\t",
+                array_map(
+                    fn (ParameterInterface $p) => " - ".$p->getType().": '".self::formatParameter(strval($p->getValue()))."'",
+                    $parameters
+                )
+            );
+            $message .= "\n\t";
+        }
+
+        # grab Data too long excptions
+        if (preg_match("/Data too long for column '(\w+)' at row (\d+)/", $exceptionMessage, $matches)) {
+            $columnName = (string) $matches[1];
+            $rowNumber = (int) $matches[2];
+
+            throw new DatabaseDataTooLongException(
+                $columnName,
+                $rowNumber,
                 $message,
                 intval($e->getCode()),
                 $e
             );
-        }//end try
+        }
+
+        throw new DatabaseException(
+            $message,
+            intval($e->getCode()),
+            $e
+        );
     }
 
 
