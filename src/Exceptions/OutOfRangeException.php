@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
 /**
- * Database Data Too Long Exception Class
+ * Database Out Of Range Exception
  *
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
 
-namespace DavidLienhard\Database;
+namespace DavidLienhard\Database\Exceptions;
 
-use DavidLienhard\Database\Exception as DatabaseException;
+use DavidLienhard\Database\Exceptions\Exception as DatabaseException;
 
 /**
  * Database Exception Class
@@ -17,7 +17,7 @@ use DavidLienhard\Database\Exception as DatabaseException;
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
-class DataTooLongException extends DatabaseException
+class OutOfRangeException extends DatabaseException
 {
     public function __construct(
         private string $columnName,

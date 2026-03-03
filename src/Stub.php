@@ -90,7 +90,7 @@ class Stub implements DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          \DavidLienhard\Database\Exceptions\Exception if any mysqli function failed
      */
     public function reconnect() : void
     {

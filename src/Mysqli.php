@@ -10,9 +10,9 @@
 namespace DavidLienhard\Database;
 
 use DavidLienhard\Database\DatabaseInterface;
-use DavidLienhard\Database\DataTooLongException as DatabaseDataTooLongException;
-use DavidLienhard\Database\Exception as DatabaseException;
-use DavidLienhard\Database\OutOfRangeException as DatabaseOutOfRangeException;
+use DavidLienhard\Database\Exceptions\DataTooLongException;
+use DavidLienhard\Database\Exceptions\Exception as DatabaseException;
+use DavidLienhard\Database\Exceptions\OutOfRangeException;
 use DavidLienhard\Database\ParameterInterface;
 use DavidLienhard\FunctionCaller\Call as FunctionCaller;
 use function count;
@@ -98,7 +98,7 @@ class Mysqli implements DatabaseInterface
      * @param           int|null        $port           port to use to connect
      * @param           string          $charset        charset to use for the database connection
      * @param           string          $collation      collation to use for the database connection
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function connect(
         string $host,
@@ -154,7 +154,7 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function reconnect() : void
     {
@@ -177,7 +177,7 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function close() : void
     {
@@ -207,7 +207,7 @@ class Mysqli implements DatabaseInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           bool            $mode           the new mode to set
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function autocommit(bool $mode) : void
     {
@@ -236,7 +236,7 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function begin_transaction() : void
     {
@@ -265,7 +265,7 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function commit() : void
     {
@@ -294,7 +294,7 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function rollback() : void
     {
@@ -325,7 +325,9 @@ class Mysqli implements DatabaseInterface
      * @copyright       David Lienhard
      * @param           string              $query          the sql query
      * @param           ParameterInterface  $parameters     parameters to add to the query
-     * @throws          Exception                           if any mysqli function failed
+     * @throws          DatabaseException                   if any mysqli function failed
+     * @throws          DataTooLongException        if values are to long
+     * @throws          OutOfRangeException         if values are out of range
      */
     public function query(string $query, ParameterInterface ...$parameters) : MysqliResult|bool
     {
@@ -407,7 +409,7 @@ class Mysqli implements DatabaseInterface
             $columnName = (string) $matches[1];
             $rowNumber = (int) $matches[2];
 
-            throw new DatabaseDataTooLongException(
+            throw new DataTooLongException(
                 $columnName,
                 $rowNumber,
                 $message,
@@ -421,7 +423,7 @@ class Mysqli implements DatabaseInterface
             $columnName = (string) $matches[1];
             $rowNumber = (int) $matches[2];
 
-            throw new DatabaseOutOfRangeException(
+            throw new OutOfRangeException(
                 $columnName,
                 $rowNumber,
                 $message,
@@ -443,8 +445,8 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @param           \DavidLienhard\Database\ParameterInterface  $parameters  parameters to add to the query
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @param           ParameterInterface  $parameters     parameters to add to the query
+     * @throws          DatabaseException                   if any mysqli function failed
      */
     public function execute(ParameterInterface ...$parameters) : MysqliResult|bool
     {
@@ -501,7 +503,7 @@ class Mysqli implements DatabaseInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function ping() : void
     {
@@ -567,7 +569,7 @@ class Mysqli implements DatabaseInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string      $string      the string to escape
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function escape(string $string) : string
     {
@@ -647,8 +649,8 @@ class Mysqli implements DatabaseInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string|null      $dbname         optional mysqli connection
-     * @throws          \Exception if no database name is set
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          \Exception          if no database name is set
+     * @throws          DatabaseException   if any mysqli function failed
      */
     public function size(string|null $dbname = null) : int
     {

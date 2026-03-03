@@ -2,7 +2,7 @@
 
 namespace DavidLienhard\Database;
 
-use DavidLienhard\Database\Exception as DatabaseException;
+use DavidLienhard\Database\Exceptions\Exception as DatabaseException;
 use DavidLienhard\Database\ResultTypeInterface;
 use DavidLienhard\Database\RowInterface;
 
@@ -38,7 +38,7 @@ class Row implements RowInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int|string          $key         key to use
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function get(int|string $key) : int|float|string|bool|null
     {
@@ -55,7 +55,7 @@ class Row implements RowInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int|string          $key         key to use
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function getAsInt(int|string $key) : int
     {
@@ -72,7 +72,7 @@ class Row implements RowInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int|string          $key         key to use
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function getAsNullableInt(int|string $key) : int|null
     {
@@ -91,7 +91,7 @@ class Row implements RowInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int|string          $key         key to use
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function getAsFloat(int|string $key) : float
     {
@@ -108,7 +108,7 @@ class Row implements RowInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int|string          $key         key to use
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function getAsNullableFloat(int|string $key) : float|null
     {
@@ -127,7 +127,7 @@ class Row implements RowInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int|string          $key         key to use
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function getAsString(int|string $key) : string
     {
@@ -144,7 +144,7 @@ class Row implements RowInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int|string          $key         key to use
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function getAsNullableString(int|string $key) : string|null
     {
@@ -163,7 +163,7 @@ class Row implements RowInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int|string          $key         key to use
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function getAsBool(int|string $key) : bool
     {
@@ -180,7 +180,7 @@ class Row implements RowInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           int|string          $key         key to use
-     * @throws          \DavidLienhard\Database\Exception if any mysqli function failed
+     * @throws          DatabaseException if any mysqli function failed
      */
     public function getAsNullableBool(int|string $key) : bool|null
     {
