@@ -382,9 +382,16 @@ class Mysqli implements DatabaseInterface
         }//end try
     }
 
-    private function parseException(\mysqli_sql_exception $e) : void
+    /**
+     * array<ParameterInterface>|null    $paramaters     list of parametzers from the query
+     */
+    private function parseException(\mysqli_sql_exception $e, array|null $parameters = null) : void
     {
         $exceptionMessage = $e->getMessage();
+
+        if ($paramaters === null) {
+            $parameters = [];
+        }
 
         // create error message with given parameters
         $message = "error in mysql query: ".$exceptionMessage;
@@ -393,7 +400,7 @@ class Mysqli implements DatabaseInterface
             $message .= implode(
                 "\n\t",
                 array_map(
-                    fn ($p) => " - ".$p->getType().": '".self::formatParameter(strval($p->getValue()))."'",
+                    fn (ParameterInterface $p) => " - ".$p->getType().": '".self::formatParameter(strval($p->getValue()))."'",
                     $parameters
                 )
             );
@@ -402,8 +409,8 @@ class Mysqli implements DatabaseInterface
 
         # grab Data too long excptions
         if (preg_match("/Data too long for column '(\w+)' at row (\d+)/", $exceptionMessage, $matches)) {
-            $columnName = Convert::toString($matches[1]);
-            $rowNumber = Convert::toInt($matches[2]);
+            $columnName = (string) $matches[1];
+            $rowNumber = (int) $matches[2];
 
             throw new DatabaseDataTooLongException(
                 $columnName,
