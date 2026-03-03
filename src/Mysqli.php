@@ -12,6 +12,7 @@ namespace DavidLienhard\Database;
 use DavidLienhard\Database\DatabaseInterface;
 use DavidLienhard\Database\DataTooLongException as DatabaseDataTooLongException;
 use DavidLienhard\Database\Exception as DatabaseException;
+use DavidLienhard\Database\OutOfRangeException as DatabaseOutOfRangeException;
 use DavidLienhard\Database\ParameterInterface;
 use DavidLienhard\FunctionCaller\Call as FunctionCaller;
 use function count;
@@ -407,6 +408,20 @@ class Mysqli implements DatabaseInterface
             $rowNumber = (int) $matches[2];
 
             throw new DatabaseDataTooLongException(
+                $columnName,
+                $rowNumber,
+                $message,
+                intval($e->getCode()),
+                $e
+            );
+        }
+
+        # grab Out of Range Exception
+        if (preg_match("/Out of range value for column '(\w+)' at row (\d+)/", $exceptionMessage, $matches)) {
+            $columnName = (string) $matches[1];
+            $rowNumber = (int) $matches[2];
+
+            throw new DatabaseOutOfRangeException(
                 $columnName,
                 $rowNumber,
                 $message,
