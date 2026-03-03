@@ -19,20 +19,9 @@ use DavidLienhard\Database\Exception as DatabaseException;
  */
 class DataTooLongException extends DatabaseException
 {
-
-    /**
-     *
-     * @author          David Lienhard <github@lienhard.win>
-     * @copyright       David Lienhard
-     * @param           string          $message        message to be thrown by the exception
-     * @param           int             $code           error code
-     * @param           Throwable|null  $previous       previous exception
-     * @param           string          $columnName     name of the column
-     * @param           int             $rowNumber      number of the row
-     */
     public function __construct(
-        $message = "",
-        $code = 0,
+        string $message = "",
+        int $code = 0,
         Throwable|null $previous = null,
         private string $columnName,
         private int $rowNumber
