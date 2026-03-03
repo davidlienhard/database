@@ -385,7 +385,7 @@ class Mysqli implements DatabaseInterface
     /**
      * array<ParameterInterface>|null    $paramaters     list of parametzers from the query
      */
-    private function parseException(\mysqli_sql_exception $e, array|null $parameters = null) : void
+    private function parseException(\mysqli_sql_exception $e, array|null $parameters = null) : never
     {
         $exceptionMessage = $e->getMessage();
 
@@ -400,7 +400,7 @@ class Mysqli implements DatabaseInterface
             $message .= implode(
                 "\n\t",
                 array_map(
-                    fn (ParameterInterface $p) => " - ".$p->getType().": '".self::formatParameter(strval($p->getValue()))."'",
+                    fn ($p) => " - ".$p->getType().": '".self::formatParameter(strval($p->getValue()))."'",
                     $parameters
                 )
             );
@@ -471,7 +471,7 @@ class Mysqli implements DatabaseInterface
                 $message .= implode(
                     "\n\t",
                     array_map(
-                        fn (ParameterInterface $p) => " - ".$p->getType().": '".substr(str_replace("\r\n", " ", (string) $p->getValue()), 0, 100)."'",
+                        fn ($p) => " - ".$p->getType().": '".substr(str_replace("\r\n", " ", (string) $p->getValue()), 0, 100)."'",
                         $parameters
                     )
                 );
