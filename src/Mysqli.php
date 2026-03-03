@@ -10,6 +10,7 @@
 namespace DavidLienhard\Database;
 
 use DavidLienhard\Database\DatabaseInterface;
+use DavidLienhard\Database\DataTooLongException as DatabaseDataTooLongException;
 use DavidLienhard\Database\Exception as DatabaseException;
 use DavidLienhard\Database\ParameterInterface;
 use DavidLienhard\FunctionCaller\Call as FunctionCaller;

@@ -22,7 +22,7 @@ class DataTooLongException extends DatabaseException
     public function __construct(
         string $message = "",
         int $code = 0,
-        Throwable|null $previous = null,
+        \Throwable $previous,
         private string $columnName,
         private int $rowNumber
     ) {
